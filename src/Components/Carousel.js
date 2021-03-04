@@ -6,11 +6,10 @@ import {AppContext} from "../AppContext";
 const Carousel= ()=> {
 
     const {state}=  useContext(AppContext);
-    console.log(state);
 
     return (
         <div>
-             Carousel
+            Carousel
         </div>
     );
 }
