@@ -11,12 +11,12 @@ const Carousel= ()=> {
 
     const {state}=  useContext(AppContext);
   
-    const [show,setShow]= useState(0);
+    const [index,setIndex]= useState(0);
 
     useEffect(()=>{
-        
+
         const interval = setInterval(() => {
-            setShow(prev=>prev==data.length-1?0:prev+1)
+            setIndex(prev=>prev==data.length-1?0:prev+1)
         },5000)
       
         return () => {
@@ -24,13 +24,13 @@ const Carousel= ()=> {
         };
     },[]);
 
-    console.log(show);
+    console.log(index);
 
     return (
         <div>
-            <ArrowBackIosIcon style={{position: 'absolute',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setShow(prev=>show==0?data.length-1:prev-1)} />
-            <img src={data[show].link} style={{width:'100vw',height: state.mobileView?'30vh':'50vh'}} />
-            <ArrowForwardIosIcon style={{position: 'absolute',marginLeft:state.mobileView?'-6vw':'-2vw',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setShow(prev=>show==data.length-1?0:prev+1)}/>
+            <ArrowBackIosIcon style={{position: 'absolute',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setIndex(prev=>index==0?data.length-1:prev-1)} />
+            <img src={data[index].link} style={{width:'100vw',height: state.mobileView?'30vh':'50vh'}} />
+            <ArrowForwardIosIcon style={{position: 'absolute',marginLeft:state.mobileView?'-6vw':'-2vw',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setIndex(prev=>index==data.length-1?0:prev+1)}/>
         </div>
     );
 }
