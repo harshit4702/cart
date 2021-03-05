@@ -2,10 +2,14 @@ import React, {createContext,useReducer} from "react";
 
 const AppContext= createContext({});
 
-const initialState= {}
+const initialState= {
+    mobileView: false
+}
 
 const reducer= (state, action)=>{
     switch (action.type){
+        case "setMobileView":
+            return {...state, mobileView: action.payload};
         default:
             return {...state};
     }
