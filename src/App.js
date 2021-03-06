@@ -1,7 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react';
+import Box from '@material-ui/core/Box';
+
 import Navbar from './Components/Navbar';
 import Carousel from './Components/Carousel';
-import Box from '@material-ui/core/Box';
+import Categories from './Components/Categories';
+import Footer from './Components/Footer';
 
 import {mobileView} from './actions/actions';
 import {AppContext} from './AppContext';
@@ -28,13 +31,17 @@ const App= ()=> {
 
 
   return (
-    <Box component="span" m={1} className="App">
+    <div className="App">
       <Navbar />
       <p>
         Hello
       </p>
       <Carousel />
-    </Box>
+      <p>
+        Categories
+      </p>
+      <Footer />
+    </div>
   );
 }
 
