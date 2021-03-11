@@ -11,7 +11,7 @@ const ProductDetails= ()=> {
     const {state,dispatch}= useContext(AppContext);
 
     return (
-        <div style={{marginTop:'2vh',marginBottom:'2vh',backgroundColor:'#f0f3f7'}}>
+        <div style={{marginTop:'2vh',marginBottom:'2vh'}}>
             <Grid container spacing={3}> 
                 <Grid item sm={5}>
                     <Grid container spacing={3} direction="column">
@@ -55,7 +55,6 @@ const ProductDetails= ()=> {
                         No cost EMI ₹1,445/month. Standard EMI also availableView Plans
                     </p>
                 </Grid>
-            
             </Grid>
         </div>
     );
