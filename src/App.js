@@ -1,5 +1,8 @@
 import React,{useState,useEffect,useContext} from 'react';
-import Box from '@material-ui/core/Box';
+import { BrowserRouter as Router,Redirect, Route, Switch} from 'react-router-dom';
+
+import Home from './pages/Home';
+import ProductDetails from './pages/ProductDetails';
 
 import Navbar from './Components/Navbar';
 import Carousel from './Components/Carousel';
@@ -20,7 +23,7 @@ const App= ()=> {
   const [screenWidth,setScreenWidth]= useState(window.innerWidth);
 
   useEffect(()=>{
-    if(window.innerWidth>550)
+    if(window.innerWidth>560)
       dispatch(mobileView(false));
     else
       dispatch(mobileView(true));
@@ -32,15 +35,15 @@ const App= ()=> {
 
   return (
     <div className="App">
-      <Navbar />
-      <p>
-        Hello
-      </p>
-      <Carousel />
-      <p>
-        Categories
-      </p>
-      <Footer />
+      <Router>
+        <Navbar />
+
+        <Switch>
+            <Route path="/"  exact component= {Home} />
+            <Route path="/productdetails"  exact component= {ProductDetails} />
+        </Switch>
+        <Footer />
+      </Router>  
     </div>
   );
 }
