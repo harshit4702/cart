@@ -3,10 +3,11 @@ import {Link} from 'react-router-dom';
 
 import Carousel from '../Components/Carousel';
 import Categories from '../Components/Categories';
+import RowImages from '../Components/RowImages';
 
 const Home= ()=> {
   return (
-    <React.Fragment>
+    <div>
         <p>
             Menu Bar
         </p>
@@ -14,10 +15,10 @@ const Home= ()=> {
         <Link to="/productDetails" style={{textDecoration:'none',color: 'black'}}>
             <p style={{cursor:'pointer'}}>
                 Categories
-            </p>
-            
+            </p> 
         </Link>
-    </React.Fragment>
+        <RowImages />
+    </div>
   );
 }
 

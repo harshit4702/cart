@@ -34,10 +34,9 @@ const App= ()=> {
 
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: '#f0f5f1'}}>
       <Router>
         <Navbar />
-
         <Switch>
             <Route path="/"  exact component= {Home} />
             <Route path="/productdetails"  exact component= {ProductDetails} />
