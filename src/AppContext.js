@@ -3,13 +3,16 @@ import React, {createContext,useReducer} from "react";
 const AppContext= createContext({});
 
 const initialState= {
-    mobileView: false
+    mobileView: false,
+    cartValue: 0
 }
 
 const reducer= (state, action)=>{
     switch (action.type){
         case "setMobileView":
             return {...state, mobileView: action.payload};
+        case "setCartValue":
+            return {...state, cartValue: action.payload};
         default:
             return {...state};
     }

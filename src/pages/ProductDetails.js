@@ -1,14 +1,23 @@
-import React,{useContext} from 'react';
+import React,{useState,useContext} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import {AppContext} from "../AppContext";
+import {cartValue} from '../actions/actions';
 import Image from "../Components/Image";
 
 const ProductDetails= ()=> {
 
     const {state,dispatch}= useContext(AppContext);
+
+    const [added,setAdded]= useState(false);
+
+    const onClick= ()=>{
+        if(!added)
+            dispatch(cartValue(state.cartValue+1));
+        setAdded(true);
+    }
 
     return (
         <div style={{marginTop:'2vh',marginBottom:'2vh'}}>
@@ -21,7 +30,7 @@ const ProductDetails= ()=> {
                         <Grid item style={{marginLeft:state.mobileView?'10vw':'5vw'}}>
                             <Grid container spacing={3}>
                                 <Grid item sm={6}>
-                                    <Button variant="contained" color="primary">
+                                    <Button variant="contained" color="primary" disabled={added} onClick={onClick}>
                                         Add to Chart
                                     </Button>
                                 </Grid>

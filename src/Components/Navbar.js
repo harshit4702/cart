@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) =>
 
 const Navbar= ()=> {
 
-    const {state}=  useContext(AppContext);
+    const {state,dispatch}=  useContext(AppContext);
 
     const [text,setText]= useState('');
 
@@ -71,6 +71,7 @@ const Navbar= ()=> {
                     </Typography>
                     <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
                     <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>console.log('Cart Clicked')} />
+                    <h5>{state.cartValue}</h5>
                 </Toolbar>
             </AppBar>
 

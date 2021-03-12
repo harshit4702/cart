@@ -4,3 +4,10 @@ export const mobileView= (flag)=>{
         payload:flag
     }
 }
+
+export const cartValue= (value)=>{
+    return {
+        type: "setCartValue",
+        payload:value
+    }
+}
