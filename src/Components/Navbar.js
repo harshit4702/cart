@@ -1,5 +1,6 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext, useEffect} from 'react';
 import { fade,createStyles, makeStyles} from '@material-ui/core/styles';
+import {useHistory} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -48,9 +49,20 @@ const useStyles = makeStyles((theme) =>
 
 const Navbar= ()=> {
 
-    const {state}=  useContext(AppContext);
+    const {state,dispatch}=  useContext(AppContext);
+
+    const history= useHistory();
 
     const [text,setText]= useState('');
+    const [val,setVal]= useState(0);
+
+    useEffect(async()=>{
+        var x=0;
+        await Object.values(state.cart).map((item)=>{
+            x= x+item.value
+        });
+        setVal(x);
+    },[state.cart]);
 
     const onInputChange= (e)=>{
         console.log(e.target.value);
@@ -70,7 +82,8 @@ const Navbar= ()=> {
                         News
                     </Typography>
                     <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
-                    <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>console.log('Cart Clicked')} />
+                    <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
+                    <h5>{val}</h5>
                 </Toolbar>
             </AppBar>
 

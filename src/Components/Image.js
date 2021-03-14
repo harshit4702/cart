@@ -1,4 +1,5 @@
 import React,{useState,useContext} from 'react';
+import {useParams} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -42,9 +43,13 @@ const Image= ()=>{
 
     const {state, dispatch}= useContext(AppContext);
 
+    const params=useParams();
+
+    console.log(params.id);
+
     const classes = useStyles();
 
-    const [index,setIndex]= useState(0);
+    const [index,setIndex]= useState(params.id==1?0:1);
 
     const data= productImageData();
     console.log(data);
