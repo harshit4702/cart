@@ -54,7 +54,7 @@ const Cart= ()=> {
                             <img src={data[2]} style={{width:'10vw',height:state.mobileView?'10vh':'22vh'}}/>
                         </Grid>
                         <Grid item xs={7}>
-                            <h4>Samsung Galaxy S4+ Gen 8 + GB Ram</h4>
+                            <h4>Samsung Galaxy S4+ Gen 8 + GB Ram {ob.id}</h4>
                         </Grid>
                         <Grid item xs={2}>
                             <div style={{marginTop:'8vh'}}>
