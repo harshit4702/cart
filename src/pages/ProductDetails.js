@@ -63,7 +63,6 @@ const ProductDetails= ()=> {
                     </h5>
 
                     <p>
-
                         Available offers <br/>
 
                         Bank Offer5% Unlimited Cashback on Flipkart Axis Bank Credit CardT&C<br/>

@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Image= ()=>{
-
     const {state, dispatch}= useContext(AppContext);
 
     const params=useParams();

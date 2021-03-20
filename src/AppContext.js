@@ -1,7 +1,7 @@
 import React, {createContext,useReducer} from "react";
 import _ from 'lodash';
 
-const AppContext= createContext({});
+const AppContext = createContext({});
 
 const initialState= {
     mobileView: false,

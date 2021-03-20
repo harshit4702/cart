@@ -11,7 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import TextField from '@material-ui/core/TextField';
-
+import LoginAlert from './LoginAlert' ;
 import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
@@ -55,6 +55,18 @@ const Navbar= ()=> {
 
     const [text,setText]= useState('');
     const [val,setVal]= useState(0);
+    
+    const [alertopen, setalertOpen] = React.useState(false);
+
+    const handleAlertClickOpen = () => {
+        console.log('Func invoked state open');
+      setalertOpen(true);
+    };
+  
+    const handleAlertClose = () => {
+        console.log('Func invoked state close chng');
+      setalertOpen(false);
+    };
 
     useEffect(async()=>{
         var x=0;
@@ -82,11 +94,12 @@ const Navbar= ()=> {
                         News
                     </Typography>
                     <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                    <Button onClick={handleAlertClickOpen} variant="contained" color="primary" >Login</Button>
                     <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
                     <h5>{val}</h5>
                 </Toolbar>
+                <LoginAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} alertopen={alertopen} />
             </AppBar>
-
         </div>
     );
 }
