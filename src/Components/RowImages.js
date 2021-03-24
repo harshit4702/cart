@@ -37,7 +37,7 @@ const RowImages= ()=>{
     const classes= useStyles();
 
     return (
-        <Grid container spacing={0} style={{backgroundColor: '#f0f3f7', marginBottom:'2vh'}}>
+        <Grid container  spacing={0} style={{backgroundColor: '#f0f3f7', marginBottom:'2vh'}}>
             <Grid item xs={4}>
                 <Paper elevation={3} style={{padding: '0.5vh'}}>
                     <img src='https://www.volusion.com/blog/content/images/2019/02/Your-DIY-Product-Photography-Resource-Guide.png' className={state.mobileView?classes.boxImageMobile:classes.boxImage}/> 

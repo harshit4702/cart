@@ -5,8 +5,9 @@ const AppContext = createContext({});
 
 const initialState= {
     mobileView: false,
+    products: null,
     cartValue: 0,
-    cart:[]
+    cart:[],
 }
 
 const reducer= (state, action)=>{
@@ -14,6 +15,8 @@ const reducer= (state, action)=>{
     switch (action.type){
         case "setMobileView":
             return {...state, mobileView: action.payload};
+        case "fetchProducts":
+            return {...state, products: _.mapKeys(action.payload,'_id')};
         case "setCartValue":
             return {...state, cartValue: action.payload};
         case "fetchCartItems":
