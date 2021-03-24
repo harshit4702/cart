@@ -20,14 +20,14 @@ const reducer= (state, action)=>{
         case "setCartValue":
             return {...state, cartValue: action.payload};
         case "fetchCartItems":
-            return {...state, cart: _.mapKeys(action.payload,'id')};
+            return {...state, cart: _.mapKeys(action.payload,'_id')};
         case "fetchCartItem":
-            return { ...state, cart: {[action.payload.id]: action.payload }};
+            return { ...state, cart: {[action.payload._id]: action.payload }};
         case "addCartItem":
             console.log("grk");
-            return {...state, cart:{...state.cart,[action.payload.id]: action.payload }};
+            return {...state, cart:{...state.cart,[action.payload._id]: action.payload }};
         case "editCartItem":
-            return { ...state, cart: {...state.cart,[action.payload.id]: action.payload}};
+            return { ...state, cart: {...state.cart,[action.payload._id]: action.payload}};
         case "deleteCartItem":
             return {...state, cart: _.omit(state.cart, action.payload)};
         default:

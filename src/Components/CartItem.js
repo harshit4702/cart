@@ -22,7 +22,7 @@ const CartItem= (props)=>{
                 <img src={props.ob.src[0]} style={{width:'10vw',height:state.mobileView?'10vh':'22vh'}}/>
             </Grid>
             <Grid item xs={7}>
-                <h4>Samsung Galaxy S4+ Gen 8 + GB Ram {props.ob.id}</h4>
+                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.name}</h4>
             </Grid>
             <Grid item xs={2}>
                 <div style={{marginTop:'8vh'}}>
@@ -31,10 +31,10 @@ const CartItem= (props)=>{
                     </div>
                     <Grid container spacing={0}>
                         <Grid item>
-                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob.id,props.ob.value+1)}>+</button>
+                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,props.ob.value+1)}>+</button>
                         </Grid>
                         <Grid item>
-                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob.id,props.ob.value-1)}>-</button>
+                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,props.ob.value-1)}>-</button>
                         </Grid>
                     </Grid> 
                 </div>

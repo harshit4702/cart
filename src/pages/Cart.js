@@ -10,13 +10,17 @@ const Cart= ()=> {
     const {state,dispatch}= useContext(AppContext);
 
     const [amount,setAmount]= useState(0);
+    const [discount,setDiscount]= useState(0);
 
     useEffect(async()=>{
         var amt=0;
+        var disct= 0;
         Object.values(state.cart).map((item)=>{
             amt= amt+item.price*item.value;
+            disct= disct+ item.discount*item.value;
         });
         setAmount(amt);
+        setDiscount(disct);
     },[state.cart]);
 
     console.log(state);
@@ -56,9 +60,32 @@ const Cart= ()=> {
                 <Grid item xs={4}>
                     <Paper elevation={1}>
 
-                        <h4 style={{fontFamily:'sans-serif'}}>Price Details</h4>
+                        <h3 style={{fontFamily: `'IBM Plex Serif',serif`}}>Price Details</h3>
                         <hr/>
-                        <h4 style={{fontFamily:'sans-serif'}}>Total Amount:- {amount}</h4>
+                        <Grid container spacing={3} justify="space-around">
+                            <Grid item >
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>Price({Object.values(state.cart).length} items)</h4>
+                            </Grid>
+                            <Grid item>
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}> ₹{amount}</h4>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3} justify="space-around">
+                            <Grid item >
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>Discount</h4>
+                            </Grid>
+                            <Grid item>
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}> ₹{discount}</h4>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3} justify="space-around">
+                            <Grid item>
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>Total Amount</h4>
+                            </Grid>
+                            <Grid item>
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}> ₹{amount-discount}</h4>
+                            </Grid>
+                        </Grid>
                     </Paper>
                 </Grid>
             </Grid>
