@@ -24,11 +24,13 @@ const ProductDetails= ()=> {
     },[state.cart])
 
     const onClick= async()=>{
-        dispatch(await addCartItem({id:params.id,value: 1,price:params.price}));
+        dispatch(await addCartItem({...product,id:params.id,value: 1}));
     }
 
-    if(!state.cart)
-        <>Loading...</>
+    if(!state.cart || !state.products)
+        return <>Loading...</>
+
+    const product= state.products[params.id];
 
     return (
         <div style={{marginTop:'2vh',marginBottom:'2vh'}}>
@@ -36,7 +38,7 @@ const ProductDetails= ()=> {
                 <Grid item sm={5}>
                     <Grid container spacing={3} direction="column">
                         <Grid item>
-                            <Image />
+                            <Image product={product}/>
                         </Grid>
                         <Grid item style={{marginLeft:state.mobileView?'10vw':'5vw'}}>
                             <Grid container spacing={3}>

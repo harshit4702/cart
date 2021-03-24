@@ -38,11 +38,13 @@ const useStyles = makeStyles((theme) =>
     },
     cart_desktop: {
         cursor: 'pointer',
-        paddingLeft: "33vw"
+        marginLeft: "33vw",
+        fontSize: '30px'
     },
     cart_mobile:{
         cursor: 'pointer',
-        paddingLeft: "5vw"
+        marginLeft: "5vw",
+        fontSize: '20px'
     }
   }),
 );
@@ -90,9 +92,6 @@ const Navbar= ()=> {
                     <IconButton edge="start"color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.spacing} variant="h6">
-                        News
-                    </Typography>
                     <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
                     <Button onClick={handleAlertClickOpen} variant="contained" color="primary" >Login</Button>
                     <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />

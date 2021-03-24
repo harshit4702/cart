@@ -1,4 +1,5 @@
 import axios from '../axios'
+import {productData} from '../helpers/productData';
 
 export const mobileView= (flag)=>{
     return {
@@ -13,6 +14,14 @@ export const cartValue= (value)=>{
         payload:value
     }
 }
+
+export const fetchProducts = async()=> {
+    const response= await productData();
+    return {
+        type: "fetchProducts", 
+        payload: response
+    };
+};
 
 export const fetchCartItems = async () => {
     const response = await axios.get('/cartItems');

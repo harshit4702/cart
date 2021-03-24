@@ -8,10 +8,11 @@ import Cart from './pages/Cart';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 
-import {mobileView, addCartItem, fetchCartItems} from './actions/actions';
+import {mobileView, addCartItem, fetchCartItems, fetchProducts} from './actions/actions';
 import {AppContext} from './AppContext';
 
 import './App.css';
+import 'semantic-ui-css/semantic.min.css'
 
 const App= ()=> {
 
@@ -28,6 +29,7 @@ const App= ()=> {
       dispatch(mobileView(true));
     console.log(screenWidth);
     dispatch(await fetchCartItems())
+    dispatch(await fetchProducts())
   },[screenWidth]);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
@@ -39,7 +41,7 @@ const App= ()=> {
         <Navbar />
         <Switch>
             <Route path="/"  exact component= {Home} />
-            <Route path="/product/:id/:price"  exact component= {ProductDetails} />
+            <Route path="/product/:id"  exact component= {ProductDetails} />
             <Route path="/cart"  exact component= {Cart} />
         </Switch>
         <Footer />
