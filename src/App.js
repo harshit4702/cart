@@ -11,8 +11,8 @@ import Footer from './Components/Footer';
 import {mobileView, addCartItem, fetchCartItems, fetchProducts} from './actions/actions';
 import {AppContext} from './AppContext';
 
-import './App.css';
 import 'semantic-ui-css/semantic.min.css'
+import './App.css';
 
 const App= ()=> {
 

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Carousel from '../Components/Carousel';
 import Categories from '../Components/Categories';
 import RowImages from '../Components/RowImages';
+import MenuBar from '../Components/MenuBar';
 import {AppContext} from '../AppContext';
 
 const Home= ()=> {
@@ -15,9 +16,8 @@ const Home= ()=> {
 
   return (
     <div>
-        <p>
-            Menu Bar
-        </p>
+
+        <MenuBar />
         <Carousel />
         <br/>
         <Grid container spacing={3} justify="center" alignContent="space-between" alignItems="center">

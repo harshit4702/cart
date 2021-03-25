@@ -25,6 +25,8 @@ const Cart= ()=> {
 
     console.log(state);
 
+    const len = Object.values(state.cart).length; 
+
     const cartMenu= ()=>{
         if(amount==0)
             return (
@@ -41,7 +43,7 @@ const Cart= ()=> {
         return (
             Object.values(state.cart).map((ob,index)=>{
                 return (
-                   <CartItem src="" ob={ob} key={index} />
+                   <CartItem ob={ob} key={index} />
                 );
             })
         )
@@ -64,7 +66,7 @@ const Cart= ()=> {
                         <hr/>
                         <Grid container spacing={3} justify="space-around">
                             <Grid item >
-                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>Price({Object.values(state.cart).length} items)</h4>
+                                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>Price({len} {len>1?'items':'item'})</h4>
                             </Grid>
                             <Grid item>
                                 <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}> ₹{amount}</h4>
