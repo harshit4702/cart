@@ -12,7 +12,7 @@ const MenuBar = ()=>  {
 
     return (
         <Menu size='small'>
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -20,7 +20,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -28,7 +28,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -36,7 +36,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -44,7 +44,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
             
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -52,7 +52,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
@@ -60,7 +60,7 @@ const MenuBar = ()=>  {
                 </Dropdown.Menu>
             </Dropdown>
 
-            <Dropdown item text='Language' style={{width:'14vw'}}>
+            <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>
                     <Dropdown.Item>Russian</Dropdown.Item>
