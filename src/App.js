@@ -4,15 +4,17 @@ import { BrowserRouter as Router,Redirect, Route, Switch} from 'react-router-dom
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 import Navbar from './Components/Navbar';
+import MenuBar from './Components/MenuBar';
 import Footer from './Components/Footer';
 
-import {mobileView, addCartItem, fetchCartItems, fetchProducts} from './actions/actions';
+import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth} from './actions/actions';
 import {AppContext} from './AppContext';
 
-import './App.css';
 import 'semantic-ui-css/semantic.min.css'
+import './App.css';
 
 const App= ()=> {
 
@@ -29,7 +31,9 @@ const App= ()=> {
       dispatch(mobileView(true));
     console.log(screenWidth);
     dispatch(await fetchCartItems())
-    dispatch(await fetchProducts())
+    dispatch(await fetchProducts());
+    dispatch(await fetchUsers());
+    dispatch(await auth(null,false))
   },[screenWidth]);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
@@ -39,10 +43,12 @@ const App= ()=> {
     <div className="App" style={{backgroundColor: '#f0f5f1'}}>
       <Router>
         <Navbar />
+        <MenuBar />
         <Switch>
             <Route path="/"  exact component= {Home} />
             <Route path="/product/:id"  exact component= {ProductDetails} />
             <Route path="/cart"  exact component= {Cart} />
+            <Route path="/cart/checkout"  exact component= {Checkout} />
         </Switch>
         <Footer />
       </Router>  

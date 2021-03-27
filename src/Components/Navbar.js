@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import PersonIcon from '@material-ui/icons/Person';
 import TextField from '@material-ui/core/TextField';
 import LoginAlert from './LoginAlert' ;
 import {AppContext} from "../AppContext";
@@ -36,9 +37,27 @@ const useStyles = makeStyles((theme) =>
     spacing:{
         marginLeft: '10vw'
     },
-    cart_desktop: {
+    personIcon_desktop: {
         cursor: 'pointer',
         marginLeft: "33vw",
+        fontSize: '30px'
+    },
+    personIcon_mobile:{
+        marginLeft: "5vw",
+        fontSize: '20px'
+    },
+    login_desktop: {
+        cursor: 'pointer',
+        marginLeft: "33vw",
+        fontSize: '10px'
+    },
+    login_mobile:{
+        marginLeft: "5vw",
+        fontSize: '10px'
+    },
+    cart_desktop: {
+        cursor: 'pointer',
+        marginLeft: "5vw",
         fontSize: '30px'
     },
     cart_mobile:{
@@ -93,7 +112,16 @@ const Navbar= ()=> {
                         <MenuIcon />
                     </IconButton>
                     <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
-                    <Button onClick={handleAlertClickOpen} variant="contained" color="primary" >Login</Button>
+                    {
+                        state.auth.isSignedIn && (
+                            <PersonIcon  className={state.mobileView?classes.personIcon_mobile:classes.personIcon_desktop}/>
+                        )
+                    }
+                    {
+                        !state.auth.isSignedIn && (
+                            <h6 className={state.mobileView?classes.login_mobile:classes.login_desktop} onClick={handleAlertClickOpen}>Login</h6>
+                        )
+                    }
                     <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
                     <h5>{val}</h5>
                 </Toolbar>

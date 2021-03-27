@@ -15,9 +15,6 @@ const Home= ()=> {
 
   return (
     <div>
-        <p>
-            Menu Bar
-        </p>
         <Carousel />
         <br/>
         <Grid container spacing={3} justify="center" alignContent="space-between" alignItems="center">
