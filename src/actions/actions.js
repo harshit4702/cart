@@ -1,5 +1,6 @@
 import axios from '../axios'
 import {productData} from '../helpers/productData';
+import {userData} from '../helpers/userData';
 
 export const mobileView= (flag)=>{
     return {
@@ -7,6 +8,15 @@ export const mobileView= (flag)=>{
         payload:flag
     }
 }
+export const auth = (user,flag)=>{
+    return {
+        type: "isAuth",
+        payload: {
+            user,
+            flag
+        }
+    }
+};
 
 export const cartValue= (value)=>{
     return {
@@ -19,6 +29,14 @@ export const fetchProducts = async()=> {
     const response= await productData();
     return {
         type: "fetchProducts", 
+        payload: response
+    };
+};
+
+export const fetchUsers = async()=> {
+    const response= await userData();
+    return {
+        type: "fetchUsers", 
         payload: response
     };
 };

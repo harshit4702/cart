@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState, useContext} from 'react';
+import {useHistory} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -10,6 +11,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+
+import {AppContext} from "../AppContext";
+import {auth} from "../actions/actions";
 
 const styles = (theme) => ({
   root: {
@@ -52,9 +56,46 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function LoginAlert(props) {
-    const closeAlert = () => {
-        props.handleClose();
-    };
+
+  let history= useHistory();
+
+  const {state, dispatch}= useContext(AppContext);
+
+  const [validation, setValidation]= useState(false);
+
+  const [emailValue,setEmailValue]= useState("");
+
+  const [passwordValue, setPasswordValue]= useState("");
+
+  const closeAlert = () => {
+      props.handleClose();
+  };
+
+  const onEmailChange= (e)=>{
+    setEmailValue(e.target.value);
+  }
+
+  const onPasswordChange= (e)=>{
+    setPasswordValue(e.target.value);
+  }
+
+  const onSubmit= async(e)=>{
+    e.preventDefault();
+    if(state.users[emailValue]){
+      if(state.users[emailValue].password==passwordValue){
+        console.log('matched');
+        setValidation(false);
+        dispatch(await auth(emailValue,true));
+        closeAlert();
+        return;
+      }
+    }
+
+    console.log('Not matched');
+
+    setValidation(true);
+
+  }
 
   return (
     <div>
@@ -64,15 +105,20 @@ export default function LoginAlert(props) {
         </DialogTitle>
 
         <DialogContent dividers>
-            <FormControl>         
-                <TextField id="standard-secondary" label="Enter Email" color="primary"> </TextField><br></br>
-                <TextField id="standard-secondary"  label="Enter Password" color="primary"> </TextField><br></br>
+            <form onSubmit={onSubmit}>         
+                {
+                  validation && (
+                    <h6 style={{color:'red'}}>Email or Password doesn't match</h6>
+                  )
+                }
+                <TextField id="standard-secondary" label="Enter Email" value={emailValue} onChange={onEmailChange} name="email" type="email" color="primary"> </TextField><br></br>
+                <TextField id="standard-secondary" label="Enter Password" value={passwordValue} onChange={onPasswordChange} name="password" type="password"  color="primary"> </TextField><br></br>
                 <br></br>
                 <br></br>
                 <Button type="submit" variant="contained" color="primary" >                
                     Sign In
                 </Button>
-            </FormControl>
+            </form>
         </DialogContent>
 
         <DialogActions>

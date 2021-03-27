@@ -24,7 +24,7 @@ const ProductDetails= ()=> {
     },[state.cart])
 
     const onClick= async()=>{
-        dispatch(await addCartItem({...product,id:product._id,value: 1}));
+        dispatch(await addCartItem({...product,id:product._id,value: 1,user:state.auth.user}));
     }
 
     if(!state.cart || !state.products)

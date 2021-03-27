@@ -6,8 +6,13 @@ const AppContext = createContext({});
 const initialState= {
     mobileView: false,
     products: null,
+    users: null,
     cartValue: 0,
     cart:[],
+    auth: {
+        isSignedIn: false,
+        user:null
+    },
 }
 
 const reducer= (state, action)=>{
@@ -15,8 +20,12 @@ const reducer= (state, action)=>{
     switch (action.type){
         case "setMobileView":
             return {...state, mobileView: action.payload};
+        case "isAuth":
+            return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
         case "fetchProducts":
             return {...state, products: _.mapKeys(action.payload,'_id')};
+        case "fetchUsers":
+            return {...state, users: _.mapKeys(action.payload,'email')};
         case "setCartValue":
             return {...state, cartValue: action.payload};
         case "fetchCartItems":

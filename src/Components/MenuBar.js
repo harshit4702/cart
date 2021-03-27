@@ -11,7 +11,7 @@ const MenuBar = ()=>  {
 
 
     return (
-        <Menu size='small'>
+        <Menu size='small' style={{margin:'0'}}>
             <Dropdown item text='La' style={{width:'14vw'}}>
                 <Dropdown.Menu>
                     <Dropdown.Item>English</Dropdown.Item>

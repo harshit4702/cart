@@ -27,7 +27,7 @@ const Carousel= ()=> {
     console.log(index);
 
     return (
-        <div style={{marginTop:'-1.6vh'}}>
+        <div>
             <ArrowBackIosIcon style={{position: 'absolute',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setIndex(prev=>index==0?data.length-1:prev-1)} />
             <img src={data[index].link} style={{width:state.mobileView?'100vw':'98.5vw',height: state.mobileView?'30vh':'45vh'}} />
             <ArrowForwardIosIcon style={{position: 'absolute',marginLeft:state.mobileView?'-6vw':'-2vw',marginTop:state.mobileView?'12vh':'20vh'}} onClick={()=>setIndex(prev=>index==data.length-1?0:prev+1)}/>
