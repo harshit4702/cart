@@ -1,19 +1,45 @@
-import React,{useContext} from 'react';
+import React,{useContext,useState,useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import {AppContext} from '../AppContext';
 import {editCartItem, deleteCartItem} from '../actions/actions';
 import Modal from '../Components/Modal';
+import _ from 'lodash'
 
 const CartItem= (props)=>{
 
     const {state,dispatch}= useContext(AppContext);
 
+    const [arr,setArr]= useState([]);
+
+    useEffect(()=>{
+        var z=[];
+        Object.values(state.cart).map((item)=>{
+            z.push({productId:item._id,quantity:item.quantity});
+        });
+        setArr(z);
+    },[]);
+
     const onClick= async(id,val)=>{
-        if(val==0)
+
+        console.log(id);
+        console.log(val);
+
+        if(val==0){
             document.getElementById(`cartButton${id}`).click();
-        else
-            dispatch(await editCartItem(id,{value:val}));
+            return;
+        }
+
+        await setArr(prev=>{
+            prev[_.findIndex(arr, ['productId', id])].quantity=val;
+            return prev;
+        });
+
+        const formValues= {
+            product:arr
+        }
+
+        dispatch(await editCartItem(id,val,state.auth.user,formValues));
     };
 
     return (
@@ -27,19 +53,19 @@ const CartItem= (props)=>{
             <Grid item xs={2}>
                 <div style={{marginTop:'8vh'}}>
                     <div style={{width:'20px',height:'20px',color:'black',border:'1px solid black',marginLeft:state.mobileView?'':'12px'}}>
-                        {props.ob.value}
+                        {props.ob.quantity}
                     </div>
                     <Grid container spacing={0}>
                         <Grid item>
-                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,props.ob.value+1)}>+</button>
+                            <button style={{width:'22px'}}  onClick={async()=>await onClick(props.ob._id,parseInt(props.ob.quantity)+1)}>+</button>
                         </Grid>
                         <Grid item>
-                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,props.ob.value-1)}>-</button>
+                            <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,parseInt(props.ob.quantity)-1)}>-</button>
                         </Grid>
                     </Grid> 
                 </div>
             </Grid>
-            <Modal id={props.ob.id} action={deleteCartItem}/>
+            <Modal id={props.ob._id} action={deleteCartItem}/>
         </Grid>
     )
 }

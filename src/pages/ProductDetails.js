@@ -24,7 +24,7 @@ const ProductDetails= ()=> {
     },[state.cart])
 
     const onClick= async()=>{
-        dispatch(await addCartItem({...product,id:product._id,value: 1,user:state.auth.user}));
+        dispatch(await addCartItem(state.auth.user.cart,{productId:params.id,quantity:1}));
     }
 
     if(!state.cart || !state.products)
@@ -40,20 +40,24 @@ const ProductDetails= ()=> {
                         <Grid item>
                             <Image product={product}/>
                         </Grid>
-                        <Grid item style={{marginLeft:state.mobileView?'10vw':'5vw'}}>
-                            <Grid container spacing={3}>
-                                <Grid item sm={6}>
-                                    <Button variant="contained" color="primary" disabled={state.cart[params.id]?true:false} onClick={onClick}>
-                                        Add to Chart
-                                    </Button>
+                        {
+                            state.auth.isSignedIn && (
+                                <Grid item style={{marginLeft:state.mobileView?'10vw':'5vw'}}>
+                                    <Grid container spacing={3}>
+                                        <Grid item sm={6}>
+                                            <Button variant="contained" color="primary" disabled={state.cart[params.id]?true:false} onClick={onClick}>
+                                                Add to Chart
+                                            </Button>
+                                        </Grid>
+                                        <Grid item sm={6}>
+                                            <Button variant="contained" color="secondary">
+                                                Buy Now
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                                <Grid item sm={6}>
-                                    <Button variant="contained" color="secondary">
-                                        Buy Now
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                            )
+                        }
                     </Grid>
                 </Grid>
                 <Grid item sm={7}>

@@ -29,9 +29,9 @@ const reducer= (state, action)=>{
         case "setCartValue":
             return {...state, cartValue: action.payload};
         case "fetchCartItems":
-            return {...state, cart: _.mapKeys(action.payload,'_id')};
+            return {...state, cart: _.mapKeys(action.payload,'productId')};
         case "fetchCartItem":
-            return { ...state, cart: {[action.payload._id]: action.payload }};
+            return { ...state, cart: _.mapKeys(action.payload,'_id')};
         case "addCartItem":
             console.log("grk");
             return {...state, cart:{...state.cart,[action.payload._id]: action.payload }};

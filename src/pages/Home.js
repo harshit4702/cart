@@ -12,7 +12,7 @@ const Home= ()=> {
   const {state,dispatch}= useContext(AppContext);
 
   console.log(state);
-
+  var x=0;
   return (
     <div>
         <Carousel />
@@ -24,7 +24,7 @@ const Home= ()=> {
               <Grid item key={index}>
                 <Link to={`/product/${item._id}`} style={{textDecoration:'none',color: 'black'}}>
                   <p style={{cursor:'pointer'}}>
-                      Category {item._id}
+                      Category {++x}
                   </p> 
                 </Link>
               </Grid>

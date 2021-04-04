@@ -81,18 +81,18 @@ const Navbar= ()=> {
 
     const handleAlertClickOpen = () => {
         console.log('Func invoked state open');
-      setalertOpen(true);
+        setalertOpen(true);
     };
   
     const handleAlertClose = () => {
         console.log('Func invoked state close chng');
-      setalertOpen(false);
+        setalertOpen(false);
     };
 
     useEffect(async()=>{
         var x=0;
         await Object.values(state.cart).map((item)=>{
-            x= x+item.value
+            x= x+parseInt(item.quantity)
         });
         setVal(x);
     },[state.cart]);
@@ -122,8 +122,14 @@ const Navbar= ()=> {
                             <h6 className={state.mobileView?classes.login_mobile:classes.login_desktop} onClick={handleAlertClickOpen}>Login</h6>
                         )
                     }
-                    <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
-                    <h5>{val}</h5>
+                    {
+                        state.auth.isSignedIn && (
+                            <>
+                                <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
+                                <h5>{val}</h5>
+                            </>
+                        )
+                    }
                 </Toolbar>
                 <LoginAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} alertopen={alertopen} />
             </AppBar>

@@ -1,5 +1,5 @@
 import React,{useState, useContext} from 'react';
-import {useHistory,Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -13,7 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 
 import {AppContext} from "../AppContext";
-import {addCartItem, auth, fetchCartItem} from "../actions/actions";
+import {auth} from "../actions/actions";
 
 const styles = (theme) => ({
   root: {
@@ -86,8 +86,7 @@ export default function LoginAlert(props) {
         console.log('matched');
         setValidation(false);
         console.log(state.users[emailValue]._id)
-        dispatch(await auth(state.users[emailValue],true));
-        dispatch(await fetchCartItem(state.users[emailValue].cart));
+        dispatch(await auth(state.users[emailValue]._id,true));
         closeAlert();
         return;
       }
@@ -107,7 +106,7 @@ export default function LoginAlert(props) {
         </DialogTitle>
 
         <DialogContent dividers>
-            <form onSubmit={onSubmit}>         
+            <form onSubmit={onSubmit}>
                 {
                   validation && (
                     <h6 style={{color:'red'}}>Email or Password doesn't match</h6>
@@ -125,7 +124,7 @@ export default function LoginAlert(props) {
 
         <DialogActions>
           <Typography autoFocus onClick={closeAlert} color="primary">
-            New to website ?
+            Already Registered ?
             <Link to="/">
               Create an account .
             </Link> 
@@ -135,4 +134,3 @@ export default function LoginAlert(props) {
     </div>
   );
 }
-

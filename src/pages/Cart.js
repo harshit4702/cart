@@ -18,8 +18,8 @@ const Cart= ()=> {
         var amt=0;
         var disct= 0;
         Object.values(state.cart).map((item)=>{
-            amt= amt+item.price*item.value;
-            disct= disct+ item.discount*item.value;
+            amt= amt+item.price*item.quantity;
+            disct= disct+ item.discount*item.quantity;
         });
         setAmount(amt);
         setDiscount(disct);
