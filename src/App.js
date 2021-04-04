@@ -30,7 +30,6 @@ const App= ()=> {
     else
       dispatch(mobileView(true));
     console.log(screenWidth);
-    dispatch(await fetchCartItems())
     dispatch(await fetchProducts());
     dispatch(await fetchUsers());
     dispatch(await auth(null,false))

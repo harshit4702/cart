@@ -44,7 +44,7 @@ const ModalUI = (props)=>{
             Are you sure you want to remove the item from the cart?
         </p>
         <div style={{textAlign:'right'}}>
-            <Button variant="contained" color="primary" onClick={async()=> {dispatch(await props.action(props.id));handleClose()}}>
+            <Button variant="contained" color="primary" onClick={async()=> {dispatch(await props.action(state.auth.user.cart,props.id));handleClose()}}>
                 Yes
             </Button>
             <Button variant="contained" color="secondary" onClick={handleClose} >

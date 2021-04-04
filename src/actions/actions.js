@@ -9,11 +9,12 @@ export const mobileView= (flag)=>{
     }
 }
 export const auth = (user,flag)=>{
+    console.log(user);
     return {
         type: "isAuth",
         payload: {
             user,
-            flag
+            flag,
         }
     }
 };
@@ -26,23 +27,23 @@ export const cartValue= (value)=>{
 }
 
 export const fetchProducts = async()=> {
-    const response= await productData();
+    const response= await axios.get('/product');
     return {
         type: "fetchProducts", 
-        payload: response
+        payload: response.data
     };
 };
 
 export const fetchUsers = async()=> {
-    const response= await userData();
+    const response= await axios.get('/user');
     return {
         type: "fetchUsers", 
-        payload: response
+        payload: response.data
     };
 };
 
 export const fetchCartItems = async () => {
-    const response = await axios.get('/cartItems');
+    const response = await axios.get('/cart');
     return {
         type: 'fetchCartItems', 
         payload: response.data
@@ -50,15 +51,16 @@ export const fetchCartItems = async () => {
 };
 
 export const fetchCartItem = async (id) => {
-    const response = await axios.get(`/cartItems/${id}`);
+    const response = await axios.get(`/cart/${id}`);
+    console.log( Object.values(response.data));
     return { 
         type: 'fetchCartItem', 
-        payload:response.data
+        payload: response.data
     }
 };
 
-export const addCartItem= async(formValues)=>{
-    const response= await axios.post('/cartItems', formValues);
+export const addCartItem= async(cartId,formValues)=>{
+    const response= await axios.post(`/cart/${cartId}`, formValues);
     console.log(response.data);
     return {
         type: 'addCartItem',
@@ -66,19 +68,19 @@ export const addCartItem= async(formValues)=>{
     }
 };
 
-export const editCartItem = async(id, formValues) =>{
-    const response=  await axios.patch(`/cartItems/${id}`, formValues);
-    console.log(response.data);
+export const editCartItem = async(id,quantity,user, formValues) =>{
+    const response=  await axios.patch(`/cart/${user.cart}/${id}/${quantity}`, formValues);
+
     return { 
         type: 'editCartItem', 
         payload: response.data
     }
 };
 
-export const deleteCartItem = async (id)=> {
-    await axios.delete(`/cartItems/${id}`);
+export const deleteCartItem = async (cartId,productId)=> {
+    await axios.delete(`/cart/${cartId}/${productId}`);
     return {
         type: 'deleteCartItem',
-        payload: id
+        payload: productId
     }
 }
