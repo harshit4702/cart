@@ -44,7 +44,6 @@ const Footer = ()=> {
         <>
             <ArrowDropUpRoundedIcon fontSize="large" onClick={()=>setOpenFooter(false)}/>
             <Grid container spacing={3}>  
-                
                 <Grid item xs={3}>
                     <FacebookIcon fontSize="large"/>     
                 </Grid>
