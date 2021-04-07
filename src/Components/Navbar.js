@@ -3,16 +3,11 @@ import { fade,createStyles, makeStyles} from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import PersonIcon from '@material-ui/icons/Person';
-import TextField from '@material-ui/core/TextField';
-import LoginAlert from './LoginAlert' ;
+import UserForm from './User/UserForm' ;
 import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
@@ -131,7 +126,7 @@ const Navbar= ()=> {
                         )
                     }
                 </Toolbar>
-                <LoginAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} alertopen={alertopen} />
+                <UserForm handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} alertopen={alertopen} />
             </AppBar>
         </div>
     );
