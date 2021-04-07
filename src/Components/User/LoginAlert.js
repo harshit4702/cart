@@ -33,6 +33,7 @@ const LoginAlert= (props)=>{
         setValidation(false);
         setValidationMessage('');
         dispatch(await auth(response.data,true));
+        dispatch(await fetchCartItem(response.data.cart));
         props.closeAlert();
     }
     catch(err){
