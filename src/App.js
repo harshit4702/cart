@@ -32,7 +32,6 @@ const App= ()=> {
     console.log(screenWidth);
     dispatch(await fetchProducts());
     dispatch(await fetchUsers());
-    dispatch(await auth(null,false))
   },[screenWidth]);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
