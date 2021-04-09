@@ -79,7 +79,7 @@ const SignUpAlert= (props)=> {
             <TextField id="standard-secondary" label="Enter Password" value={values.password} style={{width: '226px'}} onChange={handleChange('password')} name="password" type="password"  color="primary"> </TextField><br></br>
             <br/>
             <FormControl className={clsx(props.myClasses.textField)}>
-                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <InputLabel htmlFor="standard-adornment-password">Re-Enter Password</InputLabel>
                     <Input
                         id="standard-adornment-password"
                         type={showPassword ? 'text' : 'password'}

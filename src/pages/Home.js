@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import ScrollMenu from 'react-horizontal-scrolling-menu';
 
 import Carousel from '../Components/Carousel';
 import Categories from '../Components/Categories';
@@ -37,8 +38,7 @@ const Home= ()=> {
     <div>
         <Carousel />
         <br/>
-        <div className={classes.handle} style={{overflowX:'scroll'}} >
-          { 
+          { /*
             state.products && Object.values(state.products).map((item,index)=>{
               return (
                 <Link to={`/product/${item._id}`}>
@@ -46,9 +46,25 @@ const Home= ()=> {
                 </Link>
               );
             })
+          */}
+          <br />
+          {
+            state.products &&  (
+              <div style={{width:'100vw'}}>
+                <ScrollMenu
+                  arrowLeft={state.mobileView?null:(<div style={{ fontSize: "30px"}}>{" < "}</div>)}
+                  arrowRight={state.mobileView?null:(<div style={{ fontSize: "30px" }}>{" > "}</div>)}
+                  data={Object.values(state.products).map((product, index) => (
+                    <Link to={`/product/${product._id}`} key={index}> 
+                      <MediaCard  product={product}/>
+                    </Link>
+                  ))}    
+                />
+              </div>
+            )
           }
-        </div>
-        <br/>
+          <br/>
+          <br/>
         <RowImages />
     </div>
   );
