@@ -8,7 +8,6 @@ import Carousel from '../Components/Carousel';
 import Categories from '../Components/Categories';
 import RowImages from '../Components/RowImages';
 import MediaCard from '../Components/MediaCard';
-import HorizontalList from '../Components/HorizontalList';
 
 import {AppContext} from '../AppContext';
 
