@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import ProductsList from './pages/ProductsList';
 
 import Navbar from './Components/Navbar';
 import MenuBar from './Components/MenuBar';
@@ -44,6 +45,7 @@ const App= ()=> {
         <MenuBar />
         <Switch>
             <Route path="/"  exact component= {Home} />
+            <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
             <Route path="/product/:id"  exact component= {ProductDetails} />
             <Route path="/cart"  exact component= {Cart} />
             <Route path="/cart/checkout"  exact component= {Checkout} />

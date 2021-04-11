@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
+import Button from '@material-ui/core/Button';
+
+import ProductsList from './ProductsList';
 
 import Carousel from '../Components/Carousel';
 import Categories from '../Components/Categories';
@@ -23,6 +26,13 @@ const useStyles = makeStyles({
     float: 'left',
     maxHeight: 300,
     overflowX: 'scroll'
+  },
+  button:{
+    backgroundColor:'#009933',
+    '&:hover': {
+        backgroundColor: 'white',
+        color:'#009933'
+    }
   }
 });
 
@@ -48,19 +58,25 @@ const Home= ()=> {
             })
           */}
           <br />
+         
           {
             state.products &&  (
-              <div style={{width:'100vw'}}>
-                <ScrollMenu
-                  arrowLeft={state.mobileView?null:(<div style={{ fontSize: "30px"}}>{" < "}</div>)}
-                  arrowRight={state.mobileView?null:(<div style={{ fontSize: "30px" }}>{" > "}</div>)}
-                  data={Object.values(state.products).map((product, index) => (
-                    <Link to={`/product/${product._id}`} key={index}> 
-                      <MediaCard  product={product}/>
-                    </Link>
-                  ))}    
-                />
-              </div>
+              <>
+                <div style={{textAlign:'right',marginRight:'.5vw'}}>
+                  <Link to="/category/1">
+                    <Button  className={classes.button} variant="contained" color="primary">View All</Button>
+                  </Link>
+                </div>
+                <div style={{width:state.mobileView?'133vw':'106vw',marginLeft:state.mobileView?'-36vw':'-4.8vw'}} >
+                  <ScrollMenu
+                    data={Object.values(state.products).map((product, index) => (
+                      <Link to={`/product/${product._id}`} key={index}> 
+                        <MediaCard  product={product}/>
+                      </Link>
+                    ))}    
+                  />
+                </div>
+              </>
             )
           }
           <br/>
