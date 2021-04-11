@@ -50,8 +50,8 @@ const LoginAlert= (props)=>{
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(true);
+  const handleClickHandlePassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = (event) => {
@@ -78,10 +78,10 @@ const LoginAlert= (props)=>{
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
+                    onClick={handleClickHandlePassword}
                     onMouseDown={handleMouseDownPassword}
                   >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }

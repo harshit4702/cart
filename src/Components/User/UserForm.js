@@ -101,7 +101,12 @@ const UserForm= (props) =>{
                         ) ||
 
                         !openLogin && (
-                            <p style={{cursor:'pointer'}} onClick={()=>setOpenLogin(true)}> Log In</p>
+                            <>
+                              <Typography autoFocus onClick={closeAlert} color="primary">
+                                    Already have an account ?
+                                </Typography>
+                              <p style={{cursor:'pointer'}} onClick={()=>setOpenLogin(true)}> Log In</p>
+                            </>
                         )
                     }
                     
