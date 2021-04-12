@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) =>
         marginLeft: "25vw",
     },
     userButton_desktop:{
-        marginLeft: "60vw",
+        marginLeft: "55vw",
     },
     logo_desktop:{
         border:'2px white solid',
         borderRadius:'40px',
-        width:'70px',
-        height:'70px'  
+        width:'57px',
+        height:'55px'
     },
     logo_mobile:{
         border:'2px white solid',
@@ -100,7 +100,7 @@ const Navbar= ()=> {
         <div >
             <AppBar className={classes.root} color="primary" position="static">
                 <Toolbar>
-                    <IconButton edge="start" color="inherit">
+                    <IconButton edge="start" color="inherit" style={{marginLeft:state.mobileView?'0vw':'5vw'}}>
                         <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
                     </IconButton>
 
