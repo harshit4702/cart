@@ -8,7 +8,8 @@ import Checkout from './pages/Checkout';
 import ProductsList from './pages/ProductsList';
 
 import Navbar from './Components/Navbar';
-import MenuBar from './Components/MenuBar';
+import MenuBarDesktop from './Components/MenuBarDesktop';
+import MenuBarMobile from './Components/MenuBarMobile';
 import Footer from './Components/Footer';
 
 import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth} from './actions/actions';
@@ -26,6 +27,7 @@ const App= ()=> {
   const [screenWidth,setScreenWidth]= useState(window.innerWidth);
 
   useEffect(async()=>{
+    console.log(screenWidth);
     if(window.innerWidth>560)
       dispatch(mobileView(false));
     else
@@ -42,7 +44,9 @@ const App= ()=> {
     <div className="App" style={{backgroundColor: '#f0f5f1'}}>
       <Router>
         <Navbar />
-        <MenuBar />
+        {
+          screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
+        }
         <Switch>
             <Route path="/"  exact component= {Home} />
             <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
