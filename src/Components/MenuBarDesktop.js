@@ -51,10 +51,7 @@ const useStyles = ({mobileView})=>{
                     border: '1px solid #cecece  '   
                 },
                 "& > ul > li:hover ul":{
-                    display:mobileView?()=>{
-                        console.log('hello');
-                        return 'block'
-                    }:'block'
+                    display:'block'
                 },  
                 "& > ul > li > ul > li":{
                     margin: '0 20px',

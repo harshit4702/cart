@@ -1,34 +1,33 @@
 import React,{useContext, useState,useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 
 import {AppContext} from '../AppContext';
-import CartItem from '../Components/CartItem';
+
+const useStyles = makeStyles({
+    summary:{
+        backgroudColor: 'none'
+    }
+});
 
 const Checkout= ()=> {
 
     const {state,dispatch}= useContext(AppContext);
 
-    const [amount,setAmount]= useState(0);
-    const [discount,setDiscount]= useState(0);
+    const classes= useStyles();
 
-    useEffect(async()=>{
-        var amt=0;
-        var disct= 0;
-        Object.values(state.cart).map((item)=>{
-            amt= amt+item.price*item.value;
-            disct= disct+ item.discount*item.value;
-        });
-        setAmount(amt);
-        setDiscount(disct);
-    },[state.cart]);
-   
+    console.log(state);
 
     return (
         <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:'10vw',marginRight:'10vw'}}>
-            Checkout
+            <Paper>
+                <div className={classes.summary}>
+                    Order Summary
+                </div>
+            </Paper>
         </div>
     );
 }

@@ -45,7 +45,7 @@ const CartItem= (props)=>{
     return (
         <Grid container spacing={1}>
             <Grid item xs={3}>
-                <img src={props.ob.src[0]} style={{width:'10vw',height:state.mobileView?'10vh':'22vh'}}/>
+                <img src={`/product/photos/${props.ob._id}/0`} style={{width:'10vw',height:state.mobileView?'10vh':'22vh'}}/>
             </Grid>
             <Grid item xs={7}>
                 <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.name}</h4>
