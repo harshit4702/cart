@@ -11,6 +11,7 @@ import Navbar from './Components/Navbar';
 import MenuBarDesktop from './Components/MenuBarDesktop';
 import MenuBarMobile from './Components/MenuBarMobile';
 import Footer from './Components/Footer';
+import MyProfile from './pages/MyProfile';
 
 import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth} from './actions/actions';
 import {AppContext} from './AppContext';
@@ -52,6 +53,7 @@ const App= ()=> {
             <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
             <Route path="/product/:id"  exact component= {ProductDetails} />
             <Route path="/cart"  exact component= {Cart} />
+            <Route path="/profile"  exact component= {MyProfile} />
             <Route path="/cart/checkout"  exact component= {Checkout} />
         </Switch>
         <Footer />
