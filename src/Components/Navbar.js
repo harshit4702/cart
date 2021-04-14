@@ -1,6 +1,6 @@
 import React,{useState,useContext, useEffect} from 'react';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -101,7 +101,9 @@ const Navbar= ()=> {
             <AppBar className={classes.root} color="primary" position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" style={{marginLeft:state.mobileView?'0vw':'5vw'}}>
-                        <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
+                        <Link to='/' >
+                            <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
+                        </Link>
                     </IconButton>
 
                     {/*<input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>*/}

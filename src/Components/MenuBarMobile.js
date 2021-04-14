@@ -25,6 +25,12 @@ const useStyles = ({mobileView})=>{
                 marginLeft:'-10vw',
                 "& ul > a":{
                     color:'black'
+                },
+                "& .menu-item-wrapper.active" :{
+                    border: 'none'
+                },
+                "& .menu-item-wrapper:hover" :{
+                    border: 'none'
                 }
             },
             image:{
@@ -49,16 +55,17 @@ const MenuBar = ()=>  {
             <ScrollMenu
                 data={data.map((category,index)=>{
                     return (
-                        <ul> 
-                            
-                            <Link href={category.name}>
+                        <ul key={index} style={{border:'none'}}> 
+                            <a href={category.link} target="_blank">
                                 <img src={category.link} className={classes.image} />
                                 <br/>
-                                {category.name }
-                            </Link>
+                                {category.name}
+                            </a>
                         </ul>
                     )
                 })}
+                selected={'hi'}
+                onSelect={(x)=>console.log(x)}
             />
         </div>
     );

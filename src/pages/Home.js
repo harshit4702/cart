@@ -67,7 +67,7 @@ const Home= ()=> {
                     <Button  className={classes.button} variant="contained" color="primary">View All</Button>
                   </Link>
                 </div>
-                <div style={{width:state.mobileView?'133vw':'106vw',marginLeft:state.mobileView?'-36vw':'-4.8vw'}} >
+                <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
                   <ScrollMenu
                     data={Object.values(state.products).map((product, index) => (
                       <Link to={`/product/${product._id}`} key={index}> 

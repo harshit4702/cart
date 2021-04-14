@@ -21,18 +21,27 @@ const useStyles = makeStyles((theme) => ({
         height:'45vh',
         border:'1px solid white',
         backgroundColor: 'white'
-        
     },
     box:{
         width:'45px',
         height:'45px',
         border:'1px solid black',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        cursor:'pointer',
+        "&:hover ":{
+            border:'2px solid #2971d6',
+            width:'47px',
+            height:'47px',
+        }
     },
     boxImage:{
         width:'40px',
         height:'40px',
-        marginTop:'2px'
+        marginTop:'2px',
+        "&:hover":{
+            width:'42px',
+            height:'41px',
+        }
     }
 }));
 
@@ -44,8 +53,6 @@ const Image= (props)=>{
 
     console.log(params.id);
 
-    const src= props.product.src;
-
     const classes = useStyles();
 
     const [index,setIndex]= useState(0);
@@ -56,29 +63,29 @@ const Image= (props)=>{
                 <Grid item xs={2}>
                     <Grid container spacing={3} direction="column"> 
                         <Grid item sm={2}>
-                            <div className={classes.box} onClick={()=>setIndex(0)}>
-                                <img src={src[0]} className={classes.boxImage}/> 
+                            <div className={classes.box} onMouseOver={()=>setIndex(0)}>
+                                <img src={`/product/photos/${props.product._id}/0`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                         <Grid item sm={2}>
-                            <div className={classes.box} onClick={()=>setIndex(1)}>
-                                <img src={src[1]} className={classes.boxImage}/> 
+                            <div className={classes.box} onMouseOver={()=>setIndex(1)}>
+                                <img src={`/product/photos/${props.product._id}/1`} className={classes.boxImage}/> 
                             </div>
                         </Grid>
                         <Grid item sm={2}>
-                            <div className={classes.box} onClick={()=>setIndex(2)}>
-                                <img src={src[2]} className={classes.boxImage}/> 
+                            <div className={classes.box} onMouseOver={()=>setIndex(2)}>
+                                <img src={`/product/photos/${props.product._id}/2`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                         <Grid item sm={2}>
-                            <div className={classes.box} onClick={()=>setIndex(3)}>
-                                <img src={src[3]} className={classes.boxImage}/> 
+                            <div className={classes.box} onMouseOver={()=>setIndex(3)}>
+                                <img src={`/product/photos/${props.product._id}/3`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
-                    <img src={src[index]} style={{width:state.mobileView?'70vw':'30vw',height:state.mobileView?'40vh':'60vh',marginTop:'2vh'}}/>     
+                    <img src={`/product/photos/${props.product._id}/${index}`} style={{width:state.mobileView?'70vw':'30vw',height:state.mobileView?'40vh':'60vh',marginTop:'2vh'}}/>     
                 </Grid>
             </Grid>
         </div>
