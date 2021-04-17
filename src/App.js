@@ -11,9 +11,11 @@ import Navbar from './Components/Navbar';
 import MenuBarDesktop from './Components/MenuBarDesktop';
 import MenuBarMobile from './Components/MenuBarMobile';
 import Footer from './Components/Footer';
+import CheckoutError from './Components/CheckoutError';
+
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth} from './actions/actions';
+import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
 import {AppContext} from './AppContext';
 
 import 'semantic-ui-css/semantic.min.css'
@@ -35,11 +37,11 @@ const App= ()=> {
       dispatch(mobileView(true));
     console.log(screenWidth);
     dispatch(await fetchProducts());
+    dispatch(fetchCategories());
     dispatch(await fetchUsers());
   },[screenWidth]);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
-
 
   return (
     <div className="App" style={{backgroundColor: '#f0f5f1'}}>
@@ -54,7 +56,7 @@ const App= ()=> {
             <Route path="/product/:id"  exact component= {ProductDetails} />
             <Route path="/cart"  exact component= {Cart} />
             <Route path="/profile"  exact component= {MyProfile} />
-            <Route path="/cart/checkout"  exact component= {Checkout} />
+            <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout />} />
         </Switch>
         <Footer />
       </Router>  

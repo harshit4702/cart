@@ -6,11 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {AppContext} from '../AppContext';
-import {categoriesData} from '../helpers/categoriesData';
-
-const data= categoriesData();
 
 const useStyles = ({mobileView})=>{
     return (
@@ -48,6 +46,14 @@ const MenuBar = ()=>  {
 
     const classes = useStyles(state)();
 
+    if(!state.categories)
+        return (
+            <div style={{margin:'3vh'}}>
+                <CircularProgress />
+            </div>
+        );
+
+    const data= Object.values(state.categories);
 
     return (
         <div className={classes.menuHeader}>

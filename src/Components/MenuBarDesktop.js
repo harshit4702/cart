@@ -5,11 +5,10 @@ import { Button, Dropdown, Menu } from 'semantic-ui-react'
 import Paper from '@material-ui/core/Paper';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {AppContext} from '../AppContext';
 import {categoriesData} from '../helpers/categoriesData';
-
-const data= categoriesData();
 
 const useStyles = ({mobileView})=>{
     return (
@@ -48,7 +47,8 @@ const useStyles = ({mobileView})=>{
                     left: '0',
                     right: '0',
                     display:'none',
-                    border: '1px solid #cecece  '   
+                    border: '1px solid #cecece' ,
+                    zIndex: '1'  
                 },
                 "& > ul > li:hover ul":{
                     display:'block'
@@ -136,6 +136,15 @@ const MenuBar = ()=>  {
             return <Category key={index} category={category} flag={flag} />
         });
     }
+
+    if(!state.categories)
+        return (
+            <div style={{margin:'3vh'}}>
+                <CircularProgress />
+            </div>
+        );
+
+    const data= Object.values(state.categories);
 
     return (
         <div className={classes.menuHeader}>

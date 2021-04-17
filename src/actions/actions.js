@@ -1,6 +1,7 @@
 import axios from '../axios'
+import { categoriesData } from '../helpers/categoriesData';
 import {productData} from '../helpers/productData';
-import {userData} from '../helpers/userData';
+
 
 export const mobileView= (flag)=>{
     return {
@@ -25,6 +26,22 @@ export const cartValue= (value)=>{
         payload:value
     }
 }
+
+export const filter= (data)=>{
+    return {
+        type: "setFilter",
+        payload:data
+    }
+}
+
+export const fetchCategories = ()=> {
+    const response= categoriesData();
+    return {
+        type: "fetchCategories", 
+        payload: response
+    };
+};
+
 
 export const fetchProducts = async()=> {
     const response= await axios.get('/product');
