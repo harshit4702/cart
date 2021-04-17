@@ -2,14 +2,17 @@ import React,{useContext, useState,useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 
 import {AppContext} from '../AppContext';
 import CartItem from '../Components/CartItem';
+import { stubTrue } from 'lodash-es';
 
 const Cart= ()=> {
 
     const {state,dispatch}= useContext(AppContext);
+
+    const history= useHistory();
 
     const [amount,setAmount]= useState(0);
     const [discount,setDiscount]= useState(0);
@@ -92,11 +95,9 @@ const Cart= ()=> {
                         <br/><br/><br/>
                         <Grid container spacing={3} justify="space-around">
                             <Grid item>
-                                <Link to="/cart/checkout" >
-                                    <Button variant="contained" color="primary">
-                                        Place Your Order
-                                    </Button>
-                                </Link>
+                                <Button onClick={()=>history.push('/cart/checkout',{flag:true})} disabled={(!state.auth.isSignedIn || Object.values(state.cart)==0)?true:false} variant="contained" color="primary">
+                                    Place Your Order
+                                </Button>
                             </Grid>
                         </Grid>
                         <br/>
