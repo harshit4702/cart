@@ -49,12 +49,10 @@ const UserButton= ()=> {
     const [alertopen, setalertOpen] = useState(false);
 
     const handleAlertClickOpen = () => {
-        console.log('Func invoked state open');
         setalertOpen(true);
     };
   
     const handleAlertClose = () => {
-        console.log('Func invoked state close chng');
         setalertOpen(false);
     };
 

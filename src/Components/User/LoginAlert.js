@@ -20,8 +20,6 @@ const LoginAlert= (props)=>{
 
   const [validation, setValidation]= useState(false);
 
-  const [loadCompleted,setLoadCompeleted]= useState(true);
-
   const [validationMessage, setValidationMessage]= useState("");
 
   const [showPassword, setShowPassword]= useState(false);
@@ -31,19 +29,16 @@ const LoginAlert= (props)=>{
     console.log(values);
 
     try{
-        setLoadCompeleted(false);
         const response= await axios.post('/user/login',{email:values.email,password:values.password});
         setValidation(false);
         setValidationMessage('');
         dispatch(await auth(response.data,true));
         dispatch(await fetchCartItem(response.data.cart));
         props.closeAlert();
-        setTimeout(() => setLoadCompeleted(true), 100);
     }
     catch(err){
         setValidation(true);
         setValidationMessage("Email or Password doesn't match");
-        setLoadCompeleted(true);
     }
 }
   const [values, setValues] = useState({
@@ -70,7 +65,7 @@ const LoginAlert= (props)=>{
             <h6 style={{color:'red'}}>{validationMessage}</h6>
           )
         }
-        <TextField id="standard-secondary" label="Enter Email" value={values.email} style={{width: '226px'}} onChange={handleChange('email')} name="email" type="email" color="primary"> </TextField><br></br>
+        <TextField id="standard-secondary" label="Enter Email" value={values.email} style={{width: '226px'}} onChange={handleChange('email')} name="email" type="email" color="primary"></TextField><br></br>
         <br/>
         <FormControl className={clsx(props.myClasses.textField)}>
           <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
@@ -94,17 +89,10 @@ const LoginAlert= (props)=>{
         </FormControl>
         <br></br>
         <br></br>
-        {
-          !loadCompleted && (
-            <> Logging In...</>
-          )||
-
-          loadCompleted && (
-            <Button type="submit" variant="contained" color="primary" >                
-                Sign In
-            </Button>
-          )
-        }
+        <br></br>
+        <Button type="submit" variant="contained" color="primary">                
+            Sign In
+        </Button>
     </form>
   );
 }

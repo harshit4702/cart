@@ -1,11 +1,9 @@
 import React,{useState,useContext, useEffect} from 'react';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-
 import {AppContext} from "../AppContext";
 import {cartValue,addCartItem} from '../actions/actions';
-
+import PasswordAlert from '../Components/User/PasswordAlert';
 import {
     ThemeProvider,
     withStyles,
@@ -39,13 +37,13 @@ const useStyles = makeStyles({
         marginLeft: '8vw'
     },
     start_mobile: {
-        marginLeft: '-3vw'
+        marginLeft: '-4vw'
     },
     txt_desk: {
         display: 'inline-block',
         cursor: 'pointer',
         color: '#009933',
-        marginLeft: '12.5vw',
+        marginLeft: '10.5vw',
         padding: '1vw'
     },
     txt_mobile: {
@@ -104,6 +102,15 @@ const MyProfile = ()=> {
     const [permit2,setpermit2]= useState(false);
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
+    const [editalert, setEditAlert] = useState(false);
+
+    const handleAlertClickOpen = () => {
+        setEditAlert(true);
+    };
+  
+    const handleAlertClose = () => {
+        setEditAlert(false);
+    };
 
     const {state,dispatch}= useContext(AppContext);
 
@@ -114,7 +121,7 @@ const MyProfile = ()=> {
             {
                 !permit1 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit1(true)}}>Edit</h4 >
+                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit1(true)}}>Edit</h4 > 
                         <br></br>
                         <TextField
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
@@ -147,14 +154,14 @@ const MyProfile = ()=> {
                     </div>
                 )
             } 
-            
+
             <br></br>
-            
             <h3 className={state.mobileView ? classes.start_mobile : classes.start_desk}>Enter Email</h3>
             {
                 !permit2 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(true)}}>Edit</h4 >
+                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
                         <TextField
                             disabled
@@ -171,6 +178,7 @@ const MyProfile = ()=> {
                 permit2 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(false)}}>Cancel</h4 >
+                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
                         <ThemeProvider theme={theme}>
                             <TextField
@@ -187,6 +195,7 @@ const MyProfile = ()=> {
                     </div>
                 )
             }
+            <PasswordAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} editalert={editalert} />   
             
             <br></br>
             <h3 className={state.mobileView ? classes.start_mobile : classes.start_desk}>Mobile Number</h3>
@@ -231,7 +240,7 @@ const MyProfile = ()=> {
             {
                 !permit3 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(true)}}>Edit</h4 >
+                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(true)}}>Add / Edit</h4 >
                         <br></br>
                         <TextField
                             disabled
@@ -253,18 +262,65 @@ const MyProfile = ()=> {
                             <TextField
                                 className={state.mobileView ? classes.field_mobile : classes.field_desk}       
                                 margin= {state.mobileView ? "dense" : ""}      
-                                label="Enter Address"
+                                label="House No. / Colony"
                                 multiline
                                 variant="outlined"
                                 id="mui-theme-provider-outlined-input"
                             />
-                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="Locality/Landmark"
+                                multiline
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="City Name"
+                                multiline
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="PinCode"
+                                multiline
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
                                 Save
                             </Button>
                         </ThemeProvider>                          
                     </div>
                 )
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <br ></br>
             <h3 style={{textAlign: 'left' , margin: '5vh'}}>FAQs</h3>
             <div style={{textAlign: 'left' , margin: '5vh'}}>
@@ -288,3 +344,92 @@ const MyProfile = ()=> {
 
 export default MyProfile;
 
+
+
+  
+//   const DialogTitle = withStyles(styles)((props) => {
+//     const { children, classes, onClose, ...other } = props;
+//     return (
+//       <MuiDialogTitle disableTypography className={classes.root} {...other}>
+//         <Typography variant="h6">{children}</Typography>
+//         {onClose ? (
+//           <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+//             <CloseIcon />
+//           </IconButton>
+//         ) : null}
+//       </MuiDialogTitle>
+//     );
+//   });
+  
+//   const DialogContent = withStyles((theme) => ({
+//     root: {
+//       padding: theme.spacing(7),
+//     },
+  
+//   }))(MuiDialogContent);
+  
+//   const DialogActions = withStyles((theme) => ({
+//     root: {
+//       padding: theme.spacing(2),
+//     },
+//   }))(MuiDialogActions);
+  
+//   const UserForm= (props) =>{
+  
+//       const myClasses = useStyles();
+      
+//       const [openLogin,setOpenLogin]= useState(true);
+  
+  
+//       const closeAlert = () => {
+//           props.handleClose();
+//           setTimeout(()=> setOpenLogin(true) , 100);
+//       };
+      
+//       return (
+//           <div >
+//               <Dialog onClose={closeAlert} aria-labelledby="customized-dialog-title" open={props.alertopen}>
+//                   <DialogTitle id="customized-dialog-title" onClose={closeAlert}>
+//                       {openLogin?'Login':'Sign Up'}
+//                   </DialogTitle>
+          
+//                   <DialogContent dividers>
+//                       {
+//                           openLogin && (
+//                               <LoginAlert type="Sign In" myClasses={myClasses} closeAlert={closeAlert}/>
+//                           ) || 
+  
+//                           !openLogin && (
+//                               <SignUpAlert type="Sign Up"  myClasses={myClasses} closeAlert={closeAlert} />
+//                           )
+//                       }
+//                   </DialogContent>
+  
+//                   <DialogActions>
+//                       {
+//                           openLogin && (
+//                               <>
+//                                   <Typography autoFocus onClick={closeAlert} color="primary">
+//                                       New to website ?
+//                                   </Typography>
+//                                   <p style={{cursor:'pointer'}} onClick={()=>setOpenLogin(false)}> Sign Up</p>
+//                               </>
+//                           ) ||
+  
+//                           !openLogin && (
+//                               <>
+//                                 <Typography autoFocus onClick={closeAlert} color="primary">
+//                                       Already have an account ?
+//                                   </Typography>
+//                                 <p style={{cursor:'pointer'}} onClick={()=>setOpenLogin(true)}> Log In</p>
+//                               </>
+//                           )
+//                       }
+                      
+//                   </DialogActions>
+//               </Dialog>
+//           </div>
+//       );
+//   }
+  
+//   export default UserForm;
