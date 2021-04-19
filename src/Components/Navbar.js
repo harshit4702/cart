@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import UserButton from './User/UserButton';
 
@@ -68,6 +69,11 @@ const useStyles = makeStyles((theme) =>
         cursor: 'pointer',
         marginLeft: "5vw",
         fontSize: '20px'
+    },
+    lock:{
+        cursor: 'pointer',
+        fontSize: '15px',
+        marginTop:'2vh'
     }
   }),
 );
@@ -111,12 +117,14 @@ const Navbar= ()=> {
                     <div className={state.mobileView?classes.userButton_mobile:classes.userButton_desktop}>
                         <UserButton />
                     </div>
+                    <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
                     {
+                        !state.auth.isSignedIn && (
+                            <LockOutlinedIcon className={classes.lock} onClick={()=>history.push('/cart')} />
+                        )||
+
                         state.auth.isSignedIn && (
-                            <>
-                                <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
-                                <h5>{val}</h5>
-                            </>
+                            <h5>{val}</h5>
                         )
                     }
                 </Toolbar>

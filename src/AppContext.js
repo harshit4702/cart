@@ -14,6 +14,7 @@ const initialState= {
         user:null
     },
     categories:null,
+    cat:[],
     filter:{
         categories:[],
         subCategories:[],
@@ -29,6 +30,8 @@ const reducer = (state, action)=>{
             return {...state, mobileView: action.payload};
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
+        case "fetchingCategories":
+            return {...state, cat: action.payload};
         case "fetchCategories":
             return {...state, categories: _.mapKeys(action.payload,'_id')};
         case "fetchProducts":
