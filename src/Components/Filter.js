@@ -8,12 +8,6 @@ import Radio from '@material-ui/core/Radio';
 import {AppContext} from '../AppContext';
 
 const useStyles = makeStyles({
-    checkBox:{
-        color:'green'
-    },
-    radio:{
-        color:'green'
-    }
 });
 
 const Filter= ()=> {
@@ -105,11 +99,10 @@ const Filter= ()=> {
                             Object.values(data).map((ob)=>(
                                 <Grid item >
                                     <Checkbox
-                                        className={classes.checkBox}
                                         checked={checkBoxCategories[ob._id]}
                                         onChange={handleChangeCategories}
                                         name={ob._id}
-                                        color="green"
+                                        color="primary"
                                     />{ob.name}<br/>
                                 </Grid>
                             ))
@@ -129,11 +122,10 @@ const Filter= ()=> {
                                     return z.subCategories.map((ob)=>(
                                         <Grid item >
                                             <Checkbox
-                                                className={classes.checkBox}
                                                 checked={checkBoxSubCategories[ob._id]}
                                                 onChange={handleChangeSubCategories}
                                                 name={ob._id}
-                                                color="green"
+                                                color="primary"
                                             />{ob.name}<br/>
                                         </Grid>
                                     ))
@@ -149,23 +141,21 @@ const Filter= ()=> {
                     <p>Name</p>
                     
                     <Radio
-                        className={classes.radio}
                         checked={selectedValue.name === 'ascending'}
                         onChange={handleChange}
                         value="ascending"
                         name="name"
-                        color="green"
+                        color="primary"
                         inputProps={{ 'aria-label': 'A-Z' }}
                     />
                     <label for="A-Z">A-Z</label>
 
                     <Radio
-                        className={classes.radio}
                         checked={selectedValue.name === 'descending'}
                         onChange={handleChange}
                         value="descending"
                         name="name"
-                        color="green"
+                        color="primary"
                         inputProps={{ 'aria-label': 'Z-A' }}
                     />
                     <label for="Z-A">Z-A</label>
@@ -176,23 +166,21 @@ const Filter= ()=> {
                     <p>Price</p>
                     
                     <Radio
-                        className={classes.radio}
                         checked={selectedValue.price === 'ascending'}
                         onChange={handleChange}
                         value="ascending"
                         name="price"
-                        color="green"
+                        color="primary"
                         inputProps={{ 'aria-label': 'low' }}
                     />
                     <label for="low">Low to High</label>
 
                     <Radio
-                        className={classes.radio}
                         checked={selectedValue.price === 'descending'}
                         onChange={handleChange}
                         value="descending"
                         name="price"
-                        color="green"
+                        color="primary"
                         inputProps={{ 'aria-label': 'high' }}
                     />
                     <label for="high">High to Low</label>

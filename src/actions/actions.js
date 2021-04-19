@@ -42,6 +42,14 @@ export const fetchCategories = ()=> {
     };
 };
 
+export const fetchingCategories = async()=> {
+    const response= await axios.get('/category');
+    return {
+        type: "fetchingCategories", 
+        payload: response.data
+    };
+};
+
 
 export const fetchProducts = async()=> {
     const response= await axios.get('/product');

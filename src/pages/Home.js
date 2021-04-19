@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ProductsList from './ProductsList';
@@ -27,14 +28,8 @@ const useStyles = makeStyles({
     float: 'left',
     maxHeight: 300,
     overflowX: 'scroll'
-  },
-  button:{
-    backgroundColor:'#009933',
-    '&:hover': {
-        backgroundColor: 'white',
-        color:'#009933'
-    }
   }
+   
 });
 
 const Home= ()=> {
@@ -50,36 +45,73 @@ const Home= ()=> {
         <Carousel />
         <br/>
         <br />
-         
-          {
-            !state.products && (
-              <div style={{margin:'10vh'}}>
-                Loading...
-              </div>
-            ) || 
 
-            state.products &&  (
-              <>
-                <div style={{textAlign:'right',marginRight:'.5vw'}}>
-                  <Link to="/category/1">
-                    <Button  className={classes.button} variant="contained" color="primary">View All</Button>
-                  </Link>
+        <Paper elevation={3} style={{paddingTop:'1vh'}}>
+         
+            {
+              !state.products && (
+                <div style={{padding:'10vh'}}>
+                  Loading...
                 </div>
-                <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
-                  <ScrollMenu
-                    data={Object.values(state.products).map((product, index) => (
-                      <Link to={`/product/${product._id}`} key={index}> 
-                        <MediaCard  product={product}/>
-                      </Link>
-                    ))}    
-                  />
-                </div>
-              </>
-            )
-          }
+              ) || 
+
+              state.products &&  (
+                <>
+                  <div style={{textAlign:'right',marginRight:'.5vw'}}>
+                    <Link to="/category/1">
+                      <Button  variant="contained" color="primary">View All</Button>
+                    </Link>
+                  </div>
+                  <hr/>
+                  <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
+                    <ScrollMenu
+                      data={Object.values(state.products).map((product, index) => (
+                        <Link to={`/product/${product._id}`} key={index}> 
+                          <MediaCard  product={product}/>
+                        </Link>
+                      ))}    
+                    />
+                  </div>
+                </>
+              )
+            }
+          </Paper>
           <br/>
           <br/>
         <RowImages />
+        <br/><br/>
+        <Paper elevation={3} style={{paddingTop:'1vh'}}>
+         
+            {
+              !state.products && (
+                <div style={{padding:'10vh'}}>
+                  Loading...
+                </div>
+              ) || 
+
+              state.products &&  (
+                <>
+                  <div style={{textAlign:'right',marginRight:'.5vw'}}>
+                    <Link to="/category/1">
+                      <Button  variant="contained" color="primary">View All</Button>
+                    </Link>
+                  </div>
+                  <hr/>
+                  <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
+                    <ScrollMenu
+                      data={Object.values(state.products).map((product, index) => (
+                        <Link to={`/product/${product._id}`} key={index}> 
+                          <MediaCard  product={product}/>
+                        </Link>
+                      ))}    
+                    />
+                  </div>
+                </>
+              )
+            }
+          </Paper>
+          <br/>
+          <br/>
     </div>
   );
 }

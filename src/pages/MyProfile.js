@@ -2,16 +2,11 @@ import React,{useState,useContext, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {AppContext} from "../AppContext";
 import {cartValue,addCartItem} from '../actions/actions';
 
-import {
-    ThemeProvider,
-    withStyles,
-    makeStyles,
-    createMuiTheme,
-  } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import { blue,pink,green } from '@material-ui/core/colors';
@@ -89,12 +84,7 @@ const useStyles = makeStyles({
         borderColor: '#009933'
     }
 });
-  
-const theme = createMuiTheme({
-    palette: {
-        primary: green
-    },
-});
+
 
 const MyProfile = ()=> {
 
@@ -125,6 +115,7 @@ const MyProfile = ()=> {
                             defaultValue=""
                             variant="outlined"
                         />
+                       
                     </div>
                 ) || 
 
@@ -132,18 +123,17 @@ const MyProfile = ()=> {
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}> 
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk } onClick={()=> {setpermit1(false)}}>Cancel</h4 >
                         <br></br>
-                        <ThemeProvider theme={theme}>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}
-                                margin= {state.mobileView ? "dense" : ""}   
-                                label="Enter Full Name"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                            <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
-                                Save
-                            </Button>
-                        </ThemeProvider>                          
+                        <TextField
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}
+                            margin= {state.mobileView ? "dense" : ""}   
+                            label="Enter Full Name"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                            Save
+                        </Button>
+                                         
                     </div>
                 )
             } 
@@ -172,18 +162,17 @@ const MyProfile = ()=> {
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(false)}}>Cancel</h4 >
                         <br></br>
-                        <ThemeProvider theme={theme}>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}  
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="Enter Email"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
-                                Save
-                            </Button>
-                        </ThemeProvider>                          
+                        <TextField
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}  
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="Enter Email"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                            Save
+                        </Button>
+                                       
                     </div>
                 )
             }
@@ -211,18 +200,16 @@ const MyProfile = ()=> {
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit4(false)}}>Cancel</h4 >
                         <br></br>
-                        <ThemeProvider theme={theme}>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}    
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="Enter Mobile Number"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
-                                Save
-                            </Button>
-                        </ThemeProvider>                          
+                        <TextField
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}    
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="Enter Mobile Number"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                            Save
+                        </Button>                  
                     </div>
                 )
             }
@@ -249,19 +236,17 @@ const MyProfile = ()=> {
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(false)}}>Cancel</h4 >
                         <br></br>
-                        <ThemeProvider theme={theme}>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="Enter Address"
-                                multiline
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
-                                Save
-                            </Button>
-                        </ThemeProvider>                          
+                        <TextField
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="Enter Address"
+                            multiline
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                            Save
+                        </Button>                         
                     </div>
                 )
             }

@@ -15,15 +15,29 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
+import {mobileView, fetchingCategories, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
 import {AppContext} from './AppContext';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#218a21'
+    },
+    secondary: {
+      main: '#e02f93'
+    }
+  }
+});
+
 const App= ()=> {
 
   const {state,dispatch}= useContext(AppContext);
+
 
   console.log(state);
 
@@ -38,29 +52,33 @@ const App= ()=> {
     console.log(screenWidth);
     dispatch(await fetchProducts());
     dispatch(fetchCategories());
+    dispatch(await fetchingCategories());
     dispatch(await fetchUsers());
   },[screenWidth]);
+
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
 
   return (
-    <div className="App" style={{backgroundColor: '#f0f5f1'}}>
-      <Router>
-        <Navbar />
-        {
-          screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
-        }
-        <Switch>
-            <Route path="/"  exact component= {Home} />
-            <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
-            <Route path="/product/:id"  exact component= {ProductDetails} />
-            <Route path="/cart"  exact component= {Cart} />
-            <Route path="/profile"  exact component= {MyProfile} />
-            <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout />} />
-        </Switch>
-        <Footer />
-      </Router>  
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App" style={{backgroundColor: '#f0f5f1'}}>
+        <Router>
+          <Navbar />
+          {
+            screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
+          }
+          <Switch>
+              <Route path="/"  exact component= {Home} />
+              <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
+              <Route path="/product/:id"  exact component= {ProductDetails} />
+              <Route path="/cart"  exact component= {Cart} />
+              <Route path="/profile"  exact component= {MyProfile} />
+              <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout />} />
+          </Switch>
+          <Footer />
+        </Router>  
+      </div>
+    </ThemeProvider>
   );
 }
 
