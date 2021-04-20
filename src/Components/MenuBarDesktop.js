@@ -117,7 +117,7 @@ const MenuBar = ()=>  {
                         </span>
                     )
                 }
-                { console.log(category.subCategories)}
+                {/* { console.log(category.subCategories)} */}
                 {
                     category.subCategories?(
                         <ul>

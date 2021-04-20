@@ -24,7 +24,6 @@ const Carousel= ()=> {
         };
     },[]);
 
-    console.log(index);
 
     return (
         <div>
