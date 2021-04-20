@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import PasswordAlert from '../Components/User/PasswordAlert';
 import {AppContext} from "../AppContext";
-import {cartValue,addCartItem} from '../actions/actions';
 
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
