@@ -15,7 +15,7 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, fetchingCategories, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
+import {mobileView, fetchProductsAll, fetchingCategories, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
 import {AppContext} from './AppContext';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -53,7 +53,7 @@ const App= ()=> {
     dispatch(fetchCategories());
     dispatch(await fetchUsers());
     dispatch(await fetchingCategories());
-    dispatch(await fetchProducts(["607504e75644b23c546be999","607d98d583aa3d1988f79d4f"]));
+    dispatch(await fetchProducts());
   },[screenWidth]);
 
 

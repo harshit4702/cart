@@ -6,8 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 
 import {AppContext} from '../AppContext';
-import { filteredCategories, filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
-import { FormatColorResetRounded } from '@material-ui/icons';
+import { filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
 
 const useStyles = makeStyles({
 });
@@ -114,7 +113,7 @@ const Filter= ()=> {
     const data = state.categories;
 
     return (
-        <Paper style={{padding:'2vh',textAlign:'left'}}>
+        <Paper style={{padding:'2vh',textAlign:'left',width:state.mobileView?'100vw':'auto'}}>
             <h5>Filter</h5><hr/>
             <Grid container direction direction="column">
                 <Grid item>

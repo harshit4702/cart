@@ -52,12 +52,20 @@ export const fetchingCategories = async()=> {
 };
 
 
-export const fetchProducts = async(search)=> {
+export const fetchFilteredProducts = async(search)=> {
     const params= {
         search: search
     }
 
-    const response= await axios.get(`/product`,{params:params});
+    const response= await axios.get(`/product/filter`,{params:params});
+    return {
+        type: "fetchFilteredProducts", 
+        payload: response.data
+    };
+};
+
+export const fetchProducts = async()=> {
+    const response= await axios.get(`/product`);
     return {
         type: "fetchProducts", 
         payload: response.data
