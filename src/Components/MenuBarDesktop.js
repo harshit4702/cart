@@ -116,7 +116,7 @@ const MenuBar = ()=>  {
                         </span>
                     )
                 }
-                { console.log(category.children)}
+
                 {
                     category.children?(
                         <ul>

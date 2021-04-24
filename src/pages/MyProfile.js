@@ -3,13 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-
+import PasswordAlert from '../Components/User/PasswordAlert';
 import {AppContext} from "../AppContext";
-import {cartValue,addCartItem} from '../actions/actions';
 
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import { blue,pink,green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
     ppr_desk: {
@@ -34,13 +32,13 @@ const useStyles = makeStyles({
         marginLeft: '8vw'
     },
     start_mobile: {
-        marginLeft: '-3vw'
+        marginLeft: '-4vw'
     },
     txt_desk: {
         display: 'inline-block',
         cursor: 'pointer',
         color: '#009933',
-        marginLeft: '12.5vw',
+        marginLeft: '10.5vw',
         padding: '1vw'
     },
     txt_mobile: {
@@ -79,12 +77,8 @@ const useStyles = makeStyles({
     },
     field_desk: {
         width: '25vw',
-    },
-    theme: {
-        borderColor: '#009933'
     }
 });
-
 
 const MyProfile = ()=> {
 
@@ -94,6 +88,15 @@ const MyProfile = ()=> {
     const [permit2,setpermit2]= useState(false);
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
+    const [editalert, setEditAlert] = useState(false);
+
+    const handleAlertClickOpen = () => {
+        setEditAlert(true);
+    };
+  
+    const handleAlertClose = () => {
+        setEditAlert(false);
+    };
 
     const {state,dispatch}= useContext(AppContext);
 
@@ -145,6 +148,7 @@ const MyProfile = ()=> {
                 !permit2 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(true)}}>Edit</h4 >
+                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
                         <TextField
                             disabled
@@ -161,21 +165,22 @@ const MyProfile = ()=> {
                 permit2 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(false)}}>Cancel</h4 >
+                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
-                        <TextField
-                            className={state.mobileView ? classes.field_mobile : classes.field_desk}  
-                            margin= {state.mobileView ? "dense" : ""}      
-                            label="Enter Email"
-                            variant="outlined"
-                            id="mui-theme-provider-outlined-input"
-                        />
-                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
-                            Save
-                        </Button>
-                                       
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}  
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="Enter Email"
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                                Save
+                            </Button>
                     </div>
                 )
             }
+            <PasswordAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} editalert={editalert} />   
             
             <br></br>
             <h3 className={state.mobileView ? classes.start_mobile : classes.start_desk}>Mobile Number</h3>
@@ -237,16 +242,42 @@ const MyProfile = ()=> {
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(false)}}>Cancel</h4 >
                         <br></br>
                         <TextField
-                            className={state.mobileView ? classes.field_mobile : classes.field_desk}       
-                            margin= {state.mobileView ? "dense" : ""}      
-                            label="Enter Address"
-                            multiline
-                            variant="outlined"
-                            id="mui-theme-provider-outlined-input"
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="House No. / Colony"
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="Locality/Landmark"
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                                margin= {state.mobileView ? "dense" : ""}      
+                                label="City Name"
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
+                            />
+                            <br></br>
+                            <br></br>
+                            <TextField
+                                className={state.mobileView ? classes.field_mobile : classes.field_desk}
+                                margin= {state.mobileView ? "dense" : ""}   
+                                label="Enter Pincode"
+                                variant="outlined"
+                                id="mui-theme-provider-outlined-input"
                         />
                         <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
                             Save
-                        </Button>                         
+                        </Button>
                     </div>
                 )
             }
