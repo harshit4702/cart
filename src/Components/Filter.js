@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 
 import {AppContext} from '../AppContext';
+import { filteredCategories, filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
+import { FormatColorResetRounded } from '@material-ui/icons';
 
 const useStyles = makeStyles({
 });
@@ -44,21 +46,44 @@ const Filter= ()=> {
         
         if(checkBoxCategories && state.categories){
             var z={};
-            var flag= true;
+            var flag= false;
+            var subCategoryIds=[];
             Object.values(state.categories).map((item)=>{
                 if(checkBoxCategories[item._id]){
-                    item.subCategories.map((subItem)=>{
-                        z= {...z,[subItem._id] : flag}
-                        flag=false;
+                    flag=true;
+                    item.children.map((subItem)=>{
+                        z= {...z,[subItem._id] : false}
+                        console.log(subItem._id)
+                        subCategoryIds.push(subItem._id);
                     })
                 }
             });
             console.log(checkBoxCategories);
+            dispatch(filteredCategoryPresent(flag));
             setCheckBoxSubCategories(z);
             setChecker(true);
         }
 
     },[checkBoxCategories]);
+
+    useEffect(async()=>{
+        if(checkBoxCategories && state.categories){
+            var storeAllSubCategoryIds=[];
+            var subCategoryIds=[];
+            for await (var [key,value] of Object.entries(checkBoxSubCategories)) {
+                if(value==true)
+                    subCategoryIds.push(key);
+    
+                storeAllSubCategoryIds.push(key);
+            }
+
+            if(subCategoryIds.length==0)
+                dispatch(filteredSubCategories(storeAllSubCategoryIds));
+            else
+                dispatch(filteredSubCategories(subCategoryIds));
+        }
+
+    },[checkBoxSubCategories]);
 
     console.log(checkBoxCategories);
     console.log(checkBoxSubCategories);
@@ -75,6 +100,7 @@ const Filter= ()=> {
 
     const handleChangeSubCategories = (event) => {
         setCheckBoxSubCategories({ ...checkBoxSubCategories, [event.target.name]: event.target.checked });
+        dispatch(filteredSubCategories(checkBoxSubCategories));
     };
 
     if(!checkBoxCategories || !state.categories || !checkBoxSubCategories || !checker)
@@ -86,7 +112,6 @@ const Filter= ()=> {
 
     
     const data = state.categories;
-    
 
     return (
         <Paper style={{padding:'2vh',textAlign:'left'}}>
@@ -96,8 +121,8 @@ const Filter= ()=> {
                     <p>Categories</p>
                     <Grid container spacing={1} style={{height:state.mobileView?'20vh':'20vh',overflowY:'auto',marginBottom:'2vh'}}>
                         {
-                            Object.values(data).map((ob)=>(
-                                <Grid item >
+                            Object.values(data).map((ob, key)=>(
+                                <Grid item  key={key}>
                                     <Checkbox
                                         checked={checkBoxCategories[ob._id]}
                                         onChange={handleChangeCategories}
@@ -119,8 +144,8 @@ const Filter= ()=> {
                         {
                             Object.values(data).map((z)=>{
                                 if(checkBoxCategories[z._id]){
-                                    return z.subCategories.map((ob)=>(
-                                        <Grid item >
+                                    return z.children.map((ob,key)=>(
+                                        <Grid item key={key}>
                                             <Checkbox
                                                 checked={checkBoxSubCategories[ob._id]}
                                                 onChange={handleChangeSubCategories}
@@ -146,9 +171,8 @@ const Filter= ()=> {
                         value="ascending"
                         name="name"
                         color="primary"
-                        inputProps={{ 'aria-label': 'A-Z' }}
                     />
-                    <label for="A-Z">A-Z</label>
+                    <label>A-Z</label>
 
                     <Radio
                         checked={selectedValue.name === 'descending'}
@@ -156,9 +180,8 @@ const Filter= ()=> {
                         value="descending"
                         name="name"
                         color="primary"
-                        inputProps={{ 'aria-label': 'Z-A' }}
                     />
-                    <label for="Z-A">Z-A</label>
+                    <label>Z-A</label>
                     <hr/>
                 </Grid>
 
@@ -171,9 +194,8 @@ const Filter= ()=> {
                         value="ascending"
                         name="price"
                         color="primary"
-                        inputProps={{ 'aria-label': 'low' }}
                     />
-                    <label for="low">Low to High</label>
+                    <label>Low to High</label>
 
                     <Radio
                         checked={selectedValue.price === 'descending'}
@@ -181,9 +203,8 @@ const Filter= ()=> {
                         value="descending"
                         name="price"
                         color="primary"
-                        inputProps={{ 'aria-label': 'high' }}
                     />
-                    <label for="high">High to Low</label>
+                    <label>High to Low</label>
                 </Grid>
             </Grid>   
 

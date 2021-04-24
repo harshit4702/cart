@@ -9,7 +9,7 @@ import {AppContextProvider} from './AppContext';
 const RootComponent = ()=>{
     return (
       <React.StrictMode>
-        <AppContextProvider>
+        <AppContextProvider>   
             <App />
         </AppContextProvider>
       </React.StrictMode>

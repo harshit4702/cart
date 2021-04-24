@@ -99,7 +99,7 @@ const MenuBar = ()=>  {
                         </Link>
                     ):(
                         <span onMouseOver={()=>setUpArrow(true)} onMouseOut={()=>setUpArrow(false)}>
-                            <img src={category.link} className={classes.image} />
+                            <img src={`/category/photos/${category._id}/0`} className={classes.image} />
                             <br/>
                             {category.name }
                             {
@@ -117,17 +117,16 @@ const MenuBar = ()=>  {
                         </span>
                     )
                 }
-                { console.log(category.subCategories)}
+                { console.log(category.children)}
                 {
-                    category.subCategories?(
+                    category.children?(
                         <ul>
-                            {renderCategories(category.subCategories,false)}
+                            {renderCategories(category.children,false)}
                         </ul>
                     ): null
                 }
             </li>
         )
-
     }
 
     const renderCategories= (categories,flag)=>{
@@ -149,7 +148,7 @@ const MenuBar = ()=>  {
     return (
         <div className={classes.menuHeader}>
             {
-                data[0].subCategories ?(
+                data[0].children ?(
                     <ul>
                         {renderCategories(data,true)}
                     </ul>
