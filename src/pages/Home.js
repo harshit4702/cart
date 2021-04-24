@@ -6,6 +6,7 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import shuffle from 'shuffle-array';
 
 import ProductsList from './ProductsList';
 
@@ -65,7 +66,7 @@ const Home= ()=> {
                   <hr/>
                   <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
                     <ScrollMenu
-                      data={Object.values(state.products).map((product, index) => (
+                      data={shuffle.pick(Object.values(state.products) , {'picks': 7 }).map((product, index) => (
                         <Link to={`/product/${product._id}`} key={index}> 
                           <MediaCard  product={product}/>
                         </Link>
@@ -99,7 +100,7 @@ const Home= ()=> {
                   <hr/>
                   <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
                     <ScrollMenu
-                      data={Object.values(state.products).map((product, index) => (
+                      data={shuffle.pick(Object.values(state.products) , {'picks': 7 }).map((product, index) => (
                         <Link to={`/product/${product._id}`} key={index}> 
                           <MediaCard  product={product}/>
                         </Link>
