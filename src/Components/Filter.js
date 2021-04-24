@@ -64,6 +64,7 @@ const Filter= ()=> {
         }
 
     },[checkBoxCategories]);
+    
 
     useEffect(async()=>{
         if(checkBoxCategories && state.categories){
@@ -109,7 +110,6 @@ const Filter= ()=> {
             </div>
         );
 
-    
     const data = state.categories;
 
     return (
