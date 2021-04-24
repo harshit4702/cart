@@ -20,7 +20,10 @@ const initialState= {
         subCategories:[],
         name: null,
         price: null
-    }
+    },
+    filteredCategories: {},
+    filteredSubCategories:[],
+    isFilteredCategoryPresent: false
 }
 
 const reducer = (state, action)=>{
@@ -30,10 +33,17 @@ const reducer = (state, action)=>{
             return {...state, mobileView: action.payload};
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
+        case "isFilteredCategoryPresent":
+            console.log(action.payload)
+            return {...state, isFilteredCategoryPresent: action.payload};
         case "fetchingCategories":
-            return {...state, cat: action.payload};
+            return {...state, categories:_.mapKeys(action.payload,'_id')}
+        case "fetchFilteredCategories":
+            return {...state, filteredCategories: action.payload};
+        case "fetchFilteredSubCategories":
+            return {...state, filteredSubCategories: action.payload};
         case "fetchCategories":
-            return {...state, categories: _.mapKeys(action.payload,'_id')};
+            return {...state, cat: _.mapKeys(action.payload,'_id')};
         case "fetchProducts":
             return {...state, products: _.mapKeys(action.payload,'_id')};
         case "fetchUsers":

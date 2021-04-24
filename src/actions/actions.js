@@ -9,6 +9,7 @@ export const mobileView= (flag)=>{
         payload:flag
     }
 }
+
 export const auth = (user,flag)=>{
     console.log(user);
     return {
@@ -51,8 +52,12 @@ export const fetchingCategories = async()=> {
 };
 
 
-export const fetchProducts = async()=> {
-    const response= await axios.get('/product');
+export const fetchProducts = async(search)=> {
+    const params= {
+        search: search
+    }
+
+    const response= await axios.get(`/product`,{params:params});
     return {
         type: "fetchProducts", 
         payload: response.data
@@ -64,6 +69,28 @@ export const fetchUsers = async()=> {
     return {
         type: "fetchUsers", 
         payload: response.data
+    };
+};
+
+export const filteredCategories = (data)=> {
+    console.log(data);
+    return {
+        type: "fetchFilteredCategories", 
+        payload: data
+    };
+};
+export const filteredSubCategories = (data)=> {
+    console.log(data);
+    return {
+        type: "fetchFilteredSubCategories", 
+        payload: data
+    };
+};
+
+export const filteredCategoryPresent = (flag)=> {
+    return {
+        type: "isFilteredCategoryPresent", 
+        payload: flag
     };
 };
 
@@ -86,6 +113,7 @@ export const fetchCartItem = async (id) => {
 
 export const addCartItem= async(cartId,formValues)=>{
     const response= await axios.post(`/cart/${cartId}`, formValues);
+
     console.log(response.data);
     return {
         type: 'addCartItem',

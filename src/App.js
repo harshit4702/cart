@@ -50,10 +50,10 @@ const App= ()=> {
     else
       dispatch(mobileView(true));
     console.log(screenWidth);
-    dispatch(await fetchProducts());
     dispatch(fetchCategories());
-    dispatch(await fetchingCategories());
     dispatch(await fetchUsers());
+    dispatch(await fetchingCategories());
+    dispatch(await fetchProducts(["607504e75644b23c546be999","607d98d583aa3d1988f79d4f"]));
   },[screenWidth]);
 
 
@@ -69,7 +69,7 @@ const App= ()=> {
           }
           <Switch>
               <Route path="/"  exact component= {Home} />
-              <Route path="/category/:id"  exact component= {()=><ProductsList list={state.products} />} />
+              <Route path="/category/:id"  exact component= {ProductsList} />
               <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/cart"  exact component= {Cart} />
               <Route path="/profile"  exact component= {MyProfile} />
