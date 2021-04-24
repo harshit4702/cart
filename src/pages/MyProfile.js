@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import PasswordAlert from '../Components/User/PasswordAlert';
 import {AppContext} from "../AppContext";
-
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 
@@ -81,14 +80,27 @@ const useStyles = makeStyles({
 });
 
 const MyProfile = ()=> {
-
+    const {state,dispatch}= useContext(AppContext);
     const classes = useStyles();
-
     const [permit1,setpermit1]= useState(false);
     const [permit2,setpermit2]= useState(false);
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
     const [editalert, setEditAlert] = useState(false);
+
+    const [values, setValues] = useState({
+        name: state.auth.user.name,
+        email: state.auth.user.email,
+        contact: state.auth.user.contact,
+        colony: '',
+        locality: '',
+        city: '',
+        pincode: 0
+    });
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     const handleAlertClickOpen = () => {
         setEditAlert(true);
@@ -98,8 +110,6 @@ const MyProfile = ()=> {
         setEditAlert(false);
     };
 
-    const {state,dispatch}= useContext(AppContext);
-
     return (
         <Paper className={state.mobileView ? classes.ppr_mobile : classes.ppr_desk} >
             <h2>Personal Information</h2>
@@ -107,7 +117,7 @@ const MyProfile = ()=> {
             {
                 !permit1 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit1(true)}}>Edit</h4 >
+                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit1(true)}}>Add / Edit</h4 >
                         <br></br>
                         <TextField
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
@@ -118,7 +128,6 @@ const MyProfile = ()=> {
                             defaultValue=""
                             variant="outlined"
                         />
-                       
                     </div>
                 ) || 
 
@@ -127,16 +136,17 @@ const MyProfile = ()=> {
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk } onClick={()=> {setpermit1(false)}}>Cancel</h4 >
                         <br></br>
                         <TextField
+                            value={values.name} 
+                            onChange={handleChange('name')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}
                             margin= {state.mobileView ? "dense" : ""}   
                             label="Enter Full Name"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
                         />
-                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} onClick={()=> {setpermit1(false)}} variant="contained" color="primary" >
                             Save
                         </Button>
-                                         
                     </div>
                 )
             } 
@@ -155,7 +165,7 @@ const MyProfile = ()=> {
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
                             margin= {state.mobileView ? "dense" : ""} 
                             id="outlined-disabled"
-                            label=""
+                            value={state.auth.user.email}
                             defaultValue=""
                             variant="outlined"
                         />
@@ -168,9 +178,12 @@ const MyProfile = ()=> {
                         <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
                             <TextField
+                                value={values.email} 
+                                type="email"
+                                onChange={handleChange('email')}
                                 className={state.mobileView ? classes.field_mobile : classes.field_desk}  
                                 margin= {state.mobileView ? "dense" : ""}      
-                                label="Enter Email"
+                                label=""
                                 variant="outlined"
                                 id="mui-theme-provider-outlined-input"
                             />
@@ -206,6 +219,8 @@ const MyProfile = ()=> {
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit4(false)}}>Cancel</h4 >
                         <br></br>
                         <TextField
+                            value={values.contact} 
+                            onChange={handleChange('contact')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}    
                             margin= {state.mobileView ? "dense" : ""}      
                             label="Enter Mobile Number"
@@ -235,45 +250,53 @@ const MyProfile = ()=> {
                             variant="outlined"
                         />
                     </div>
-                ) || 
+                ) ||
 
                 permit3 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(false)}}>Cancel</h4 >
                         <br></br>
                         <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="House No. / Colony"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                            <br></br>
-                            <br></br>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="Locality/Landmark"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                            <br></br>
-                            <br></br>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}       
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label="City Name"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                            <br></br>
-                            <br></br>
-                            <TextField
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}
-                                margin= {state.mobileView ? "dense" : ""}   
-                                label="Enter Pincode"
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
+                            value={values.colony} 
+                            onChange={handleChange('colony')}
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="House No. / Colony"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <br></br>
+                        <br></br>
+                        <TextField
+                            value={values.locality} 
+                            onChange={handleChange('locality')}
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="Locality/Landmark"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <br></br>
+                        <br></br>
+                        <TextField
+                            value={values.city} 
+                            onChange={handleChange('city')}
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}       
+                            margin= {state.mobileView ? "dense" : ""}      
+                            label="City Name"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
+                        />
+                        <br></br>
+                        <br></br>
+                        <TextField
+                            value={values.pincode} 
+                            onChange={handleChange('pincode')}
+                            className={state.mobileView ? classes.field_mobile : classes.field_desk}
+                            margin= {state.mobileView ? "dense" : ""}   
+                            label="Enter Pincode"
+                            variant="outlined"
+                            id="mui-theme-provider-outlined-input"
                         />
                         <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
                             Save
@@ -300,7 +323,6 @@ const MyProfile = ()=> {
         </Paper>
     );
 }
-
 
 export default MyProfile;
 
