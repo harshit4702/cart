@@ -20,6 +20,7 @@ const initialState= {
     },
     filteredCategories: {},
     filteredSubCategories:[],
+    filteredProducts: [],
     isFilteredCategoryPresent: false
 }
 
@@ -45,6 +46,8 @@ const reducer = (state, action)=>{
             return {...state, cat: _.mapKeys(action.payload,'_id')};
         case "fetchProducts":
             return {...state, products: _.mapKeys(action.payload,'_id')};
+        case "fetchFilteredProducts":
+            return {...state, filteredProducts: _.mapKeys(action.payload,'_id')};
         case "fetchUsers":
             return {...state, users: _.mapKeys(action.payload,'email')};
         case "setCartValue":
