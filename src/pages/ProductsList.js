@@ -6,8 +6,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {AppContext} from '../AppContext';
 import Card from '../Components/Card';
 import Filter from '../Components/Filter';
-import { fetchFilteredProducts, filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
 import { makeStyles } from '@material-ui/core';
+
+import axios from '../axios';
+
 
 const useStyles = makeStyles((theme) => ({
     loading_desktop:{
@@ -27,23 +29,44 @@ const ProductsList= ()=> {
 
     const [loadingComplete,setLoadingComplete]= useState(true);
 
+    const [data,setData]= useState(null)
+
     useEffect(()=>{
 
         const fetchProd= async()=>{
             setLoadingComplete(false);
+            var querySorting=null;
+            var filter= state.filter.name
+            var response;
+
+            if(filter){
+                if(filter=="ascendingName")
+                    querySorting={'name':1};
+                else if(filter=="descendingName")
+                    querySorting={'name':-1};
+                else if(filter=="ascendingPrice")
+                    querySorting={'price':1};
+                else if(filter=="descendingPrice")
+                    querySorting={'price':-1};
+            }
+
             if(state.isFilteredCategoryPresent)
-                dispatch(await fetchFilteredProducts(state.filteredSubCategories))
+                response= await axios.get(`/product/filter`,{params:{search: state.filteredSubCategories,sorting: querySorting}});
             else
-                dispatch(await fetchFilteredProducts("all"));
+                response= await axios.get(`/product/filter`,{params:{search: "all",sorting: querySorting}});
+
+            setData(response.data);
+
             setLoadingComplete(true);
         }
 
         fetchProd();
 
         
-    },[state.filteredSubCategories]);
+    },[state.filteredSubCategories,state.filter.name]);
 
-    if(!state.filteredProducts ||  !state.filteredSubCategories)
+    if(!state.filteredSubCategories)
+
         return (
             <div style={{margin:'15vh'}}>
                 Loading...
@@ -59,7 +82,8 @@ const ProductsList= ()=> {
                 <Grid container spacing={3}>
                     <br/>
                     {
-                        loadingComplete && Object.values(state.filteredProducts).map((item,index)=>{
+                        data && loadingComplete && data.map((item,index)=>{
+
                             return (
                                 <Grid item  key={index} >
                                     <Link to={`/product/${item._id}`}>
@@ -69,7 +93,8 @@ const ProductsList= ()=> {
                             );
                         })||
 
-                        !loadingComplete && (
+                        !data || !loadingComplete && (
+
                             <div className={state.mobileView?classes.loading_mobile: classes.loading_desktop}>
                                 <CircularProgress />
                                     Loading...

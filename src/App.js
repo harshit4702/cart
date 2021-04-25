@@ -50,10 +50,10 @@ const App= ()=> {
     else
       dispatch(mobileView(true));
     console.log(screenWidth);
-    dispatch(fetchCategories());
-    dispatch(await fetchUsers());
-    dispatch(await fetchingCategories());
     dispatch(await fetchProducts());
+    dispatch(await fetchingCategories());
+    dispatch(await fetchUsers());
+    dispatch(fetchCategories());
   },[screenWidth]);
 
 

@@ -2,11 +2,13 @@ import React,{useContext, useState,useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
+import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import {Link,useHistory} from 'react-router-dom';
 
 import {AppContext} from '../AppContext';
 import CartItem from '../Components/CartItem';
-import { stubTrue } from 'lodash-es';
+
 
 const Cart= ()=> {
 
@@ -33,17 +35,26 @@ const Cart= ()=> {
     const len = Object.values(state.cart).length; 
 
     const cartMenu= ()=>{
-        if(amount==0)
+
+        if(!state.auth.isSignedIn)
             return (
-                <Grid container spacing={3}>
+                <Grid container spacing={3} justify="center" >
                     <Grid item>
-                        Logo
-                    </Grid>
-                    <Grid item>
-                        Card is Empty
+                        <h1>Sign In before using cart</h1>
+                        <VpnKeyOutlinedIcon style={{fontSize:state.mobileView?"20vw":"135px"}}/>
                     </Grid>
                 </Grid>
-        )
+            );
+
+        if(amount==0)
+            return (
+                <Grid container spacing={3} justify="center" >
+                    <Grid item>
+                        <h1>Cart is Empty</h1>
+                        <RemoveShoppingCartOutlinedIcon style={{fontSize:state.mobileView?"20vw":"135px"}}/>
+                    </Grid>
+                </Grid>
+            )
 
         return (
             Object.values(state.cart).map((ob,index)=>{
@@ -58,7 +69,7 @@ const Cart= ()=> {
         <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:'10vw',marginRight:'10vw'}}>
             <Grid container spacing={2}>
                 <Grid item sm={8}>
-                    <Paper elevation={1}>
+                    <Paper elevation={1} style={{width:state.mobileView?'80vw':''}} >
                         MyCart
                         <hr/>
                         {cartMenu()}

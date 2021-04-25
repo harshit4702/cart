@@ -93,7 +93,7 @@ const MenuBar = ()=>  {
             <li>
                 {
                     !flag?(
-                        <Link to={category.price?`/product/${category._id}`:category.name}>
+                        <Link to={category.price?`/product/${category._id}`:''}>
                             {category.name }{console.log(category.price)}
                         </Link>
                     ):(
