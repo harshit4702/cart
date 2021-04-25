@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 
 import {AppContext} from '../AppContext';
-import { filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
+import { setFilter,filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
 
 const useStyles = makeStyles({
 });
@@ -24,8 +24,7 @@ const Filter= ()=> {
     const [checkBoxSubCategories, setCheckBoxSubCategories] = useState(null);
 
     const [selectedValue, setSelectedValue] = useState({
-        name: 'ascending',
-        price: 'ascending'
+        name: null
     });
 
     useEffect(()=>{
@@ -85,12 +84,18 @@ const Filter= ()=> {
 
     },[checkBoxSubCategories]);
 
+    useEffect(()=>{
+        console.log(selectedValue);
+        dispatch(setFilter(selectedValue));
+        
+    },[selectedValue]);
+
     console.log(checkBoxCategories);
     console.log(checkBoxSubCategories);
 
     const handleChange = (event) => {
       setSelectedValue({...selectedValue, [event.target.name]:event.target.value});
-      console.log(selectedValue);
+      console.log({ [event.target.name]:event.target.value});
     };
     
     const handleChangeCategories = (event) => {
@@ -106,11 +111,11 @@ const Filter= ()=> {
     if(!checkBoxCategories || !state.categories || !checkBoxSubCategories || !checker)
         return (
             <div style={{margin:'15vh'}}>
-                Loading...
+               
             </div>
         );
 
-    const data = state.categories;
+    var data= Object.values(state.categories);
 
     return (
         <Paper style={{padding:'2vh',textAlign:'left',width:state.mobileView?'100vw':'auto'}}>
@@ -120,7 +125,7 @@ const Filter= ()=> {
                     <p>Categories</p>
                     <Grid container spacing={1} style={{height:state.mobileView?'20vh':'20vh',overflowY:'auto',marginBottom:'2vh'}}>
                         {
-                            Object.values(data).map((ob, key)=>(
+                            data && data.map((ob, key)=>(
                                 <Grid item  key={key}>
                                     <Checkbox
                                         checked={checkBoxCategories[ob._id]}
@@ -136,12 +141,11 @@ const Filter= ()=> {
                     <hr/>
                 </Grid>
 
-
                 <Grid item>
                     <p>Sub Categories</p>
                     <Grid container spacing={1} style={{height:state.mobileView?'20vh':'20vh',overflowY:'auto',marginBottom:'2vh'}}>
                         {
-                            Object.values(data).map((z)=>{
+                            data && data.map((z)=>{
                                 if(checkBoxCategories[z._id]){
                                     return z.children.map((ob,key)=>(
                                         <Grid item key={key}>
@@ -162,48 +166,63 @@ const Filter= ()=> {
                 </Grid>
                 
                 <Grid item>
+
+                    {
+                        selectedValue.name && (
+                            <div style={{cursor:'pointer'}} onClick={()=> setSelectedValue({name:null})}>
+                                Remove Filter
+                            </div>
+                        )
+                    }
+
+                    <br/>
+
                     <p>Name</p>
                     
                     <Radio
-                        checked={selectedValue.name === 'ascending'}
+                        checked={selectedValue.name === 'ascendingName'}
                         onChange={handleChange}
-                        value="ascending"
+                        value="ascendingName"
                         name="name"
                         color="primary"
                     />
                     <label>A-Z</label>
 
                     <Radio
-                        checked={selectedValue.name === 'descending'}
+                        checked={selectedValue.name === 'descendingName'}
                         onChange={handleChange}
-                        value="descending"
+                        value="descendingName"
                         name="name"
                         color="primary"
                     />
                     <label>Z-A</label>
-                    <hr/>
+                    <br/>
                 </Grid>
 
                 <Grid item>
+                    <br/>
                     <p>Price</p>
                     
                     <Radio
-                        checked={selectedValue.price === 'ascending'}
+                        checked={selectedValue.name === 'ascendingPrice'}
                         onChange={handleChange}
-                        value="ascending"
-                        name="price"
+                        value="ascendingPrice"
+                        name="name"
                         color="primary"
                     />
                     <label>Low to High</label>
 
                     <Radio
-                        checked={selectedValue.price === 'descending'}
+                        checked={selectedValue.name === 'descendingPrice'}
                         onChange={handleChange}
-                        value="descending"
-                        name="price"
+                        value="descendingPrice"
+                        name="name"
                         color="primary"
                     />
                     <label>High to Low</label>
+
+                    <br/>
+
                 </Grid>
             </Grid>   
 

@@ -28,7 +28,7 @@ export const cartValue= (value)=>{
     }
 }
 
-export const filter= (data)=>{
+export const setFilter= (data)=>{
     return {
         type: "setFilter",
         payload:data
@@ -47,19 +47,6 @@ export const fetchingCategories = async()=> {
     const response= await axios.get('/category');
     return {
         type: "fetchingCategories", 
-        payload: response.data
-    };
-};
-
-
-export const fetchFilteredProducts = async(search)=> {
-    const params= {
-        search: search
-    }
-
-    const response= await axios.get(`/product/filter`,{params:params});
-    return {
-        type: "fetchFilteredProducts", 
         payload: response.data
     };
 };

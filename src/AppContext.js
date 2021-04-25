@@ -16,14 +16,10 @@ const initialState= {
     categories:null,
     cat:[],
     filter:{
-        categories:[],
-        subCategories:[],
-        name: null,
-        price: null
+        name: null
     },
     filteredCategories: {},
     filteredSubCategories:[],
-    filteredProducts: [],
     isFilteredCategoryPresent: false
 }
 
@@ -34,6 +30,8 @@ const reducer = (state, action)=>{
             return {...state, mobileView: action.payload};
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
+        case "setFilter":
+            return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":
             console.log(action.payload)
             return {...state, isFilteredCategoryPresent: action.payload};
@@ -47,8 +45,6 @@ const reducer = (state, action)=>{
             return {...state, cat: _.mapKeys(action.payload,'_id')};
         case "fetchProducts":
             return {...state, products: _.mapKeys(action.payload,'_id')};
-        case "fetchFilteredProducts":
-            return {...state, filteredProducts: _.mapKeys(action.payload,'_id')};
         case "fetchUsers":
             return {...state, users: _.mapKeys(action.payload,'email')};
         case "setCartValue":
