@@ -28,13 +28,17 @@ const ProductDetails= ()=> {
 
     const [val,setVal]= useState(0);
 
+    const [loadComplete, setLoadComplete]= useState(true);
+
     useEffect(async()=>{
         if(state.cart[params.id])
             await setVal(state.cart[params.id].value);
     },[state.cart])
 
     const onClick= async()=>{
+        setLoadComplete(false);
         dispatch(await addCartItem(state.auth.user.cart,{productId:params.id,quantity:1}));
+        setLoadComplete(true);
     }
 
     if(!state.cart || !state.products)
@@ -51,24 +55,30 @@ const ProductDetails= ()=> {
                             <Grid item>
                                 <Image product={product}/>
                             </Grid>
-                            {
-                                state.auth.isSignedIn && (
-                                    <Grid item style={{marginLeft:state.mobileView?'5vw':'5vw'}}>
-                                        <Grid container spacing={3}>
-                                            <Grid item sm={6}>
-                                                <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={state.cart[params.id]?true:false} onClick={onClick}>
+                            <Grid item style={{marginLeft:state.mobileView?'5vw':'5vw'}}>
+                                <Grid container spacing={3}>
+                                    <Grid item sm={6}>
+                                        {
+                                            loadComplete && (
+                                                <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={state.cart[params.id]||!state.auth.isSignedIn?true:false} onClick={onClick}>
                                                     Add to Chart
                                                 </Button>
-                                            </Grid>
-                                            <Grid item sm={6}>
-                                                <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary">
-                                                    Buy Now
-                                                </Button>
-                                            </Grid>
-                                        </Grid>
+                                            )||
+
+                                            !loadComplete && (
+                                                <div>
+                                                    Adding to Cart...
+                                                </div>
+                                            )
+                                        }
                                     </Grid>
-                                )
-                            }
+                                    <Grid item sm={6}>
+                                        <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary"disabled={!state.auth.isSignedIn?true:false}>
+                                            Buy Now
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid item sm={5} style={{textAlign:'left',padding:'3vh'}}>

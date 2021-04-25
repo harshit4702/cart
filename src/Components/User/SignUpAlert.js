@@ -24,6 +24,8 @@ const SignUpAlert= (props)=> {
 
     const [showPassword, setShowPassword]= useState(false);
 
+    const [loadComplete,setLoadComplete]= useState(true);
+
     const onSubmit= async(e)=>{
         e.preventDefault();
         console.log(values);
@@ -35,14 +37,17 @@ const SignUpAlert= (props)=> {
         }
 
         try{
+            setLoadComplete(false);
             const response= await axios.post('/user/signUp',{email:values.email,password:values.password});
             setValidation(false);
             setValidationMessage('');
             alert('Congratulation... You have Registered to Shopping App');
             props.closeAlert();
+            setLoadComplete(true);
         }
         catch(err){
             setValidation(true);
+            setLoadComplete(true);
             setValidationMessage("User already Registered");
         }
     }
@@ -102,9 +107,19 @@ const SignUpAlert= (props)=> {
             <br></br>
             <br></br>
 
-            <Button type="submit" variant="contained" color="primary" >                
-                Sign Up
-            </Button>
+            {
+                loadComplete && (
+                    <Button type="submit" variant="contained" color="primary" >                
+                        Sign Up
+                    </Button>
+                )||
+
+                !loadComplete && (
+                    <div>
+                        Signing...
+                    </div>
+                )
+            }
         </form>
     );
 }

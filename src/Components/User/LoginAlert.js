@@ -20,6 +20,8 @@ const LoginAlert= (props)=>{
 
   const [validation, setValidation]= useState(false);
 
+  const [loadComplete,setLoadComplete]= useState(true);
+
   const [validationMessage, setValidationMessage]= useState("");
 
   const [showPassword, setShowPassword]= useState(false);
@@ -29,15 +31,18 @@ const LoginAlert= (props)=>{
     console.log(values);
 
     try{
+        setLoadComplete(false);
         const response= await axios.post('/user/login',{email:values.email,password:values.password});
         setValidation(false);
         setValidationMessage('');
         dispatch(await auth(response.data,true));
         dispatch(await fetchCartItem(response.data.cart));
         props.closeAlert();
+        setLoadComplete(true);
     }
     catch(err){
         setValidation(true);
+        setLoadComplete(true);
         setValidationMessage("Email or Password doesn't match");
     }
 }
@@ -89,9 +94,19 @@ const LoginAlert= (props)=>{
         </FormControl>
         <br></br>
         <br></br>
-        <Button type="submit" variant="contained" color="primary" >                
-            Sign In
-        </Button>
+        {
+          loadComplete && (
+            <Button type="submit" variant="contained" color="primary" >                
+                Sign In
+            </Button>
+          )||
+
+          !loadComplete && (
+            <div>
+              Logging in...
+            </div>
+          )
+      }
     </form>
   );
 }
