@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom:'10vh'
     }
 }));
-const ProductsList= ()=> {
+const ProductsList= ({selectedCategory})=> {
+
+    console.log(selectedCategory);
 
     const classes= useStyles();
 
@@ -76,7 +78,7 @@ const ProductsList= ()=> {
     return (
         <Grid container spacing={3} style={{marginTop:'1vh'}} justify="space-around">
             <Grid item lg={3} sm={12}>
-                <Filter />
+                <Filter selectedCategory={selectedCategory} />
             </Grid>
             <Grid item lg={9} sm={12}>
                 <Grid container spacing={3}>

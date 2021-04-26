@@ -41,7 +41,7 @@ const Cart= ()=> {
                 <Grid container spacing={3} justify="center" >
                     <Grid item>
                         <h1>Sign In before using cart</h1>
-                        <VpnKeyOutlinedIcon style={{fontSize:state.mobileView?"20vw":"135px"}}/>
+                        <VpnKeyOutlinedIcon style={{fontSize:state.mobileView?"20vw":"125px"}}/>
                     </Grid>
                 </Grid>
             );
@@ -51,7 +51,7 @@ const Cart= ()=> {
                 <Grid container spacing={3} justify="center" >
                     <Grid item>
                         <h1>Cart is Empty</h1>
-                        <RemoveShoppingCartOutlinedIcon style={{fontSize:state.mobileView?"20vw":"135px"}}/>
+                        <RemoveShoppingCartOutlinedIcon style={{fontSize:state.mobileView?"20vw":"125px"}}/>
                     </Grid>
                 </Grid>
             )
@@ -70,7 +70,7 @@ const Cart= ()=> {
             <Grid container spacing={2}>
                 <Grid item sm={8}>
                     <Paper elevation={1} style={{width:state.mobileView?'80vw':''}} >
-                        MyCart
+                        <h3 style={{fontFamily: `'IBM Plex Serif',serif`}}>My Cart</h3>
                         <hr/>
                         {cartMenu()}
                     </Paper>

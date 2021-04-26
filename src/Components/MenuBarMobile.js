@@ -62,11 +62,11 @@ const MenuBar = ()=>  {
                 data={data.map((category,index)=>{
                     return (
                         <ul key={index} style={{border:'none'}}> 
-                            <a href={category.link} target="_blank">
-                                <img src={category.link} className={classes.image} />
+                            <Link to={{pathname: "/showProducts",state: { selectedCategory: category._id}}}>
+                                <img src={`/category/photos/${category._id}/0`} className={classes.image} />
                                 <br/>
                                 {category.name}
-                            </a>
+                            </Link>
                         </ul>
                     )
                 })}

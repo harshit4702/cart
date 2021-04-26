@@ -59,7 +59,7 @@ const Home= ()=> {
               state.products &&  (
                 <>
                   <div style={{textAlign:'right',marginRight:'.5vw'}}>
-                    <Link to="/category/1">
+                    <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
                       <Button  variant="contained" color="primary">View All</Button>
                     </Link>
                   </div>
@@ -93,7 +93,7 @@ const Home= ()=> {
               state.products &&  (
                 <>
                   <div style={{textAlign:'right',marginRight:'.5vw'}}>
-                    <Link to="/category/1">
+                    <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}}>
                       <Button  variant="contained" color="primary">View All</Button>
                     </Link>
                   </div>
