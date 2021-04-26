@@ -10,8 +10,8 @@ import {AppContext} from '../AppContext';
 
 const useStyles = makeStyles({
   rootDesktop: {
-    width: '18vw',
-    height: '32vh',
+    width: '15vw',
+    height: '35vh',
     padding:'2px',
     margin:'1vh',
     textAlign:'center'
@@ -23,8 +23,8 @@ const useStyles = makeStyles({
     margin:'1vh'
   },
   cardDesktop:{
-    width:'18vw',
-    height:'22vh'
+    width:'15vw',
+    height:'24vh'
   },
   cardMobile:{
     width:'80vw',
@@ -58,7 +58,8 @@ export default function ImgMediaCard(props) {
                   {props.product.name}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
-                  {props.product.price}
+                    <b>Extra {props.product.discount} % off <br></br></b>
+                    ₹{props.product.price}
                   </Typography>
                 </CardContent>
               </CardActionArea>
