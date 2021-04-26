@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import shuffle from 'shuffle-array';
-
+import Box from '@material-ui/core/Box';
 import ProductsList from './ProductsList';
 
 import Carousel from '../Components/Carousel';
@@ -58,10 +58,17 @@ const Home= ()=> {
 
               state.products &&  (
                 <>
-                  <div style={{textAlign:'right',marginRight:'.5vw'}}>
-                    <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
-                      <Button  variant="contained" color="primary">View All</Button>
-                    </Link>
+                  <div style={{ width: '100%' }}>
+                    <Box display="flex"  bgcolor="background.paper">
+                      <Box p={1} flexGrow={1} style={{textAlign: 'left'}}>
+                        <h2 style={{fontFamily: `'IBM Plex Serif',serif`}}><strong>Best Selling</strong></h2>
+                      </Box>
+                      <Box style={{textAlign:'right',marginRight:'.5vw'}}>
+                          <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
+                            <Button  variant="contained" color="primary">View All</Button>
+                          </Link>
+                      </Box>
+                    </Box>
                   </div>
                   <hr/>
                   <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
@@ -92,10 +99,17 @@ const Home= ()=> {
 
               state.products &&  (
                 <>
-                  <div style={{textAlign:'right',marginRight:'.5vw'}}>
-                    <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}}>
-                      <Button  variant="contained" color="primary">View All</Button>
-                    </Link>
+                  <div style={{ width: '100%' }}>
+                    <Box display="flex"  bgcolor="background.paper">
+                      <Box p={1} flexGrow={1} style={{textAlign: 'left'}}>
+                        <h2 style={{fontFamily: `'IBM Plex Serif',serif`}}><strong>Famous One's</strong></h2>
+                      </Box>
+                      <Box style={{textAlign:'right',marginRight:'.5vw'}}>
+                          <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
+                            <Button  variant="contained" color="primary">View All</Button>
+                          </Link>
+                      </Box>
+                    </Box>
                   </div>
                   <hr/>
                   <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
