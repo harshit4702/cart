@@ -69,7 +69,7 @@ const App= ()=> {
           }
           <Switch>
               <Route path="/"  exact component= {Home} />
-              <Route path="/category/:id"  exact component= {ProductsList} />
+              <Route path="/showProducts"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
               <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/cart"  exact component= {Cart} />
               <Route path="/profile"  exact component= {MyProfile} />

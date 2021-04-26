@@ -11,7 +11,9 @@ import { setFilter,filteredSubCategories, filteredCategoryPresent } from '../act
 const useStyles = makeStyles({
 });
 
-const Filter= ()=> {
+const Filter= (props)=> {
+
+    console.log(props);
 
     const classes= useStyles();
 
@@ -32,7 +34,12 @@ const Filter= ()=> {
             var z={};
            var flag=true; 
             Object.values(state.categories).map((item)=>{
-                z= {...z,[item._id] : flag}
+                if(!props.selectedCategory && flag==true)
+                    z= {...z, [item._id] : true}
+                else if(props.selectedCategory==item._id)
+                    z= {...z,[item._id] : true}
+                else 
+                    z= {...z,[item._id] : false}
                 flag=false;
             });
             setCheckBoxCategories(z);
