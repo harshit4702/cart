@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core';
 
 import axios from '../axios';
 
+
 const useStyles = makeStyles((theme) => ({
     loading_desktop:{
         marginTop:'30vh',
@@ -57,6 +58,7 @@ const ProductsList= ({selectedCategory})=> {
                 response= await axios.get(`/product/filter`,{params:{search: "all",sorting: querySorting}});
 
             setData(response.data);
+
             setLoadingComplete(true);
         }
 
@@ -66,6 +68,7 @@ const ProductsList= ({selectedCategory})=> {
     },[state.filteredSubCategories,state.filter.name]);
 
     if(!state.filteredSubCategories)
+
         return (
             <div style={{margin:'15vh'}}>
                 Loading...
@@ -82,6 +85,7 @@ const ProductsList= ({selectedCategory})=> {
                     <br/>
                     {
                         data && loadingComplete && data.map((item,index)=>{
+
                             return (
                                 <Grid item  key={index} >
                                     <Link to={`/product/${item._id}`}>
@@ -92,6 +96,7 @@ const ProductsList= ({selectedCategory})=> {
                         })||
 
                         !data || !loadingComplete && (
+
                             <div className={state.mobileView?classes.loading_mobile: classes.loading_desktop}>
                                 <CircularProgress />
                                     Loading...

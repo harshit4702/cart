@@ -124,6 +124,7 @@ const Filter= (props)=> {
 
     var data= Object.values(state.categories);
 
+
     return (
         <Paper style={{padding:'2vh',textAlign:'left',width:state.mobileView?'100vw':'auto'}}>
             <h5>Filter</h5><hr/>
