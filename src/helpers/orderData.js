@@ -8,7 +8,7 @@ export const offerData=  ()=>{
                 _id:1,
                 email: 'arjitbhandari222830@gmail.com',
                 password: '123'
-            }
+            },
             name: 'Samsung Galaxy S4+ Gen 8 + GB Ram 1',
             src: [
                 'https://i.insider.com/5f512fae7ed0ee001e25d50c?width=1100&format=jpeg&auto=webp', 

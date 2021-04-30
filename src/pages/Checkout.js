@@ -7,7 +7,7 @@ import Radio from '@material-ui/core/Radio';
 import Alert from '@material-ui/lab/Alert';
 import CheckIcon from '@material-ui/icons/Check';
 
-import {addOrder} from "../actions/actions";
+import {addOrder, fetchCartItem} from "../actions/actions";
 
 import CheckoutItem from '../Components/CheckoutItem';
 
@@ -62,6 +62,7 @@ const Checkout= (props)=> {
         try{
             const response= await axios.post(`/order/${state.auth.user._id}`,formValues);
             dispatch(addOrder(response.data));
+            dispatch(await fetchCartItem(state.auth.user.cart));
             setOpenAlert(true);
         }
         catch(e){
