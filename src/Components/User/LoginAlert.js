@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Alert from '@material-ui/lab/Alert';
 
 import {AppContext} from '../../AppContext';
 import axios from '../../axios';
@@ -18,11 +19,7 @@ const LoginAlert= (props)=>{
 
   const {state,dispatch}= useContext(AppContext);
 
-  const [validation, setValidation]= useState(false);
-
   const [loadComplete,setLoadComplete]= useState(true);
-
-  const [validationMessage, setValidationMessage]= useState("");
 
   const [showPassword, setShowPassword]= useState(false);
 
@@ -33,17 +30,23 @@ const LoginAlert= (props)=>{
     try{
         setLoadComplete(false);
         const response= await axios.post('/user/login',{email:values.email,password:values.password});
-        setValidation(false);
-        setValidationMessage('');
+        props.setValidation({
+          exist: true,
+          type:'success',
+          message:'Congrats.. You are Logged In'
+        });
         dispatch(await auth(response.data,true));
         dispatch(await fetchCartItem(response.data.cart));
         props.closeAlert();
         setLoadComplete(true);
     }
     catch(err){
-        setValidation(true);
+        props.setValidation({
+          exist: true,
+          type:'error',
+          message:"Email or Password doesn't match"
+        });
         setLoadComplete(true);
-        setValidationMessage("Email or Password doesn't match");
     }
 }
   const [values, setValues] = useState({
@@ -65,11 +68,6 @@ const LoginAlert= (props)=>{
     
   return (
     <form onSubmit={onSubmit}>         
-        {
-          validation && (
-            <h6 style={{color:'red'}}>{validationMessage}</h6>
-          )
-        }
         <TextField id="standard-secondary" label="Enter Email" value={values.email} style={{width: '226px'}} onChange={handleChange('email')} name="email" type="email" color="primary"> </TextField><br></br>
         <br/>
         <FormControl className={clsx(props.myClasses.textField)}>

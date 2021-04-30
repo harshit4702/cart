@@ -21,6 +21,15 @@ export const auth = (user,flag)=>{
     }
 };
 
+export const addOrder = (order)=>{
+    return {
+        type: "addOrder",
+        payload: {
+            order
+        }
+    }
+};
+
 export const cartValue= (value)=>{
     return {
         type: "setCartValue",

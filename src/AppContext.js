@@ -31,6 +31,8 @@ const reducer = (state, action)=>{
             return {...state, mobileView: action.payload};
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
+        case "addOrder":
+            return {...state, auth:{...state.auth,user:{...state.auth.user,orders:[...state.auth.user.orders,action.payload.order]}}};
         case "setFilter":
             return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":

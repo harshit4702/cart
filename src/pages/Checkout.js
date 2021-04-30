@@ -3,12 +3,16 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
 import Radio from '@material-ui/core/Radio';
+import Alert from '@material-ui/lab/Alert';
+import CheckIcon from '@material-ui/icons/Check';
+
+import {addOrder, fetchCartItem} from "../actions/actions";
 
 import CheckoutItem from '../Components/CheckoutItem';
 
 import {AppContext} from '../AppContext';
+import axios from '../axios'
 
 const useStyles = makeStyles({
     paper:{
@@ -19,9 +23,6 @@ const useStyles = makeStyles({
         paddingTop:'1vh',
         fontFamily: `'IBM Plex Serif',serif`,
         fontSize:'30px'
-    },
-    radio:{
-        color:'green'
     }
 });
 
@@ -35,14 +36,38 @@ const Checkout= (props)=> {
 
     const [selectedValue, setSelectedValue] = useState(null);
 
+    const [openAlert, setOpenAlert] = useState(false);
+
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
       console.log(selectedValue);
     };
 
-    const onSubmit= (e)=>{
+    const onSubmit= async(e)=>{
         e.preventDefault();
-        console.log(selectedValue);
+        console.log(props.amount);
+
+        const formValues= {
+            emailOfUser: state.auth.user.email,
+            typeOfPayment: selectedValue,
+            amount: props.amount,
+            products: Object.values(state.cart).map((item)=>{
+                return {
+                    product: item._id,
+                    quantity: item.quantity
+                }
+            }) 
+        }
+
+        try{
+            const response= await axios.post(`/order/${state.auth.user._id}`,formValues);
+            dispatch(addOrder(response.data));
+            dispatch(await fetchCartItem(state.auth.user.cart));
+            setOpenAlert(true);
+        }
+        catch(e){
+            alert('Error in Order');
+        }
     }
 
     return (
@@ -93,10 +118,9 @@ const Checkout= (props)=> {
                         onChange={handleChange}
                         value="cash"
                         name="payment"
-                        color="green"
-                        inputProps={{ 'aria-label': 'Cash On Delivery' }}
+                        color="primary"
                     />
-                     <label for="Cash On Delivery">Cash on Delivery</label>
+                     <label>Cash on Delivery</label>
 
                     <Radio
                         className={classes.radio}
@@ -104,15 +128,24 @@ const Checkout= (props)=> {
                         onChange={handleChange}
                         value="online"
                         name="payment"
-                        color="green"
-                        inputProps={{ 'aria-label': 'Online Using Razorpay' }}
+                        color="primary"
                     />
-                     <label for="online">Online using Razorpay</label>
+                     <label>Online using Razorpay</label>
                      <br/>
 
-                    <Button disabled={!selectedValue?true:false} type="Submit" variant="contained" color="primary">
-                        Proceed
-                    </Button>
+                    {
+                        !openAlert && (
+                            <Button disabled={!selectedValue?true:false} type="Submit" variant="contained" color="primary">
+                                Proceed
+                            </Button>
+                        )||
+
+                        openAlert && (
+                            <Alert severity="success">
+                                Your order has been placed.
+                            </Alert>
+                        )
+                    }
                 </form>
                 <br/>
             

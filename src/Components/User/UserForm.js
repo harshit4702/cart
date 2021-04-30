@@ -8,6 +8,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Alert from '@material-ui/lab/Alert';
+
 import LoginAlert from './LoginAlert';
 import SignUpAlert from './SignUpAlert';
 
@@ -64,10 +66,21 @@ const UserForm= (props) =>{
     
     const [openLogin,setOpenLogin]= useState(true);
 
+    const [validation,setValidation]= useState({
+      exist: false,
+      type: null,
+      message: ''
+    });
+
 
     const closeAlert = () => {
         props.handleClose();
         setTimeout(()=> setOpenLogin(true) , 100);
+        setValidation({
+          exist: false,
+          type:null,
+          message:''
+        });
     };
     
     return (
@@ -78,13 +91,22 @@ const UserForm= (props) =>{
                 </DialogTitle>
         
                 <DialogContent dividers>
+
+                    {
+                      validation.exist && (
+                        <Alert severity={validation.type}>{validation.message}</Alert>
+                      )
+                    }
+
+                    <br/>
+
                     {
                         openLogin && (
-                            <LoginAlert type="Sign In" myClasses={myClasses} closeAlert={closeAlert}/>
+                            <LoginAlert type="Sign In" myClasses={myClasses} closeAlert={closeAlert} setValidation={setValidation}/>
                         ) || 
 
                         !openLogin && (
-                            <SignUpAlert type="Sign Up"  myClasses={myClasses} closeAlert={closeAlert} />
+                            <SignUpAlert type="Sign Up"  myClasses={myClasses} closeAlert={closeAlert} setOpenLogin={setOpenLogin} setValidation={setValidation} />
                         )
                     }
                 </DialogContent>
