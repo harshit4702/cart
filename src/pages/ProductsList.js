@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ProductsList= ({selectedCategory})=> {
 
-    console.log(selectedCategory);
-
     const classes= useStyles();
 
     const {state,dispatch}= useContext(AppContext);
@@ -81,14 +79,14 @@ const ProductsList= ({selectedCategory})=> {
                 <Filter selectedCategory={selectedCategory} />
             </Grid>
             <Grid item lg={9} sm={12}>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} justify={state.mobileView?'center':'flex-start'} >
                     <br/>
                     {
                         data && loadingComplete && data.map((item,index)=>{
 
                             return (
-                                <Grid item  key={index} >
-                                    <Link to={`/product/${item._id}`}>
+                                <Grid item  key={index}>
+                                    <Link to={`/product/${item._id}`} style={{textAlign:'center'}}>
                                         <Card product={item} />
                                     </Link>
                                 </Grid>

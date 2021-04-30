@@ -6,6 +6,7 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import ProductsList from './pages/ProductsList';
+import Orders from './pages/Orders';
 
 import Navbar from './Components/Navbar';
 import MenuBarDesktop from './Components/MenuBarDesktop';
@@ -15,7 +16,7 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, fetchProductsAll, fetchingCategories, addCartItem, fetchCartItems, fetchProducts, fetchUsers, auth, fetchCategories} from './actions/actions';
+import {mobileView, fetchingCategories, fetchProducts, fetchUsers, fetchCategories} from './actions/actions';
 import {AppContext} from './AppContext';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -29,7 +30,7 @@ const theme = createMuiTheme({
       main: '#218a21'
     },
     secondary: {
-      main: '#e02f93'
+      main: '#1388e8'
     }
   }
 });
@@ -70,10 +71,12 @@ const App= ()=> {
           <Switch>
               <Route path="/"  exact component= {Home} />
               <Route path="/showProducts"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
+              <Route path="/showProducts/:subCategoryId"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
               <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/cart"  exact component= {Cart} />
               <Route path="/profile"  exact component= {MyProfile} />
-              <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout />} />
+              <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout amount={props.location.state.amount} />} />
+              <Route path="/orders"  exact component={Orders} />
           </Switch>
           <Footer />
         </Router>  

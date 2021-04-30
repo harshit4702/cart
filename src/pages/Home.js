@@ -39,8 +39,6 @@ const Home= ()=> {
 
   const {state,dispatch}= useContext(AppContext);
 
-  console.log(state);
-
   return (
     <div>
         <Carousel />

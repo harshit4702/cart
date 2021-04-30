@@ -73,7 +73,7 @@ const UserButton= ()=> {
                             <Dropdown item text='My Account' style={{fontSize:state.mobileView?'10px':'13px',color:'green',fontFamily:'sans-serif',fontWeight: 'bold'}}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={()=>history.push('/profile')}>My Profile</Dropdown.Item>
-                                    <Dropdown.Item>Orders</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>history.push('/orders')}>Orders</Dropdown.Item>
                                     <Dropdown.Item onClick={onClickLogoutHandler}>Logout</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

@@ -106,7 +106,7 @@ const Cart= ()=> {
                         <br/><br/><br/>
                         <Grid container spacing={3} justify="space-around">
                             <Grid item>
-                                <Button onClick={()=>history.push('/cart/checkout',{flag:true})} disabled={(!state.auth.isSignedIn || Object.values(state.cart)==0)?true:false} variant="contained" color="primary">
+                                <Button onClick={()=>history.push('/cart/checkout',{flag:true,amount:amount-discount})} disabled={(!state.auth.isSignedIn || Object.values(state.cart)==0)?true:false} variant="contained" color="primary">
                                     Place Your Order
                                 </Button>
                             </Grid>

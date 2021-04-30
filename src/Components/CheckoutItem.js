@@ -26,12 +26,15 @@ const CartItem= (props)=>{
             <Grid item xs={3} style={{marginTop:state.mobileView?'4vh':'2vh'}}>
                 <img src={`/product/photos/${props.ob._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'12vh':'80px'}}/>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={state.mobileView?7:6}>
                 <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.name}</h4>
                 <h5 className={classes.description} style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.description}</h5>
             </Grid>
-            <Grid item xs={2}>
-                <div style={{marginTop:'8vh'}}>
+            <Grid item xs={state.mobileView?2:3}>
+                <div style={{marginTop:'3vh'}}>
+                    <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
+                        {state.mobileView?'':'Price:'} <strong>₹ {props.ob.price}</strong>
+                    </h4>
                     <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
                         
                         {state.mobileView?'X':'Quantity:'}  {props.ob.quantity}

@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
+import {useParams,useHistory} from 'react-router-dom';
 
 import {AppContext} from '../AppContext';
 import { setFilter,filteredSubCategories, filteredCategoryPresent } from '../actions/actions';
@@ -12,8 +13,10 @@ const useStyles = makeStyles({
 });
 
 const Filter= (props)=> {
-
+    
     console.log(props);
+
+    const params= useParams();
 
     const classes= useStyles();
 
@@ -57,7 +60,10 @@ const Filter= (props)=> {
                 if(checkBoxCategories[item._id]){
                     flag=true;
                     item.children.map((subItem)=>{
-                        z= {...z,[subItem._id] : false}
+                        if(params.subCategoryId==subItem._id)
+                            z= {...z,[subItem._id] : true}
+                        else
+                            z= {...z,[subItem._id] : false}
                         console.log(subItem._id)
                         subCategoryIds.push(subItem._id);
                     })
