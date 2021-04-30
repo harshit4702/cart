@@ -58,7 +58,7 @@ export default function ImgMediaCard(props) {
                   {props.product.name}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p">
-                    <b>Extra {props.product.discount} % off <br></br></b>
+                  <strong>Extra {props.product.discount} % off <br></br></strong>
                     ₹{props.product.price}
                   </Typography>
                 </CardContent>

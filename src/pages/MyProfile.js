@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PasswordAlert from '../Components/User/PasswordAlert';
 import {AppContext} from "../AppContext";
 import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
+import axios from '../axios';
 
 const useStyles = makeStyles({
     ppr_desk: {
@@ -82,6 +82,7 @@ const useStyles = makeStyles({
 const MyProfile = ()=> {
     const {state,dispatch}= useContext(AppContext);
     const classes = useStyles();
+    console.log(state);
     const [permit1,setpermit1]= useState(false);
     const [permit2,setpermit2]= useState(false);
     const [permit3,setpermit3]= useState(false);
@@ -92,11 +93,27 @@ const MyProfile = ()=> {
         name: state.auth.user.name,
         email: state.auth.user.email,
         contact: state.auth.user.contact,
-        colony: '',
-        locality: '',
-        city: '',
-        pincode: 0
+        colony: state.auth.user.contact,
+        locality: state.auth.user.locality,
+        city: state.auth.user.city,
+        pincode: state.auth.user.pincode
     });
+
+    const submitName = async(e) => {
+        e.preventDefault();
+        setpermit1(false)
+        if(values.name===state.auth.user.name){
+            return;
+        }
+        try{
+            const response= await axios.put('/user/name',{email: state.auth.user.email,name: values.name});
+            console.log(response);
+            dispatch
+        }
+        catch(err){
+            console.log('Error');
+        }
+    }
 
     const handleChange = (prop) => (event) => {
         setValues({ ...values, [prop]: event.target.value });
@@ -124,8 +141,8 @@ const MyProfile = ()=> {
                             disabled
                             margin= {state.mobileView ? "dense" : ""}   
                             id="outlined-disabled"
-                            label=""
                             defaultValue=""
+                            value={values.name ? values.name : 'Enter Full Name' } 
                             variant="outlined"
                         />
                     </div>
@@ -133,18 +150,18 @@ const MyProfile = ()=> {
 
                 permit1 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}> 
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk } onClick={()=> {setpermit1(false)}}>Cancel</h4 >
+                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk } onClick={()=> {setpermit1(false); values.name = state.auth.user.name}}>Cancel</h4 >
                         <br></br>
                         <TextField
-                            value={values.name} 
+                            value={values.name ? values.name : '' } 
+                            label={values.name ? '' : 'Enter Full Name'}
                             onChange={handleChange('name')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}
                             margin= {state.mobileView ? "dense" : ""}   
-                            label="Enter Full Name"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
                         />
-                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} onClick={()=> {setpermit1(false)}} variant="contained" color="primary" >
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} onClick={submitName} variant="contained" color="primary" >
                             Save
                         </Button>
                     </div>
@@ -165,7 +182,7 @@ const MyProfile = ()=> {
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
                             margin= {state.mobileView ? "dense" : ""} 
                             id="outlined-disabled"
-                            value={state.auth.user.email}
+                            label={state.auth.user.email}
                             defaultValue=""
                             variant="outlined"
                         />
@@ -257,7 +274,8 @@ const MyProfile = ()=> {
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit3(false)}}>Cancel</h4 >
                         <br></br>
                         <TextField
-                            value={values.colony} 
+                            value={values.colony ? values.colony : '' } 
+                            label={values.colony ? '' : 'Colony'}
                             onChange={handleChange('colony')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}       
                             margin= {state.mobileView ? "dense" : ""}      
@@ -268,7 +286,8 @@ const MyProfile = ()=> {
                         <br></br>
                         <br></br>
                         <TextField
-                            value={values.locality} 
+                            value={values.locality ? values.locality : '' } 
+                            label={values.locality ? '' : 'Locality'}
                             onChange={handleChange('locality')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}       
                             margin= {state.mobileView ? "dense" : ""}      
@@ -279,7 +298,8 @@ const MyProfile = ()=> {
                         <br></br>
                         <br></br>
                         <TextField
-                            value={values.city} 
+                            value={values.city ? values.city : '' } 
+                            label={values.city ? '' : 'City'}
                             onChange={handleChange('city')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}       
                             margin= {state.mobileView ? "dense" : ""}      
@@ -290,7 +310,8 @@ const MyProfile = ()=> {
                         <br></br>
                         <br></br>
                         <TextField
-                            value={values.pincode} 
+                            value={values.pincode ? values.pincode : '' } 
+                            label={values.pincode ? '' : 'Pincode'}
                             onChange={handleChange('pincode')}
                             className={state.mobileView ? classes.field_mobile : classes.field_desk}
                             margin= {state.mobileView ? "dense" : ""}   
@@ -298,7 +319,7 @@ const MyProfile = ()=> {
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
                         />
-                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
+                        <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk}   variant="contained" color="primary" >
                             Save
                         </Button>
                     </div>
