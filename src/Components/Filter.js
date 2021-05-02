@@ -132,7 +132,7 @@ const Filter= (props)=> {
 
 
     return (
-        <Paper style={{padding:'2vh',textAlign:'left',width:state.mobileView?'100vw':'auto'}}>
+        <Paper style={{padding:'2vh',textAlign:'left',width:state.mobileView?'100vw':'auto',minHeight: "100%",height: "auto",height: "100%"}}>
             <h5>Filter</h5><hr/>
             <Grid container direction direction="column">
                 <Grid item>

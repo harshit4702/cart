@@ -66,17 +66,17 @@ const Cart= ()=> {
     }
 
     return (
-        <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:'10vw',marginRight:'10vw'}}>
+        <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:state.mobileView?'3vw':'10vw',marginRight:state.mobileView?'3vw':'10vw'}}>
             <Grid container spacing={2}>
                 <Grid item sm={8}>
-                    <Paper elevation={1} style={{width:state.mobileView?'80vw':'' , paddingTop: '1vh'}} >
+                    <Paper elevation={1} style={{width:state.mobileView?'95vw':'' , paddingTop: '1vh'}} >
                         <h3 style={{fontFamily: `'IBM Plex Serif',serif` }}>My Cart</h3>
                         <hr/>
                         {cartMenu()}
                     </Paper>
                 </Grid>
                 <Grid item sm={4}>
-                    <Paper elevation={1} style={{width:state.mobileView?'80vw':'auto' , paddingTop: '1vh'}}>
+                    <Paper elevation={1} style={{width:state.mobileView?'95vw':'auto' , paddingTop: '1vh'}}>
                         <h3 style={{fontFamily: `'IBM Plex Serif',serif`}}>Price Details</h3>
                         <hr/>
                         <Grid container spacing={3} justify="space-around">

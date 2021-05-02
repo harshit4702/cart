@@ -32,11 +32,10 @@ const reducer = (state, action)=>{
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
         case "addOrder":
-            return {...state, auth:{...state.auth,user:{...state.auth.user,orders:[...state.auth.user.orders,action.payload.order]}}};
+            return {...state, auth:{...state.auth,user:{...state.auth.user,orders:[action.payload.order,...state.auth.user.orders]}}};
         case "setFilter":
             return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":
-            console.log(action.payload)
             return {...state, isFilteredCategoryPresent: action.payload};
         case "fetchingCategories":
             return {...state, categories:_.mapKeys(action.payload,'_id')}
