@@ -2,10 +2,13 @@ import React,{useState,useContext, useEffect} from 'react';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import {useHistory, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 
 import UserButton from './User/UserButton';
 
@@ -13,9 +16,6 @@ import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    root: {
-      background: '#009933',
-    },
     search: {
         backgroundColor: '#56b35e',
         fontSize: '20px',
@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) =>
             opacity: 0.5
         }
     },
-    spacing:{
-        marginLeft: '10vw'
-    },
     personIcon_desktop: {
         cursor: 'pointer',
         marginLeft: "33vw",
@@ -43,10 +40,10 @@ const useStyles = makeStyles((theme) =>
         fontSize: '20px'
     },
     userButton_mobile:{
-        marginLeft: "25vw",
+        marginLeft: "35vw",
     },
     userButton_desktop:{
-        marginLeft: "55vw",
+        marginLeft: "10vw",
     },
     logo_desktop:{
         border:'2px white solid',
@@ -68,14 +65,14 @@ const useStyles = makeStyles((theme) =>
     cart_mobile:{
         cursor: 'pointer',
         marginLeft: "5vw",
-        fontSize: '20px'
+        fontSize: '4vh'
     },
     lock:{
         cursor: 'pointer',
         fontSize: '15px',
         marginTop:'2vh'
     }
-  }),
+  })
 );
 
 const Navbar= ()=> {
@@ -106,27 +103,59 @@ const Navbar= ()=> {
         <div >
             <AppBar className={classes.root} color="primary" position="static">
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" style={{marginLeft:state.mobileView?'0vw':'5vw'}}>
-                        <Link to='/' >
-                            <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
-                        </Link>
-                    </IconButton>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <div style={{ width: '100%' }}>
+                                <Box display="flex" p={1} >
+                                    <Box p={1} flexGrow={1}>
+                                        <IconButton edge="start" color="inherit">
+                                            <Link to='/' >
+                                                <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
+                                            </Link>
+                                        </IconButton>
+                                    </Box>
+                                    <Box p={1} flexShrink={0} style={{marginLeft:'25vw',marginTop:'3vh'}}>
+                                        <Grid container>
+                                            <Grid item>
+                                                {
+                                                    !state.mobileView && (
+                                                        <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                                    )
+                                                }
+                                            </Grid>
+                                            <Grid item>
+                                                <UserButton />
+                                            </Grid>
+                                            <Grid item>
+                                                <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
+                                                {
+                                                    !state.auth.isSignedIn && (
+                                                        <LockOutlinedIcon className={classes.lock} onClick={()=>history.push('/cart')} />
+                                                    )||
 
-                    {/*<input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>*/}
+                                                    state.auth.isSignedIn && (
+                                                        <>{val}</>
+                                                    )
+                                                }
+                                            </Grid>
+                                        </Grid>
+
                     
-                    <div className={state.mobileView?classes.userButton_mobile:classes.userButton_desktop}>
-                        <UserButton />
-                    </div>
-                    <ShoppingCartOutlinedIcon className={state.mobileView?classes.cart_mobile:classes.cart_desktop} onClick={()=>history.push('/cart')} />
-                    {
-                        !state.auth.isSignedIn && (
-                            <LockOutlinedIcon className={classes.lock} onClick={()=>history.push('/cart')} />
-                        )||
-
-                        state.auth.isSignedIn && (
-                            <h5>{val}</h5>
-                        )
-                    }
+                                    </Box>
+                                </Box>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            {
+                                state.mobileView && (
+                                    <div style={{marginTop:'-2vh',marginBottom:'2vh'}}> 
+                                        <input style={{border:'1px solid black',borderRadius:'5px',width:'93vw',height:'6vh'}} placeholder="search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                    </div>
+                                )
+                            }
+                        </Grid>
+                    </Grid>
+                    
                 </Toolbar>
                 
             </AppBar>
