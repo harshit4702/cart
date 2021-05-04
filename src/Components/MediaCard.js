@@ -11,7 +11,7 @@ import {AppContext} from '../AppContext';
 const useStyles = makeStyles({
   rootDesktop: {
     width: '15vw',
-    height: '35vh',
+    height: '30vh',
     padding:'2px',
     margin:'1vh',
     textAlign:'center'
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   cardDesktop:{
     width:'15vw',
-    height:'24vh'
+    height:'20vh'
   },
   cardMobile:{
     width:'80vw',

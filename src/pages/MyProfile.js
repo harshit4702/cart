@@ -117,6 +117,7 @@ const MyProfile = ()=> {
         try{
             const response = await axios.patch(`/user/profile/${state.auth.user._id}`, e.target[2].value ? {address : data} : data);
             dispatch(await profile(response.data));
+
         }
         catch(err){
             console.log('Error');

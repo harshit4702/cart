@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,24 +8,48 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import {AppContext} from '../AppContext';
+
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
+  rootDesktop: {
+    width: '20vw',
+    height: '35vh',
+    padding:'2px',
+    margin:'1vh',
+    textAlign:'center'
   },
-  media: {
-    height: 200,
+  rootMobile: {
+    width: '80vw',
+    height: '40vh',
+    padding:'2px',
+    margin:'1vh'
   },
+  cardDesktop:{
+    width:'20vw',
+    height:'20vh'
+  },
+  cardMobile:{
+    width:'80vw',
+    height:'22vh'
+  }
 });
 
 const Cards= ({product})=> {
 
+  const {state,dispatch} = useContext(AppContext);
+
   const classes = useStyles();
 
+  if(!state)
+    <>Loading...</>
+
+  console.log(state.mobileView);
+
   return (
-    <Card className={classes.root}>
+    <Card className={state.mobileView?classes.rootMobile:classes.rootDesktop} >
       <CardActionArea>
         <CardMedia
-          className={classes.media}
+          className={state.mobileView?classes.cardMobile:classes.cardDesktop}
           image={`/product/photos/${product._id}/0`}
           title="Contemplative Reptile"
         />
