@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         height:'7vh',
         backgroundColor: '#009933',
         color:'white',
-        paddingTop:'1vh',
+        paddingTop:'2vh',
+        marginBottom:'2vh',
         fontFamily: `'IBM Plex Serif',serif`,
         fontSize:'30px'
     }
@@ -37,14 +38,14 @@ const Orders= ()=> {
     },[state.auth.isSignedIn])
 
     return (
-        <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:'10vw',marginRight:'10vw'}}>
+        <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:state.mobileView?'3vw':'10vw',marginRight:state.mobileView?'3vw':'10vw'}}>
                 <div>
-                    <Paper className={classes.paper}>
+                    <Paper className={classes.paper} style={{width:state.mobileView?'94vw':'80vw'}}>
                         Orders
                     </Paper>
                     {
                         !orders && (
-                            <Paper>
+                            <Paper >
                                 <Grid container spacing={3} justify="center" >
                                     <Grid item>
                                         <h1>Sign in to see your ordered items</h1>

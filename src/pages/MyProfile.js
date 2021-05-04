@@ -108,7 +108,6 @@ const MyProfile = ()=> {
         try{
             const response= await axios.put('/user/name',{email: state.auth.user.email,name: values.name});
             console.log(response);
-            dispatch
         }
         catch(err){
             console.log('Error');
