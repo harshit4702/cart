@@ -9,7 +9,12 @@ export const mobileView= (flag)=>{
         payload:flag
     }
 }
-
+export const profile = (user)=>{
+    return {
+        type: "changeProfile",
+        payload: user
+    }
+}
 export const auth = (user,flag)=>{
     console.log(user);
     return {
