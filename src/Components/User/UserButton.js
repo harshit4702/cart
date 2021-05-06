@@ -69,7 +69,7 @@ const UserButton= ()=> {
             {
                 state.auth.isSignedIn && (
                     <div className={state.mobileView?classes.login_mobile:classes.login_desktop} >
-                        <Menu size='small' style={{backgroundColor:'white',color:'blue',width:state.mobileView?'94px':'120px',borderRadius:'1px'}}>
+                        <Menu size='small' style={{backgroundColor:'white',color:'blue',width:state.mobileView?'94px':'120px',borderRadius:'5px'}}>
                             <Dropdown item text='My Account' style={{fontSize:state.mobileView?'10px':'13px',color:'green',fontFamily:'sans-serif',fontWeight: 'bold'}}>
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={()=>history.push('/profile')}>My Profile</Dropdown.Item>
