@@ -109,6 +109,7 @@ const MyProfile = ()=> {
 
         const data={} ;
         data[prop] = e.target[0].value;
+        //If address form hits
         if(e.target[2].value){
             data[a] = e.target[2].value;
             data[b] = e.target[4].value;
@@ -117,7 +118,6 @@ const MyProfile = ()=> {
         try{
             const response = await axios.patch(`/user/profile/${state.auth.user._id}`, e.target[2].value ? {address : data} : data);
             dispatch(await profile(response.data));
-
         }
         catch(err){
             console.log('Error');

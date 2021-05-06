@@ -97,7 +97,7 @@ const Checkout= (props)=> {
                 </Paper>
 
                 <h5>
-                    {state.auth.isSignedIn?state.auth.user.address:''}
+                    {state.auth.isSignedIn?state.auth.user.address.colony:''}
                 </h5>
                 {
                     

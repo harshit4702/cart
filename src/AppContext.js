@@ -32,7 +32,8 @@ const reducer = (state, action)=>{
         case "isAuth":
             return {...state, auth:{ isSignedIn: action.payload.flag, user: action.payload.user}};
         case "changeProfile": 
-            return {...state , auth: {user: action.payload}}
+            console.log(action.payload);
+            return {...state , auth: {...state.auth , user: {...state.auth.user, ...action.payload }}}
         case "addOrder":
             return {...state, auth:{...state.auth,user:{...state.auth.user,orders:[action.payload.order,...state.auth.user.orders]}}};
         case "setFilter":

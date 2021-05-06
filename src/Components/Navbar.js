@@ -9,20 +9,19 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-
 import UserButton from './User/UserButton';
-
 import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     search: {
         backgroundColor: '#56b35e',
-        fontSize: '20px',
+        fontSize: '18px',
         color: "white",
         height: "40px",
-        width: "24vw",
-        borderRadius: '10px',
+        width: "28vw",
+        borderRadius: '8px',
+        marginLeft: '-95vw',
         border: '2px',
         outline: 'none',
         '&::placeholder': {
@@ -54,6 +53,7 @@ const useStyles = makeStyles((theme) =>
     logo_mobile:{
         border:'2px white solid',
         borderRadius:'40px',
+        marginLeft: '10vw',
         width:'50px',
         height:'50px'  
     },
@@ -108,7 +108,7 @@ const Navbar= ()=> {
                             <div style={{ width: '100%' }}>
                                 <Box display="flex" p={1} >
                                     <Box p={1} flexGrow={1}>
-                                        <IconButton edge="start" color="inherit">
+                                        <IconButton  style={{marginLeft: '-35vw'}}  edge="start" color="inherit">
                                             <Link to='/' >
                                                 <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
                                             </Link>
@@ -119,11 +119,11 @@ const Navbar= ()=> {
                                             <Grid item>
                                                 {
                                                     !state.mobileView && (
-                                                        <input className={`${classes.spacing} ${classes.search}`} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                                            <input className={classes.search} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
                                                     )
                                                 }
                                             </Grid>
-                                            <Grid item>
+                                            <Grid item style={{marginLeft: '-12vw'}}>
                                                 <UserButton />
                                             </Grid>
                                             <Grid item>
@@ -139,8 +139,6 @@ const Navbar= ()=> {
                                                 }
                                             </Grid>
                                         </Grid>
-
-                    
                                     </Box>
                                 </Box>
                             </div>
