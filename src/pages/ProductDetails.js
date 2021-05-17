@@ -1,14 +1,17 @@
 import React,{useState,useContext, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Select from 'react-select';
 
 import {AppContext} from "../AppContext";
 import {cartValue,addCartItem} from '../actions/actions';
 import Image from "../Components/Image";
 import { makeStyles } from '@material-ui/core';
+import { queryByTestId } from '@testing-library/dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,10 +26,13 @@ const ProductDetails= ()=> {
     const {state,dispatch}= useContext(AppContext);
 
     const params= useParams();
+    const history= useHistory();
 
     console.log(params);
 
     const [val,setVal]= useState(0);
+    const [options,setOptions]= useState([]);
+    const[selectedOption, setSelectedOption]= useState({value:'1',label:'Qty.'});
 
     const [loadComplete, setLoadComplete]= useState(true);
 
@@ -35,10 +41,22 @@ const ProductDetails= ()=> {
             await setVal(state.cart[params.id].value);
     },[state.cart])
 
+    useEffect(()=>{
+        var op=[];
+        for(var i=1;i<=10;i++)
+            op.push({value:i,label:i});
+        setOptions(op);
+    },[]);
+
     const onClick= async()=>{
         setLoadComplete(false);
-        dispatch(await addCartItem(state.auth.user.cart,{productId:params.id,quantity:1}));
+        console.log(selectedOption.value)
+        dispatch(await addCartItem(state.auth.user.cart,{productId:params.id,quantity:selectedOption.value}));
         setLoadComplete(true);
+    }
+
+    const handleChange= (selectedOp)=>{
+        setSelectedOption(selectedOp);
     }
 
     if(!state.cart || !state.products)
@@ -54,6 +72,17 @@ const ProductDetails= ()=> {
                         <Grid container spacing={3} direction="column">
                             <Grid item>
                                 <Image product={product}/>
+                            </Grid>
+                            <Grid item>
+                                <div style={{textAlign:'left',marginLeft:'6vw',marginBottom:'2vh',width:'150px',height:'20px'}}>
+                                    <Select
+                                        value={selectedOption}
+                                        onChange={handleChange}
+                                        options={options}
+                                        placeholder="Qty."
+                                        menuPlacement="auto"
+                                    />
+                                </div>
                             </Grid>
                             <Grid item style={{marginLeft:state.mobileView?'5vw':'5vw'}}>
                                 <Grid container spacing={3}>
@@ -73,7 +102,8 @@ const ProductDetails= ()=> {
                                         }
                                     </Grid>
                                     <Grid item sm={6}>
-                                        <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary"disabled={!state.auth.isSignedIn?true:false}>
+                                        
+                                        <Button onClick={()=>history.push('/cart/checkout',{flag:true,isCart:false,amount:(product.price-product.discount)*selectedOption.value,items:[{...product,quantity: selectedOption.value}]})} style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary"disabled={!state.auth.isSignedIn?true:false}>
                                             Buy Now
                                         </Button>
                                     </Grid>

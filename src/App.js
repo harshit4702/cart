@@ -75,7 +75,7 @@ const App= ()=> {
               <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/cart"  exact component= {Cart} />
               <Route path="/profile"  exact component= {MyProfile} />
-              <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout amount={props.location.state.amount} />} />
+              <Route path="/cart/checkout"  exact render={(props) =>!props.location.state || !state.auth.isSignedIn? <CheckoutError  />:<Checkout isCart={props.location.state.isCart} items={props.location.state.items} amount={props.location.state.amount} />} />
               <Route path="/orders"  exact component={Orders} />
           </Switch>
           <Footer />
