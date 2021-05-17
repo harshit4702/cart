@@ -38,6 +38,8 @@ const Checkout= (props)=> {
 
     const [openAlert, setOpenAlert] = useState(false);
 
+    const [arrayItems,setArrayItems]= useState(props.items);
+
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
       console.log(selectedValue);
@@ -51,7 +53,7 @@ const Checkout= (props)=> {
             emailOfUser: state.auth.user.email,
             typeOfPayment: selectedValue,
             amount: props.amount,
-            products: Object.values(state.cart).map((item)=>{
+            products: props.items.map((item)=>{
                 return {
                     product: item._id,
                     quantity: item.quantity
@@ -60,10 +62,17 @@ const Checkout= (props)=> {
         }
 
         try{
-            const response= await axios.post(`/order/${state.auth.user._id}`,formValues);
+
+            var response;
+            if(props.isCart)
+                response= await axios.post(`/order/cart/${state.auth.user._id}`,formValues);
+            else
+                response= await axios.post(`/order/buyNow/${state.auth.user._id}`,formValues);
+
             dispatch(addOrder(response.data));
             dispatch(await fetchCartItem(state.auth.user.cart));
             setOpenAlert(true);
+            setArrayItems([]);
         }
         catch(e){
             alert('Error in Order');
@@ -77,8 +86,8 @@ const Checkout= (props)=> {
                     Order Summary
                 </Paper>
                 {
-                    state.cart && state.cart.length!=0 && (
-                        Object.values(state.cart).map((item,index)=>{
+                    arrayItems.length!=0 && (
+                        arrayItems.map((item,index)=>{
                             
                             return (
                                 <React.Fragment key={index}>
@@ -88,6 +97,7 @@ const Checkout= (props)=> {
                             );
                         })
                     )
+
                 }
 
                 <br/><br/>
@@ -97,7 +107,7 @@ const Checkout= (props)=> {
                 </Paper>
 
                 <h5>
-                    {state.auth.isSignedIn?state.auth.user.address.colony:''}
+                    {state.auth.isSignedIn?(state.auth.user.address?state.auth.user.address.colony:''):''}
                 </h5>
                 {
                     

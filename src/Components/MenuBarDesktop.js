@@ -93,8 +93,8 @@ const MenuBar = ()=>  {
             <li>
                 {
                     !flag?(
-                        <Link to={category.price?`/product/${category._id}`:{pathname: `/showProducts/${category._id}`,state: { selectedCategory: null}}}>
-                            {category.name }{console.log(category.price)}
+                        <Link to={category.price?`/product/${category._id}`:{pathname: `/showProducts/${category._id}`,state: { selectedCategory: category.parent}}}>
+                            {category.name }
                         </Link>
                     ):(
                         <span onMouseOver={()=>setUpArrow(true)} onMouseOut={()=>setUpArrow(false)}>
