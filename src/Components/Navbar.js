@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     search: {
         backgroundColor: '#56b35e',
-        fontSize: '18px',
+        fontSize: '15px',
         fontFamily: `'IBM Plex Serif',serif`,
         color: "white",
         height: "40px",
@@ -140,9 +140,9 @@ const Navbar= ()=> {
         return (
             <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'0vw':'28vw',marginRight:state.mobileView?'0vw':'43vw'}}>
                 {
-                    searchArray.map((product)=>{
+                    searchArray.map((product,key={key})=>{
                         return (
-                            <Link to={`/product/${product._id}`} onClick={()=>setSearchArray([])}>
+                            <Link to={`/product/${product._id}`} key={key} onClick={()=>setSearchArray([])}>
                                 <li className={classes.searchLi}>
                                     {product.name} 
                                 </li>
@@ -217,14 +217,10 @@ const Navbar= ()=> {
                                         {searchBlock()}
                                     </div>
                                 )
-                            }
-                            
-                            
+                            }    
                         </Grid>
                     </Grid>
-                    
                 </Toolbar>
-                
             </AppBar>
         </div>
     );
