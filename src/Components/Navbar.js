@@ -1,4 +1,4 @@
-import React,{useState,useContext, useEffect} from 'react';
+import React,{useState,useContext, useRef,useEffect} from 'react';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import {useHistory, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import UserButton from './User/UserButton';
+import axios from '../axios';
 import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) =>
     search: {
         backgroundColor: '#56b35e',
         fontSize: '18px',
+        fontFamily: `'IBM Plex Serif',serif`,
         color: "white",
         height: "40px",
         width: "28vw",
@@ -71,11 +73,36 @@ const useStyles = makeStyles((theme) =>
         cursor: 'pointer',
         fontSize: '15px',
         marginTop:'2vh'
+    },
+    searchUl:{
+        margin:'0',
+        padding:'0',
+        zIndex:'2',
+        position:'absolute',
+        textAlign:'left',
+        listStyleType:'none',
+        backgroundColor:'white',
+        display:'block',
+        left:'0',
+        right:'0',
+        border: '1px solid #cecece'
+    },
+    searchLi:{
+        padding:'1vh',
+        fontFamily: `'IBM Plex Serif',serif`,
+        color:'black',
+        "&:hover":{
+            backgroundColor:'#f0f5f1'
+        }
     }
   })
 );
 
 const Navbar= ()=> {
+
+    const classes = useStyles();
+
+    const ref= useRef();
 
     const {state,dispatch}=  useContext(AppContext);
 
@@ -84,20 +111,55 @@ const Navbar= ()=> {
     const [text,setText]= useState('');
     const [val,setVal]= useState(0);
 
+    const [searchArray,setSearchArray]= useState([]);
+
     useEffect(async()=>{
         var x=0;
         await Object.values(state.cart).map((item)=>{
             x= x+parseInt(item.quantity)
         });
         setVal(x);
+
+        document.addEventListener("mousedown", handleClickOutside);
     },[state.cart]);
 
-    const onInputChange= (e)=>{
+    const onInputChange= async(e)=>{
         console.log(e.target.value);
         setText(e.target.value)
+        const response = await axios.get('/product/search',{params:{name:e.target.value}});
+        if(e.target.value=='')
+            setSearchArray([]);
+        else
+            setSearchArray(response.data);
     }
 
-    const classes = useStyles();
+    const searchBlock= ()=>{
+        if(searchArray.length==0)
+            return;
+        
+        return (
+            <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'0vw':'28vw',marginRight:state.mobileView?'0vw':'43vw'}}>
+                {
+                    searchArray.map((product)=>{
+                        return (
+                            <Link to={`/product/${product._id}`} onClick={()=>setSearchArray([])}>
+                                <li className={classes.searchLi}>
+                                    {product.name} 
+                                </li>
+                            </Link>
+                        )
+                    })
+                }
+            </ul>
+        );
+    }
+
+    const handleClickOutside = (event)=>{
+        console.log(event.target,ref);
+        if (!ref.current || !ref.current.contains(event.target))
+            setSearchArray([]);
+    }
+
 
     return (
         <div >
@@ -109,7 +171,7 @@ const Navbar= ()=> {
                                 <Box display="flex" p={1} >
                                     <Box p={1} flexGrow={1}>
                                         <IconButton  style={{marginLeft: '-35vw'}}  edge="start" color="inherit">
-                                            <Link to='/' >
+                                            <Link to='/'>
                                                 <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
                                             </Link>
                                         </IconButton>
@@ -119,7 +181,10 @@ const Navbar= ()=> {
                                             <Grid item>
                                                 {
                                                     !state.mobileView && (
-                                                            <input className={classes.search} placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                                        <>
+                                                            <input className={classes.search} autoComplete="off"  placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                                            {searchBlock()}
+                                                        </>
                                                     )
                                                 }
                                             </Grid>
@@ -144,13 +209,17 @@ const Navbar= ()=> {
                             </div>
                         </Grid>
                         <Grid item>
+                            
                             {
                                 state.mobileView && (
                                     <div style={{marginTop:'-2vh',marginBottom:'2vh'}}> 
-                                        <input style={{border:'1px solid black',borderRadius:'5px',width:'93vw',height:'6vh'}} placeholder="search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                        <input autoComplete="off" style={{border:'1px solid black',borderRadius:'5px',width:'93vw',height:'6vh'}} placeholder="search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                        {searchBlock()}
                                     </div>
                                 )
                             }
+                            
+                            
                         </Grid>
                     </Grid>
                     
