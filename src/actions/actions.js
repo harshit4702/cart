@@ -103,6 +103,14 @@ export const filteredCategoryPresent = (flag)=> {
     };
 };
 
+export const fetchOrders = async (email) => {
+    const response = await axios.get(`/order/${email}`);
+    return {
+        type: 'fetchOrders', 
+        payload: response.data
+    }
+};
+
 export const fetchCartItems = async () => {
     const response = await axios.get('/cart');
     return {
@@ -112,8 +120,9 @@ export const fetchCartItems = async () => {
 };
 
 export const fetchCartItem = async (id) => {
+    console.log(`hello cart ${id}`);
     const response = await axios.get(`/cart/${id}`);
-    console.log( Object.values(response.data));
+    console.log(response.data);
     return { 
         type: 'fetchCartItem', 
         payload: response.data

@@ -10,6 +10,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {AppContext} from '../AppContext';
 
+import axios from '../axios';
+
 const useStyles = ({mobileView})=>{
     return (
         makeStyles({
@@ -46,14 +48,19 @@ const MenuBar = ()=>  {
 
     const classes = useStyles(state)();
 
-    if(!state.categories)
+    const [data,setData]= useState(null);
+
+    useEffect(async()=>{
+        const response= await axios.get('/category/only');
+        setData(response.data);
+    },[])
+
+    if(!data)
         return (
             <div style={{margin:'3vh'}}>
                 <CircularProgress />
             </div>
         );
-
-    const data= Object.values(state.categories);
 
     return (
         <div className={classes.menuHeader}>

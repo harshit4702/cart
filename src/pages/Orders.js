@@ -34,8 +34,8 @@ const Orders= ()=> {
 
     useEffect(()=>{
         if(state.auth.isSignedIn )
-            setOrders(state.auth.user.orders);
-    },[state.auth.isSignedIn])
+            setOrders(Object.values(state.orders));
+    },[state.orders])
 
     return (
         <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:state.mobileView?'3vw':'10vw',marginRight:state.mobileView?'3vw':'10vw'}}>
@@ -44,7 +44,7 @@ const Orders= ()=> {
                         Orders
                     </Paper>
                     {
-                        !orders && (
+                        !state.auth.isSignedIn && (
                             <Paper >
                                 <Grid container spacing={3} justify="center" >
                                     <Grid item>
