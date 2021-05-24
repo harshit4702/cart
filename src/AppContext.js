@@ -14,6 +14,7 @@ const initialState= {
         user:null
     },
     categories:null,
+    orders: null,
     cat:[],
     filter:{
         name: null
@@ -34,8 +35,10 @@ const reducer = (state, action)=>{
         case "changeProfile": 
             console.log(action.payload);
             return {...state , auth: {...state.auth , user: {...state.auth.user, ...action.payload }}}
+        case "fetchOrders":
+            return {...state,  orders: _.mapKeys(action.payload,'_id')}
         case "addOrder":
-            return {...state, auth:{...state.auth,user:{...state.auth.user,orders:[action.payload.order,...state.auth.user.orders]}}};
+            return {...state,  orders: {[action.payload.order._id]: action.payload.order,...state.orders}}
         case "setFilter":
             return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":

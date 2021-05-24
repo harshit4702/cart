@@ -16,7 +16,7 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, fetchingCategories, fetchProducts, fetchUsers, fetchCategories} from './actions/actions';
+import {mobileView, fetchingCategories, fetchProducts} from './actions/actions';
 import {AppContext} from './AppContext';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -53,10 +53,7 @@ const App= ()=> {
     console.log(screenWidth);
     dispatch(await fetchProducts());
     dispatch(await fetchingCategories());
-    dispatch(await fetchUsers());
-    dispatch(fetchCategories());
   },[screenWidth]);
-
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
 

@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button' ;
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import clsx from "clsx";
-import {addCartItem, auth, fetchCartItem} from "../../actions/actions";
+import {addCartItem, auth, fetchCartItem, fetchOrders} from "../../actions/actions";
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -36,8 +36,9 @@ const LoginAlert= (props)=>{
           message:'Congrats.. You are Logged In'
         });
         dispatch(await auth(response.data,true));
-        dispatch(await fetchCartItem(response.data.cart));
         props.closeAlert();
+        dispatch(await fetchCartItem(response.data.cart));
+        dispatch(await fetchOrders(response.data.email));
         setLoadComplete(true);
     }
     catch(err){

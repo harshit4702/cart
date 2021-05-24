@@ -20,7 +20,7 @@ const OrderItem= (props)=>{
     const classes= useStyles();
 
     const {state,dispatch}= useContext(AppContext);
-    console.log(props);
+    
     return (
         <Grid container spacing={1}>
             <Grid item xs={3} style={{marginTop:state.mobileView?'0vh':'2vh'}}>
