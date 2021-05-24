@@ -63,7 +63,7 @@ const Home= ()=> {
                       </Box>
                       <Box style={{textAlign:'right',marginRight:'.5vw'}}>
                           <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
-                            <Button  variant="contained" color="primary">View All</Button>
+                            <Button style={{marginTop: '0.5vw'}} variant="contained" color="primary">View All</Button>
                           </Link>
                       </Box>
                     </Box>

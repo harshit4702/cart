@@ -18,12 +18,12 @@ const useStyles = makeStyles({
   },
   rootMobile: {
     width: '60vw',
-    height: '32vh',
+    height: '33vh',
     padding:'2px',
     margin:'1vh'
   },
   cardDesktop:{
-    width:'15vw',
+    maxWidth:'15vw',
     height:'20vh'
   },
   cardMobile:{
