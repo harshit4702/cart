@@ -170,7 +170,7 @@ const Navbar= ()=> {
                             <div style={{ width: '100%' }}>
                                 <Box display="flex" p={1} >
                                     <Box p={1} flexGrow={1}>
-                                        <IconButton  style={{marginLeft: '-35vw'}}  edge="start" color="inherit">
+                                        <IconButton  style={{marginLeft: '-35vw'}} edge="start" color="inherit">
                                             <Link to='/'>
                                                 <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
                                             </Link>
