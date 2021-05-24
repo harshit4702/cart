@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import UserForm from './UserForm';
 
 import {AppContext} from "../../AppContext";
-import { auth } from '../../actions/actions';
+import { auth, fetchCartItem, fetchOrders } from '../../actions/actions';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -60,6 +60,9 @@ const UserButton= ()=> {
 
     const onClickLogoutHandler = async()=>{
         dispatch(await auth(null,false));
+        dispatch(await fetchCartItem(null));
+        dispatch(await fetchOrders(null));
+       
     }
 
     const classes = useStyles();
