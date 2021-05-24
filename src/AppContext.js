@@ -68,11 +68,10 @@ const reducer = (state, action)=>{
         case "deleteCartItem":
             return {...state, cart: _.omit(state.cart, action.payload)};
         default:
-            console.log("default");
             return {...state};
     }
 }
-
+ 
 const AppContextProvider= (props)=>{
     const appState= {...initialState};
 
