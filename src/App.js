@@ -39,7 +39,6 @@ const App= ()=> {
 
   const {state,dispatch}= useContext(AppContext);
 
-
   console.log(state);
 
   const [screenWidth,setScreenWidth]= useState(window.innerWidth);

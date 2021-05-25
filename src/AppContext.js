@@ -39,6 +39,8 @@ const reducer = (state, action)=>{
             return {...state,  orders: _.mapKeys(action.payload,'_id')}
         case "addOrder":
             return {...state,  orders: {[action.payload.order._id]: action.payload.order,...state.orders}}
+        case "editOrder":
+            return {...state, orders: {...state.orders,[action.payload.order._id]:action.payload.order}}
         case "setFilter":
             return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":

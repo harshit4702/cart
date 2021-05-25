@@ -83,7 +83,6 @@ const ProductsList= ({selectedCategory})=> {
                     <br/>
                     {
                         data && loadingComplete && data.map((item,index)=>{
-
                             return (
                                 <Grid item  key={index}>
                                     <Link to={`/product/${item._id}`} style={{textAlign:'center'}}>
