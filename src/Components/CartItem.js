@@ -28,6 +28,16 @@ const CartItem= (props)=>{
 
     const [arr,setArr]= useState([]);
 
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     useEffect(()=>{
         var z=[];
         Object.values(state.cart).map((item)=>{
@@ -42,7 +52,7 @@ const CartItem= (props)=>{
         console.log(val);
 
         if(val==0){
-            document.getElementById(`cartButton${id}`).click();
+            handleOpen();
             return;
         }
 
@@ -94,7 +104,20 @@ const CartItem= (props)=>{
                     }
                 </div>
             </Grid>
-            <Modal id={props.ob._id} action={deleteCartItem}/>
+            <Modal
+                id={props.ob._id} 
+                open={open} 
+                handleOpen={handleOpen} 
+                handleClose={handleClose}
+                title= "My Cart"
+                description= "Are you sure you want to remove the item from the cart?"
+                action={
+                    async()=>{
+                        dispatch(await deleteCartItem(state.auth.user.cart,props.ob._id));
+                        handleClose();
+                    }
+                } 
+            />
         </Grid>
     )
 }

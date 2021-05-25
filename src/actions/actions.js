@@ -1,7 +1,5 @@
 import axios from '../axios'
 import { categoriesData } from '../helpers/categoriesData';
-import {productData} from '../helpers/productData';
-
 
 export const mobileView= (flag)=>{
     return {
@@ -34,6 +32,15 @@ export const addOrder = (order)=>{
         }
     }
 };
+
+export const editOrder= (order)=>{
+    return {
+        type: "editOrder",
+        payload:{
+            order
+        }
+    }
+}
 
 export const cartValue= (value)=>{
     return {

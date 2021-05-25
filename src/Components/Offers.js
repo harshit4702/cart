@@ -27,8 +27,6 @@ const Offers= ({offer})=>{
 
     const classes= useStyles();
 
-    console.log(offer);
-
     return (
         <Grid container  spacing={0} style={{backgroundColor: '#f0f3f7'}}>
             <Grid item xs={4}>
