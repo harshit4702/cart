@@ -1,28 +1,19 @@
 import React,{useState,useContext, useEffect} from 'react';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {Link} from 'react-router-dom';
 
 import {AppContext} from "../AppContext";
-import axios from '../axios';
 
 const Carousel= ()=> {
 
-    const {state}=  useContext(AppContext);
+    const {state, dispatch}=  useContext(AppContext);
   
     const [index,setIndex]= useState(0);
 
-    const [data,setData]= useState([]);
-
     useEffect(async()=>{
-        const response= await axios.get('/carousel');
-        setData(response.data);
-        console.log(response.data);
-    },[])
-
-    useEffect(async()=>{
-
-        if(data.length!=0){
+        if(state.carousels){
             const interval = setInterval(() => {
                 setIndex(prev=>prev==data.length-1?0:prev+1)
             },5000)
@@ -31,11 +22,16 @@ const Carousel= ()=> {
                 clearInterval(interval);
             };
         }
-    },[data]);
+    },[state.carousels]);
 
-    if(data.length==0)
-        return <>Loading...</>
+    if(!state.carousels)
+        return (
+            <div style={{margin:'8vh'}}>
+                <CircularProgress />
+            </div>
+        );
 
+    const data= Object.values(state.carousels);
 
     return (
         <div>

@@ -64,6 +64,15 @@ export const fetchCategories = ()=> {
     };
 };
 
+export const fetchCarousels = async()=> {
+    const response= await axios.get('/carousel');
+    return {
+        type: "fetchCarousels", 
+        payload: response.data
+    };
+};
+
+
 export const fetchingCategories = async()=> {
     const response= await axios.get('/category');
     return {

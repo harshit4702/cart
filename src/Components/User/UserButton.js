@@ -1,6 +1,7 @@
 import React,{useState,useContext} from 'react';
 import { createStyles, makeStyles} from '@material-ui/core/styles';
 import {useHistory} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { Button as button, Dropdown, Menu } from 'semantic-ui-react'
 import Button from '@material-ui/core/Button';
 
@@ -46,6 +47,8 @@ const UserButton= ()=> {
 
     const history= useHistory();
 
+    const [cookies, setCookie, removeCookie] = useCookies(['name']);
+
     const [alertopen, setalertOpen] = useState(false);
 
     const handleAlertClickOpen = () => {
@@ -62,7 +65,8 @@ const UserButton= ()=> {
         dispatch(await auth(null,false));
         dispatch(await fetchCartItem(null));
         dispatch(await fetchOrders(null));
-       
+        removeCookie('x-auth-token');
+        removeCookie('user');
     }
 
     const classes = useStyles();

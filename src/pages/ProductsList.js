@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom:'10vh'
     }
 }));
-const ProductsList= ({selectedCategory})=> {
+const ProductsList = ({selectedCategory})=> {
 
     const classes= useStyles();
 
@@ -33,40 +33,30 @@ const ProductsList= ({selectedCategory})=> {
 
     useEffect(()=>{
 
-        const fetchProd= async()=>{
+        if(state.products){
+
             setLoadingComplete(false);
-            var querySorting=null;
-            var filter= state.filter.name
-            var response;
+            var array= Object.values(state.products);
 
-            if(filter){
-                if(filter=="ascendingName")
-                    querySorting={'name':1};
-                else if(filter=="descendingName")
-                    querySorting={'name':-1};
-                else if(filter=="ascendingPrice")
-                    querySorting={'price':1};
-                else if(filter=="descendingPrice")
-                    querySorting={'price':-1};
+            if(state.filter.name){
+
+                if(state.filter.name=="ascendingName")
+                    array= Object.values(state.products).sort((a,b)=>a.name>b.name?1:-1);
+                else if(state.filter.name=="descendingName")
+                    array= Object.values(state.products).sort((a,b)=>a.name<b.name?1:-1);
+                else if(state.filter.name=="ascendingPrice")
+                    array= Object.values(state.products).sort((a,b)=>Number(a.price)>Number(b.price)?1:-1);
+                else if(state.filter.name=="descendingPrice")
+                    array= Object.values(state.products).sort((a,b)=>Number(a.price)<Number(b.price)?1:-1);
             }
-
-            if(state.isFilteredCategoryPresent)
-                response= await axios.get(`/product/filter`,{params:{search: state.filteredSubCategories,sorting: querySorting}});
-            else
-                response= await axios.get(`/product/filter`,{params:{search: "all",sorting: querySorting}});
-
-            setData(response.data);
-
+            
+            setData(array);
             setLoadingComplete(true);
         }
 
-        fetchProd();
+    },[state.filteredSubCategories,state.filter.name,state.products]);
 
-        
-    },[state.filteredSubCategories,state.filter.name]);
-
-    if(!state.filteredSubCategories)
-
+    if(!state.filteredSubCategories && !state.products && !data)
         return (
             <div style={{margin:'15vh'}}>
                 Loading...
@@ -82,23 +72,18 @@ const ProductsList= ({selectedCategory})=> {
                 <Grid container spacing={3} justify={state.mobileView?'center':'flex-start'} >
                     <br/>
                     {
-                        data && loadingComplete && data.map((item,index)=>{
-                            return (
-                                <Grid item  key={index}>
-                                    <Link to={`/product/${item._id}`} style={{textAlign:'center'}}>
-                                        <Card product={item} />
-                                    </Link>
-                                </Grid>
-                            );
-                        })||
-
-                        !data || !loadingComplete && (
-
-                            <div className={state.mobileView?classes.loading_mobile: classes.loading_desktop}>
-                                <CircularProgress />
-                                    Loading...
-                            </div> 
-                        )
+                        state.filteredSubCategories && state.products && loadingComplete && data && data.map((product,index)=>{
+                            if(state.filteredSubCategories.includes(product.parent) || state.filteredSubCategories.length==0){
+                                console.log(product);
+                                return (
+                                    <Grid item  key={index}>
+                                        <Link to={`/product/${product._id}`} style={{textAlign:'center'}}>
+                                            <Card product={product} />
+                                        </Link>
+                                    </Grid>
+                                );
+                            }
+                        })
                     }
                 </Grid>
             </Grid>

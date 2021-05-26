@@ -59,7 +59,7 @@ const Cart= ()=> {
         return (
             Object.values(state.cart).map((ob,index)=>{
                 return (
-                    <div style={{marginTop:'3vh'}} key={index}>
+                    <div style={{marginTop:'3vh',paddingBottom:'4vh'}} key={index}>
                         <CartItem ob={ob} />
                     </div>
                    

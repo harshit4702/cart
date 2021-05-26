@@ -5,7 +5,6 @@ import { Button, Dropdown, Menu } from 'semantic-ui-react'
 import Paper from '@material-ui/core/Paper';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {AppContext} from '../AppContext';
 import {categoriesData} from '../helpers/categoriesData';
@@ -15,7 +14,7 @@ const useStyles = ({mobileView})=>{
         makeStyles({
             menuHeader:{
                 textAlign: 'left',
-                marginBottom:'1vh',
+                marginBottom:'2vh',
                 width: '100vw',
                 height: '12vh',
                 background: 'white',
@@ -138,7 +137,7 @@ const MenuBar = ()=>  {
     if(!state.categories)
         return (
             <div style={{margin:'3vh'}}>
-                <CircularProgress />
+                
             </div>
         );
 

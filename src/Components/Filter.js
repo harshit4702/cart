@@ -118,7 +118,6 @@ const Filter= (props)=> {
 
     const handleChangeSubCategories = (event) => {
         setCheckBoxSubCategories({ ...checkBoxSubCategories, [event.target.name]: event.target.checked });
-        dispatch(filteredSubCategories(checkBoxSubCategories));
     };
 
     if(!checkBoxCategories || !state.categories || !checkBoxSubCategories || !checker)
