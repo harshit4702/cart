@@ -31,7 +31,7 @@ const Orders= ()=> {
     const [orders,setOrders]= useState(null);
 
     useEffect(()=>{
-        if(state.auth.isSignedIn )
+        if(state.auth.isSignedIn && state.orders)
             setOrders(Object.values(state.orders));
     },[state.orders])
 

@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -13,6 +13,7 @@ import shuffle from 'shuffle-array';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {AppContext} from "../AppContext";
+import axios from '../axios';
 
 const useStyles = makeStyles({
     rootDesktop: {
@@ -45,7 +46,18 @@ const ProductBox= ({name})=>{
 
     const classes= useStyles();
 
-    if(!state.products)
+    const [data,setData]= useState(null);
+
+    useEffect(async()=>{
+        if(state.products)
+            setData(Object.values(state.products));
+        else{
+            const response= await axios.get(`/product/filter`,{params:{search: "number",sorting: null,size:10}});
+            setData(response.data);
+        }
+    },[state.products])
+
+    if(!data)
         return (
             <div style={{padding:'10vh'}}>
                 Loading...
@@ -55,47 +67,47 @@ const ProductBox= ({name})=>{
     return (
         <>
             <div style={{ width: '100%' }}>
-            <Box display="flex"  bgcolor="background.paper">
-                <Box p={1} flexGrow={1} style={{textAlign: 'left'}}>
-                <h2 style={{fontFamily: `'IBM Plex Serif',serif`}}><strong>{name}</strong></h2>
+                <Box display="flex"  bgcolor="background.paper">
+                    <Box p={1} flexGrow={1} style={{textAlign: 'left'}}>
+                    <h2 style={{fontFamily: `'IBM Plex Serif',serif`}}><strong>{name}</strong></h2>
+                    </Box>
+                    <Box style={{textAlign:'right',marginRight:'.5vw'}}>
+                        <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
+                            <Button  variant="contained" color="primary">View All</Button>
+                        </Link>
+                    </Box>
                 </Box>
-                <Box style={{textAlign:'right',marginRight:'.5vw'}}>
-                    <Link to={{pathname: "/showProducts",state: { selectedCategory: null}}} >
-                        <Button  variant="contained" color="primary">View All</Button>
-                    </Link>
-                </Box>
-            </Box>
-            </div>
-            <hr/>
-            <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
-            <ScrollMenu
-                data={shuffle.pick(Object.values(state.products) , {'picks': 10 }).map((product, index) => (
-                    <Link to={`/product/${product._id}`} key={index}> 
-                        <Card className={state.mobileView?classes.rootMobile:classes.rootDesktop} >
-                            <div style={{textAlign:'center'}}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        alt="Contemplative Reptile"
-                                        className={state.mobileView?classes.cardMobile:classes.cardDesktop}
-                                        image={`/product/photos/${product._id}/0`}
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                    <Typography  component="h2">
-                                        {product.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <strong>Extra {product.discount} % off <br></br></strong>
-                                        ₹{product.price}
-                                    </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </div>
-                        </Card>
-                    </Link>
-                ))}    
-            />
+                </div>
+                <hr/>
+                <div style={{width:state.mobileView?'133vw':'110vw',marginLeft:state.mobileView?'-36vw':'-7vw'}} >
+                <ScrollMenu
+                    data={shuffle.pick(Object.values(data), {'picks': 10 }).map((product, index) => (
+                        <Link to={`/product/${product._id}`} key={index}> 
+                            <Card className={state.mobileView?classes.rootMobile:classes.rootDesktop} >
+                                <div style={{textAlign:'center'}}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            component="img"
+                                            alt="Contemplative Reptile"
+                                            className={state.mobileView?classes.cardMobile:classes.cardDesktop}
+                                            image={`/product/photos/${product._id}/0`}
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                        <Typography  component="h2">
+                                            {product.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            <strong>Extra {product.discount} % off <br></br></strong>
+                                            ₹{product.price}
+                                        </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </div>
+                            </Card>
+                        </Link>
+                    ))}    
+                />
             </div>
         </>
     );

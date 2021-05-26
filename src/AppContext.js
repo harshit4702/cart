@@ -14,6 +14,7 @@ const initialState= {
         user:null
     },
     categories:null,
+    carousels:null,
     orders: null,
     cat:[],
     filter:{
@@ -45,6 +46,8 @@ const reducer = (state, action)=>{
             return {...state, filter:{ name: action.payload.name}};
         case "isFilteredCategoryPresent":
             return {...state, isFilteredCategoryPresent: action.payload};
+        case "fetchCarousels":
+            return {...state, carousels:_.mapKeys(action.payload,'_id')}
         case "fetchingCategories":
             return {...state, categories:_.mapKeys(action.payload,'_id')}
         case "fetchFilteredCategories":

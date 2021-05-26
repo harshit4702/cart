@@ -1,5 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react';
 import { BrowserRouter as Router,Redirect, Route, Switch} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import Alert from '@material-ui/lab/Alert';
 
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
@@ -16,10 +18,9 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, fetchingCategories, fetchProducts} from './actions/actions';
+import {mobileView, fetchingCategories, fetchProducts, fetchCarousels, auth, fetchCartItem, fetchOrders} from './actions/actions';
 import {AppContext} from './AppContext';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
@@ -39,6 +40,8 @@ const App= ()=> {
 
   const {state,dispatch}= useContext(AppContext);
 
+  const [cookies, setCookie] = useCookies(['name']);
+
   console.log(state);
 
   const [screenWidth,setScreenWidth]= useState(window.innerWidth);
@@ -50,8 +53,21 @@ const App= ()=> {
     else
       dispatch(mobileView(true));
     console.log(screenWidth);
-    dispatch(await fetchProducts());
+    console.log(cookies);
+
+    dispatch(await fetchCarousels());
+
+    if(cookies['x-auth-token']){
+      dispatch(auth(cookies['user'],true))
+      dispatch(await fetchCartItem(cookies['user'].cart));
+    }
+
     dispatch(await fetchingCategories());
+    dispatch(await fetchProducts());
+
+    if(cookies['x-auth-token'])
+      dispatch(await fetchOrders(cookies['user'].email));
+
   },[screenWidth]);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
@@ -61,13 +77,24 @@ const App= ()=> {
       <div className="App" style={{backgroundColor: '#f0f5f1'}}>
         <Router>
           <Navbar />
+
+          {
+              state.auth.isSignedIn && state.auth.user && !state.auth.user.isEmailVerified && (
+                <Alert variant="filled" severity="warning">
+                    Your Email is not Verified
+                </Alert>
+              )
+          }
+
           {
             screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
           }
+
           <Switch>
               <Route path="/"  exact component= {Home} />
               <Route path="/showProducts"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
               <Route path="/showProducts/:subCategoryId"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
+              <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/product/:id"  exact component= {ProductDetails} />
               <Route path="/cart"  exact component= {Cart} />
               <Route path="/profile"  exact component= {MyProfile} />

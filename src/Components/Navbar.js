@@ -138,7 +138,7 @@ const Navbar= ()=> {
             return;
         
         return (
-            <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'0vw':'28vw',marginRight:state.mobileView?'0vw':'43vw'}}>
+            <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'4vw':'28vw',marginRight:state.mobileView?'2.5vw':'43vw'}}>
                 {
                     searchArray.map((product,key={key})=>{
                         return (
