@@ -120,11 +120,11 @@ const ProductDetails= ()=> {
                         <br/>
                         <p>
                         
-                            Extra ₹{product.discount} off<br/>
+                            Extra ₹{Math.trunc(product.discount/100*product.price)} off<br/>
                             <h1 style={{display:'inline'}}>
-                                ₹{parseInt(product.price) - parseInt(product.discount)}
+                                ₹{parseInt(product.price) - Math.trunc(product.discount/100*product.price)}
                             </h1>
-                            <p style={{fontSize:'15px',color:'grey',display:'inline'}}> <del>₹{product.price}</del> ₹{product.discount} off </p>
+                            <p style={{fontSize:'15px',color:'grey',display:'inline'}}> <del>₹{product.price}</del> {product.discount}% off </p>
                         </p>
                         <h5>
                             Description

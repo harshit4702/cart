@@ -76,7 +76,15 @@ const CartItem= (props)=>{
                 <img src={`/product/photos/${props.ob._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'12vh':'80px'}}/>
             </Grid>
             <Grid item xs={7}>
-                <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.name}</h4>
+                <h4 style={{fontFamily: `'IBM Plex Serif',serif`,display:'inline'}}>
+                    {props.ob.name} (
+                    <h6 style={{display:'inline'}}>
+                         <del> ₹{props.ob.price}</del> 
+                    </h6>
+                    &nbsp; ₹{props.ob.price-Math.trunc(props.ob.discount/100*props.ob.price)}
+                    )
+                </h4>
+                
                 <h5 className={classes.description} style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.description}</h5>
             </Grid>
             <Grid item xs={2}>

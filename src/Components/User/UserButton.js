@@ -67,6 +67,7 @@ const UserButton= ()=> {
         dispatch(await fetchOrders(null));
         removeCookie('x-auth-token');
         removeCookie('user');
+        console.log('hello');
     }
 
     const classes = useStyles();

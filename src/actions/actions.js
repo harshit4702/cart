@@ -89,6 +89,14 @@ export const fetchProducts = async()=> {
     };
 };
 
+export const fetchProductsLimited = async()=> {
+    const response= await axios.get(`/product/filter`,{params:{search: "number",sorting: null,size:10}});
+    return {
+        type: "fetchProductsLimited", 
+        payload: response.data
+    };
+};
+
 export const fetchUsers = async()=> {
     const response= await axios.get('/user');
     return {

@@ -18,7 +18,7 @@ import CheckoutError from './Components/CheckoutError';
 
 import MyProfile from './pages/MyProfile';
 
-import {mobileView, fetchingCategories, fetchProducts, fetchCarousels, auth, fetchCartItem, fetchOrders} from './actions/actions';
+import {mobileView, fetchingCategories, fetchProducts, fetchCarousels, auth, fetchCartItem, fetchOrders, fetchProductsLimited} from './actions/actions';
 import {AppContext} from './AppContext';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -42,8 +42,6 @@ const App= ()=> {
 
   const [cookies, setCookie] = useCookies(['name']);
 
-  console.log(state);
-
   const [screenWidth,setScreenWidth]= useState(window.innerWidth);
 
   useEffect(async()=>{
@@ -62,6 +60,7 @@ const App= ()=> {
       dispatch(await fetchCartItem(cookies['user'].cart));
     }
 
+    dispatch(await fetchProductsLimited())
     dispatch(await fetchingCategories());
     dispatch(await fetchProducts());
 
