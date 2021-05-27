@@ -11,7 +11,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {AppContext} from '../AppContext';
 
 import axios from '../axios';
-
 const useStyles = ({mobileView})=>{
     return (
         makeStyles({

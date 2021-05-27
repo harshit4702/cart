@@ -90,16 +90,30 @@ const MyProfile = ()=> {
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
     const [editalert, setEditAlert] = useState(false);
-
+    
     const [values, setValues] = useState({
-        name: state.auth.user.name,
-        email: state.auth.user.email,
-        contact: state.auth.user.contact,
-        colony: state.auth.user.address?state.auth.user.address.colony: '',
-        locality: state.auth.user.address?state.auth.user.address.locality: '',
-        city: state.auth.user.address?state.auth.user.address.city: '',
-        pincode: state.auth.user.address?state.auth.user.address.pincode: '',
+        name: '',
+        email: '',
+        contact: '',
+        colony: '',
+        locality: '',
+        city: '',
+        pincode: '',
     });
+
+    useEffect(()=>{
+        if(state.auth.isSignedIn){
+            setValues({
+                name: state.auth.user.name,
+                email: state.auth.user.email,
+                contact: state.auth.user.contact,
+                colony: state.auth.user.address?state.auth.user.address.colony: '',
+                locality: state.auth.user.address?state.auth.user.address.locality: '',
+                city: state.auth.user.address?state.auth.user.address.city: '',
+                pincode: state.auth.user.address?state.auth.user.address.pincode: '',
+            });
+        }
+    } , [state.auth.isSignedIn]);
 
     const onSubmit = (prop,a,b,c) => async(e) => {
         e.preventDefault();
@@ -135,6 +149,19 @@ const MyProfile = ()=> {
     const handleAlertClose = () => {
         setEditAlert(false);
     };
+
+    if(!state.auth.isSignedIn) 
+        return (
+            <div>
+                <Paper elevation={1} style={{width:state.mobileView?'95vw':'' , paddingTop: '1vh'}} >
+                <br></br>
+                <h2 style={{fontFamily: `'IBM Plex Serif',serif` }}>My Profile</h2>
+                <h3>Please login to view your Profile </h3>
+                <br></br>
+                <br></br>
+                </Paper>
+            </div>
+        );
 
     return (
         <Paper className={state.mobileView ? classes.ppr_mobile : classes.ppr_desk} >

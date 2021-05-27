@@ -5,23 +5,19 @@ import Button from '@material-ui/core/Button';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
 import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import {Link,useHistory} from 'react-router-dom';
-
 import {AppContext} from '../AppContext';
 import CartItem from '../Components/CartItem';
 
-
 const Cart= ()=> {
-
-    const {state,dispatch}= useContext(AppContext);
-
+    const {state,dispatch}= useContext(AppContext)
     const history= useHistory();
 
     const [amount,setAmount]= useState(0);
     const [discount,setDiscount]= useState(0);
 
     useEffect(async()=>{
-        var amt=0;
-        var disct= 0;
+        var amt = 0;
+        var disct = 0;
         Object.values(state.cart).map((item)=>{
             amt= amt+item.price*item.quantity;
             disct= disct+(Math.trunc(item.discount/100*item.price))*item.quantity;

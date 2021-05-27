@@ -35,7 +35,7 @@ const Filter= (props)=> {
     useEffect(()=>{
         if(state.categories){
             var z={};
-           var flag=true; 
+            var flag=true; 
             Object.values(state.categories).map((item)=>{
                 if(!props.selectedCategory && flag==true)
                     z= {...z, [item._id] : true}
@@ -47,11 +47,9 @@ const Filter= (props)=> {
             });
             setCheckBoxCategories(z);
         }
-
     },[state.categories]);
 
     useEffect(()=>{
-        
         if(checkBoxCategories && state.categories){
             var z={};
             var flag= false;
