@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import axios from '../axios';
 import {profile} from "../actions/actions";
 import { propertyOf } from 'lodash';
+import { useCookies } from 'react-cookie';
+ 
 
 const useStyles = makeStyles({
     ppr_desk: {
@@ -100,7 +102,8 @@ const MyProfile = ()=> {
         city: '',
         pincode: '',
     });
-
+    const [cookies, setCookie] = useCookies(['name']);
+    
     useEffect(()=>{
         if(state.auth.isSignedIn){
             setValues({
@@ -132,6 +135,7 @@ const MyProfile = ()=> {
         try{
             const response = await axios.patch(`/user/profile/${state.auth.user._id}`, e.target[2].value ? {address : data} : data);
             dispatch(await profile(response.data));
+            setCookie('user', { ...cookies['user'] , ...response.data } )
         }
         catch(err){
             console.log('Error');
@@ -196,6 +200,7 @@ const MyProfile = ()=> {
                             margin= {state.mobileView ? "dense" : ""}   
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <Button type="submit" className={state.mobileView ? classes.btn_mobile : classes.btn_desk}  variant="contained" color="primary" >
                             Save
@@ -280,6 +285,7 @@ const MyProfile = ()=> {
                             label="Enter Mobile Number"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <Button type="submit" className={state.mobileView ? classes.btn_mobile : classes.btn_desk} variant="contained" color="primary" >
                             Save
@@ -327,6 +333,7 @@ const MyProfile = ()=> {
                             label="House No. / Colony"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <br></br>
                         <br></br>
@@ -339,6 +346,7 @@ const MyProfile = ()=> {
                             label="Locality/Landmark"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <br></br>
                         <br></br>
@@ -351,6 +359,7 @@ const MyProfile = ()=> {
                             label="City Name"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <br></br>
                         <br></br>
@@ -363,6 +372,7 @@ const MyProfile = ()=> {
                             label="Enter Pincode"
                             variant="outlined"
                             id="mui-theme-provider-outlined-input"
+                            required
                         />
                         <Button type="submit" className={state.mobileView ? classes.btn_mobile : classes.btn_desk}  variant="contained" color="primary" >
                             Save
