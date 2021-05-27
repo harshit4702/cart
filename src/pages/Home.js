@@ -1,13 +1,10 @@
 import React,{useState,useEffect, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-
 import Carousel from '../Components/Carousel';
 import Offers from '../Components/Offers';
 import ProductBox from '../Components/ProductBox';
-
 import {homeData} from '../helpers/homeData';
-
 import axios from '../axios';
 import {AppContext} from '../AppContext';
 
