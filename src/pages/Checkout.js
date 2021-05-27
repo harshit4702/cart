@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import Alert from '@material-ui/lab/Alert';
-import CheckIcon from '@material-ui/icons/Check';
+import Box from '@material-ui/core/Box';
 
 import {addOrder, fetchCartItem} from "../actions/actions";
 
@@ -97,10 +97,24 @@ const Checkout= (props)=> {
                             );
                         })
                     )
-
                 }
 
-                <br/><br/>
+                <br/><hr/>
+
+                <Box display="flex"  bgcolor="background.paper">
+                    <Box p={1} flexGrow={1} style={{textAlign:'left',marginLeft:state.mobileView?'4vw':'6vw'}}>
+                        <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
+                            <strong>Total Amount:</strong>
+                        </h4>
+                    </Box>
+                    <Box style={{marginTop:'.5vh',marginRight:state.mobileView?'4vw':'8vw'}}>
+                        <h3 style={{fontFamily: `'IBM Plex Serif',serif`}}>
+                            <strong>₹{props.amount}</strong>
+                        </h3>
+                    </Box>
+                </Box>
+
+                <br/>
 
                 <Paper className={classes.paper}>
                     Address

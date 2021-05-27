@@ -36,7 +36,7 @@ const Orders= ()=> {
     },[state.orders])
 
     return (
-        <div style={{marginTop:'3vh',marginBottom:'3vh',marginLeft:state.mobileView?'3vw':'10vw',marginRight:state.mobileView?'3vw':'10vw'}}>
+        <div style={{marginTop:'3vh',marginBottom:'5vh',marginLeft:state.mobileView?'3vw':'10vw',marginRight:state.mobileView?'3vw':'10vw'}}>
                 <div>
                     <Paper className={classes.paper} style={{width:state.mobileView?'94vw':'80vw'}}>
                         Orders
@@ -48,6 +48,17 @@ const Orders= ()=> {
                                     <Grid item>
                                         <h1>Sign in to see your ordered items</h1>
                                         <VpnKeyOutlinedIcon style={{fontSize:state.mobileView?"20vw":"100px"}}/>
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                        )||
+
+                        state.auth.isSignedIn && !orders && (
+                            <Paper>
+                                <Grid container spacing={3} justify="center" >
+                                    <Grid item>
+                                        <h1>No Order Placed</h1>
+                                        <RemoveShoppingCartOutlinedIcon style={{fontSize:state.mobileView?"20vw":"125px"}}/>
                                     </Grid>
                                 </Grid>
                             </Paper>

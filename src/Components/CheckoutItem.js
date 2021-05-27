@@ -32,11 +32,14 @@ const CartItem= (props)=>{
             </Grid>
             <Grid item xs={state.mobileView?2:3}>
                 <div style={{marginTop:'3vh'}}>
-                    <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
-                        {state.mobileView?'':'Price:'} <strong>₹ {props.ob.price}</strong>
+                    {state.mobileView?'':'Price : '}
+                    <h6 style={{fontFamily: `'IBM Plex Serif',serif`,display:'inline'}}>
+                        <del>₹{props.ob.price}</del>
+                    </h6>
+                    <h4 style={{fontFamily: `'IBM Plex Serif',serif`,display:'inline'}}>
+                        <strong> ₹{props.ob.price-Math.trunc(props.ob.discount/100*props.ob.price)}</strong>
                     </h4>
                     <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
-                        
                         {state.mobileView?'X':'Quantity:'}  {props.ob.quantity}
                     </h4>
                 </div>

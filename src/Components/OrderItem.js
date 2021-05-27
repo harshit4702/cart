@@ -54,17 +54,23 @@ const OrderItem= ({item,orderId})=>{
                         <img src={`/product/photos/${item.product._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'10vh':'80px'}}/>
                     </Grid>
                     <Grid item xs={state.mobileView?7:6}>
-                        <h4 className={classes.description} style={{fontFamily: `'IBM Plex Serif',serif`,color:'black',cursor:'pointer'}}>Status: {item.status!='Refunded'?item.status:'Returned'}</h4>
+                        <div style={{marginBottom:'1vh'}}>
+                            <h4 className={classes.description} style={{fontFamily: `'IBM Plex Serif',serif`,color:'black',cursor:'pointer'}}>Status: {item.status!='Refunded'?item.status:'Returned'}</h4>
+                        </div>
                         <h4 style={{fontFamily: `'IBM Plex Serif',serif`,color:'black',cursor:'pointer'}}>{item.deliveredDate?`Delivered Date: ${item.deliveredDate.substring(0,10)}`:`Expected Date: ${item.expectedDate.substring(0,10)}`}</h4>
                     </Grid>
                     <Grid item xs={state.mobileView?2:3}>
-                        <div>
-                            <h4 style={{fontFamily: `'IBM Plex Serif',serif`,color:'black',cursor:'pointer'}}>
-                                {state.mobileView?'':'Price:'} <strong>₹ {item.product.price}</strong>
+                        <div style={{color:'black'}}>
+                            {state.mobileView?'':'Price : '}
+                            <h6 style={{fontFamily: `'IBM Plex Serif',serif`,display:'inline'}}>
+                                <del>₹{item.product.price}</del>
+                            </h6>
+                            <h4 style={{fontFamily: `'IBM Plex Serif',serif`,display:'inline'}}>
+                                <strong> ₹{item.product.price-Math.trunc(item.product.discount/100*item.product.price)}</strong>
                             </h4>
-                            <h4 style={{fontFamily: `'IBM Plex Serif',serif`,color:'black',cursor:'pointer'}}>
+                            <h5 style={{fontFamily: `'IBM Plex Serif',serif`,cursor:'pointer'}}>
                                 {state.mobileView?'X':'Quantity:'}  {item.quantity}
-                            </h4>
+                            </h5>
                         </div>
                     </Grid>
                 </Grid>

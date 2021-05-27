@@ -51,11 +51,10 @@ const ProductBox= ({name})=>{
     useEffect(async()=>{
         if(state.products)
             setData(Object.values(state.products));
-        else{
-            const response= await axios.get(`/product/filter`,{params:{search: "number",sorting: null,size:10}});
-            setData(response.data);
-        }
-    },[state.products])
+        else if(state.productsLimited)
+            setData(state.productsLimited);
+    
+    },[state.products,state.productsLimited])
 
     if(!data)
         return (

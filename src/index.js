@@ -5,12 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {AppContextProvider} from './AppContext';
+import { CookiesProvider } from 'react-cookie';
 
 const RootComponent = ()=>{
     return (
       <React.StrictMode>
-        <AppContextProvider>   
+        <AppContextProvider>  
+          <CookiesProvider>
             <App />
+          </CookiesProvider> 
         </AppContextProvider>
       </React.StrictMode>
     );
