@@ -59,6 +59,8 @@ const reducer = (state, action)=>{
             return {...state, cat: _.mapKeys(action.payload,'_id')};
         case "fetchProducts":
             return {...state, products: _.mapKeys(action.payload,'_id')};
+        case "setStockQuantity":
+            return {...state, products:{...state.products,[action.payload.id]:{...state.products[action.payload.id],stockQuantity:Number(action.payload.value)}}};
         case "fetchProductsLimited":
             return {...state, productsLimited: _.mapKeys(action.payload,'_id')};
         case "fetchFilteredProducts":

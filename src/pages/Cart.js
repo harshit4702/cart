@@ -5,22 +5,29 @@ import Button from '@material-ui/core/Button';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
 import VpnKeyOutlinedIcon from '@material-ui/icons/VpnKeyOutlined';
 import {Link,useHistory} from 'react-router-dom';
+
 import {AppContext} from '../AppContext';
 import CartItem from '../Components/CartItem';
 
+
 const Cart= ()=> {
-    const {state,dispatch}= useContext(AppContext)
+
+    const {state,dispatch}= useContext(AppContext);
+
     const history= useHistory();
 
     const [amount,setAmount]= useState(0);
     const [discount,setDiscount]= useState(0);
 
     useEffect(async()=>{
-        var amt = 0;
-        var disct = 0;
+        var amt=0;
+        var disct= 0;
         Object.values(state.cart).map((item)=>{
-            amt= amt+item.price*item.quantity;
-            disct= disct+(Math.trunc(item.discount/100*item.price))*item.quantity;
+            console.log(item.stockQuantity);
+            if(item.stockQuantity!=0){
+                amt= amt+item.price*item.quantity;
+                disct= disct+(Math.trunc(item.discount/100*item.price))*item.quantity;
+            }
         });
         setAmount(amt);
         setDiscount(disct);
@@ -50,16 +57,18 @@ const Cart= ()=> {
                         <RemoveShoppingCartOutlinedIcon style={{fontSize:state.mobileView?"20vw":"125px"}}/>
                     </Grid>
                 </Grid>
-            )
+            );
 
         return (
             Object.values(state.cart).map((ob,index)=>{
-                return (
-                    <div style={{marginTop:'3vh',paddingBottom:'4vh'}} key={index}>
-                        <CartItem ob={ob} />
-                    </div>
-                   
-                );
+                if(ob.stockQuantity!=0){
+                    return (
+                        <div style={{marginTop:'3vh',paddingBottom:'4vh'}} key={index}>
+                            <CartItem ob={ob} />
+                        </div>
+                    
+                    );
+                }
             })
         )
     }

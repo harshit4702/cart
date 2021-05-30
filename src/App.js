@@ -60,14 +60,23 @@ const App= ()=> {
       dispatch(await fetchCartItem(cookies['user'].cart));
     }
 
-    dispatch(await fetchProductsLimited())
-    dispatch(await fetchingCategories());
-    dispatch(await fetchProducts());
+    dispatch(await fetchProductsLimited());
+
+    if(screenWidth>560){
+      dispatch(await fetchingCategories());
+      dispatch(await fetchProducts());
+    }
+    else{
+      dispatch(await fetchProducts());
+      dispatch(await fetchingCategories());
+    }
 
     if(cookies['x-auth-token'])
       dispatch(await fetchOrders(cookies['user'].email));
 
   },[screenWidth]);
+
+  console.log(state);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
 
