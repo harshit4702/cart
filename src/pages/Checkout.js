@@ -7,9 +7,10 @@ import Radio from '@material-ui/core/Radio';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
-import {addOrder, fetchCartItem} from "../actions/actions";
+import {addOrder, fetchCartItem, setCartItemNull, setStockQuantity} from "../actions/actions";
 
 import CheckoutItem from '../Components/CheckoutItem';
+import Modal from '../Components/Modal';
 
 import {AppContext} from '../AppContext';
 import axios from '../axios'
@@ -33,6 +34,16 @@ const Checkout= (props)=> {
     const {state,dispatch}= useContext(AppContext);
 
     const classes= useStyles();
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const [selectedValue, setSelectedValue] = useState(null);
 
@@ -70,9 +81,12 @@ const Checkout= (props)=> {
                 response= await axios.post(`/order/buyNow/${state.auth.user._id}`,formValues);
 
             dispatch(addOrder(response.data));
-            dispatch(await fetchCartItem(state.auth.user.cart));
+            dispatch(setCartItemNull());
+
             setOpenAlert(true);
             setArrayItems([]);
+            for await (let item of props.items)
+                dispatch(setStockQuantity(item._id,Number(item.stockQuantity)-Number(item.quantity)));
         }
         catch(e){
             alert('Error in Order');
@@ -159,9 +173,24 @@ const Checkout= (props)=> {
 
                     {
                         !openAlert && (
-                            <Button disabled={!selectedValue?true:false} type="Submit" variant="contained" color="primary">
-                                Proceed
-                            </Button>
+                            <>
+                                <Button disabled={!selectedValue?true:false} onClick={handleOpen} variant="contained" color="primary">
+                                    Proceed
+                                </Button>
+                                <Modal
+                                    open={open} 
+                                    handleOpen={handleOpen} 
+                                    handleClose={handleClose}
+                                    title= "Checkout"
+                                    description={`Click Yes for order confirmation`}
+                                    action={
+                                     async(e)=>{
+                                            await onSubmit(e);
+                                            handleClose();
+                                        }
+                                    }
+                                />
+                            </>
                         )||
 
                         openAlert && (

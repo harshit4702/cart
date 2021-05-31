@@ -90,6 +90,12 @@ const CartItem= (props)=>{
             <Grid item xs={2}>
                 <div style={{marginTop:'7vh'}}>
                     {
+                        Number(props.ob.stockQuantity)==0 && (
+                            <>
+                                Out of Stock
+                            </>
+                        )||
+
                         !loadCompleted && (
                             <CircularProgress size={30}/>
                         )||
@@ -101,7 +107,7 @@ const CartItem= (props)=>{
                                 </div>
                                 <Grid container spacing={0} style={{marginLeft:state.mobileView?'0px':'20px'}}>
                                     <Grid item>
-                                        <button style={{width:'22px'}}  onClick={async()=>await onClick(props.ob._id,parseInt(props.ob.quantity)+1)}>+</button>
+                                        <button style={{width:'22px'}} disabled={(Number(props.ob.stockQuantity)-Number(props.ob.quantity))>0?false:true} onClick={async()=>await onClick(props.ob._id,parseInt(props.ob.quantity)+1)}>+</button>
                                     </Grid>
                                     <Grid item>
                                         <button style={{width:'22px'}} onClick={async()=>await onClick(props.ob._id,parseInt(props.ob.quantity)-1)}>-</button>

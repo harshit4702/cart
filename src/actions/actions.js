@@ -24,6 +24,16 @@ export const auth = (user,flag)=>{
     }
 };
 
+export const setStockQuantity = (id,value)=>{
+    return {
+        type: "setStockQuantity",
+        payload: {
+            id,
+            value
+        }
+    }
+};
+
 export const addOrder = (order)=>{
     return {
         type: "addOrder",
@@ -132,6 +142,12 @@ export const fetchOrders = async (email) => {
     return {
         type: 'fetchOrders', 
         payload: response.data
+    }
+};
+
+export const setCartItemNull = () => {
+    return { 
+        type: 'setCartItemNull'
     }
 };
 

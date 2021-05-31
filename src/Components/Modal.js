@@ -32,7 +32,7 @@ const ModalUI = (props)=>{
             {props.description}
         </p>
         <div style={{textAlign:'right'}}>
-            <Button variant="contained" color="primary" onClick={props.action}>
+            <Button type="Submit" variant="contained" color="primary" onClick={props.action}>
                 Yes
             </Button>
             <Button variant="contained" color="secondary" onClick={props.handleClose} >

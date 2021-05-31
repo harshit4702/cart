@@ -4,7 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import CheckIcon from '@material-ui/icons/Check';
 import Select from 'react-select';
 
 import {AppContext} from "../AppContext";
@@ -43,10 +44,15 @@ const ProductDetails= ()=> {
 
     useEffect(()=>{
         var op=[];
-        for(var i=1;i<=10;i++)
-            op.push({value:i,label:i});
+        if(state.products){
+            for(var i=1;i<=Number(state.products[params.id].stockQuantity);i++)
+                op.push({value:i,label:i});
+        }
+        else
+            op.push({value:1,label:1});
+        
         setOptions(op);
-    },[]);
+    },[state.products]);
 
     const onClick= async()=>{
         setLoadComplete(false);
@@ -74,40 +80,62 @@ const ProductDetails= ()=> {
                                 <Image product={product}/>
                             </Grid>
                             <Grid item>
-                                <div style={{textAlign:'left',marginLeft:'6vw',marginBottom:'2vh',width:'150px',height:'20px'}}>
-                                    <Select
-                                        value={selectedOption}
-                                        onChange={handleChange}
-                                        options={options}
-                                        placeholder="Qty."
-                                        menuPlacement="auto"
-                                    />
+                                <div style={{textAlign:'left',marginLeft:'6vw',marginBottom:state.mobileView?'6vh':'2vh',width:'150px',height:'20px'}}>
+                                    {
+                                        product.stockQuantity && (
+                                            <Select
+                                                value={selectedOption}
+                                                onChange={handleChange}
+                                                options={options}
+                                                placeholder="Qty."
+                                                menuPlacement="auto"
+                                            />
+                                        )||
+
+                                        !product.stockQuantity && (
+                                            <>
+                                                <Alert severity="info" style={{width:state.mobileView?'80vw':'31.5vw'}}>
+                                                    <AlertTitle>Product Out of Stock</AlertTitle>
+                                                </Alert>
+                                            </>
+                                        )
+                                    }
+                                    
                                 </div>
                             </Grid>
                             <Grid item style={{marginLeft:state.mobileView?'5vw':'5vw'}}>
-                                <Grid container spacing={3}>
-                                    <Grid item sm={6}>
-                                        {
-                                            loadComplete && (
-                                                <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={state.cart[params.id]||!state.auth.isSignedIn?true:false} onClick={onClick}>
-                                                    Add to Chart
-                                                </Button>
-                                            )||
+                                {
+                                    product.stockQuantity && (
+                                        <Grid container spacing={3}>
+                                            <Grid item sm={6}>
+                                                {
+                                                    loadComplete && (
+                                                        <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={state.cart[params.id]||!state.auth.isSignedIn?true:false} onClick={onClick}>
+                                                            Add to Chart
+                                                        </Button>
+                                                    )||
 
-                                            !loadComplete && (
-                                                <div>
-                                                    Adding to Cart...
-                                                </div>
-                                            )
-                                        }
-                                    </Grid>
-                                    <Grid item sm={6}>
-                                        
-                                        <Button onClick={()=>history.push('/cart/checkout',{flag:true,isCart:false,amount:(product.price-product.discount)*selectedOption.value,items:[{...product,quantity: selectedOption.value}]})} style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary"disabled={!state.auth.isSignedIn?true:false}>
-                                            Buy Now
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                                    !loadComplete && (
+                                                        <div>
+                                                            Adding to Cart...
+                                                        </div>
+                                                    )
+                                                }
+                                            </Grid>
+                                            <Grid item sm={6}>
+                                                
+                                                <Button onClick={()=>history.push('/cart/checkout',{flag:true,isCart:false,amount:(product.price-product.discount)*selectedOption.value,items:[{...product,quantity: selectedOption.value}]})} style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="secondary"disabled={!state.auth.isSignedIn?true:false}>
+                                                    Buy Now
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    )||
+
+                                    !product.stockQuantity && (
+                                        <></>
+                                    )
+                                }
+                                
                             </Grid>
                         </Grid>
                     </Grid>
@@ -119,13 +147,13 @@ const ProductDetails= ()=> {
                 
                         <br/>
                         <p>
-                        
-                            Extra ₹{Math.trunc(product.discount/100*product.price)} off<br/>
-                            <h1 style={{display:'inline'}}>
-                                ₹{parseInt(product.price) - Math.trunc(product.discount/100*product.price)}
-                            </h1>
-                            <p style={{fontSize:'15px',color:'grey',display:'inline'}}> <del>₹{product.price}</del> {product.discount}% off </p>
+                            Extra ₹{Math.trunc(product.discount/100*product.price)} off
                         </p>
+                        <br/>
+                        <h1 style={{display:'inline'}}>
+                            ₹{parseInt(product.price) - Math.trunc(product.discount/100*product.price)}
+                        </h1>
+                        <p style={{fontSize:'15px',color:'grey',display:'inline'}}> <del>₹{product.price}</del> {product.discount}% off </p>
                         <h5>
                             Description
                         </h5>
