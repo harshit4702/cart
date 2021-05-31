@@ -140,7 +140,7 @@ const Navbar= ()=> {
         return (
             <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'4vw':'28vw',marginRight:state.mobileView?'2.5vw':'43vw'}}>
                 {
-                    searchArray.map((product,key={key})=>{
+                    searchArray.map((product,key)=>{
                         return (
                             <Link to={`/product/${product._id}`} key={key} onClick={()=>setSearchArray([])}>
                                 <li className={classes.searchLi}>

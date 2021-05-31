@@ -69,6 +69,8 @@ const reducer = (state, action)=>{
             return {...state, users: _.mapKeys(action.payload,'email')};
         case "setCartValue":
             return {...state, cartValue: action.payload};
+        case "setCartItemNull":
+            return {...state, cart: [] };
         case "fetchCartItems":
             return {...state, cart: _.mapKeys(action.payload,'productId')};
         case "fetchCartItem":

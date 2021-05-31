@@ -7,7 +7,7 @@ import Radio from '@material-ui/core/Radio';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 
-import {addOrder, fetchCartItem, setStockQuantity} from "../actions/actions";
+import {addOrder, fetchCartItem, setCartItemNull, setStockQuantity} from "../actions/actions";
 
 import CheckoutItem from '../Components/CheckoutItem';
 import Modal from '../Components/Modal';
@@ -81,7 +81,7 @@ const Checkout= (props)=> {
                 response= await axios.post(`/order/buyNow/${state.auth.user._id}`,formValues);
 
             dispatch(addOrder(response.data));
-            dispatch(await fetchCartItem(state.auth.user.cart));
+            dispatch(setCartItemNull());
 
             setOpenAlert(true);
             setArrayItems([]);

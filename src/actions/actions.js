@@ -145,6 +145,12 @@ export const fetchOrders = async (email) => {
     }
 };
 
+export const setCartItemNull = () => {
+    return { 
+        type: 'setCartItemNull'
+    }
+};
+
 export const fetchCartItems = async () => {
     const response = await axios.get('/cart');
     return {
