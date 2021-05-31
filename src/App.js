@@ -2,7 +2,7 @@ import React,{useState,useEffect,useContext} from 'react';
 import { BrowserRouter as Router,Redirect, Route, Switch} from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import Alert from '@material-ui/lab/Alert';
-
+import axios from './axios';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
@@ -24,6 +24,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
+import { Button } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
@@ -79,7 +80,15 @@ const App= ()=> {
   console.log(state);
 
   window.addEventListener("resize", ()=>setScreenWidth(window.innerWidth));
-
+  
+  const verify = async() => {
+    console.log('Hi in verify');
+    const response= await axios.post('/mail/verify',{email: state.auth.user.email});
+    console.log('Got reponse');
+    console.log(response);
+    console.log(response.data);
+  }
+  
   return (
     <ThemeProvider theme={theme}>
       <div className="App" style={{backgroundColor: '#f0f5f1'}}>
@@ -88,16 +97,18 @@ const App= ()=> {
 
           {
               state.auth.isSignedIn && state.auth.user && !state.auth.user.isEmailVerified && (
-                <Alert variant="filled" severity="warning">
-                    Your Email is not Verified
-                </Alert>
+                <div>
+                  <Alert variant="filled" severity="warning">
+                      Your Email is not Verified
+                  </Alert>
+                  <Button color="primary" onClick={verify}>Verify</Button>
+                </div>
+                
               )
           }
-
           {
             screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
           }
-
           <Switch>
               <Route path="/"  exact component= {Home} />
               <Route path="/showProducts"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />
