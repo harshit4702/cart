@@ -32,6 +32,8 @@ const Filter= (props)=> {
         name: null
     });
 
+    console.log(params);
+
     useEffect(()=>{
         if(state.categories){
             var z={};
@@ -47,7 +49,7 @@ const Filter= (props)=> {
             });
             setCheckBoxCategories(z);
         }
-    },[state.categories]);
+    },[state.categories,props.selectedCategory]);
 
     useEffect(()=>{
         if(checkBoxCategories && state.categories){

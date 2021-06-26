@@ -11,6 +11,7 @@ import {addOrder, fetchCartItem, setCartItemNull, setStockQuantity} from "../act
 
 import CheckoutItem from '../Components/CheckoutItem';
 import Modal from '../Components/Modal';
+import Alert2 from '../Components/Alert2';
 
 import {AppContext} from '../AppContext';
 import axios from '../axios'
@@ -51,6 +52,28 @@ const Checkout= (props)=> {
 
     const [arrayItems,setArrayItems]= useState(props.items);
 
+    const [isAddressOrVerifyUserOk, setIsAddressOrVerifyUserOk] = useState(false);
+
+    const [openAlert2, setOpenAlert2] = useState(false);
+
+    const handleOpenAlert2 = () => {
+        setOpenAlert2(true);
+    };
+
+    const handleCloseAlert2 = () => {
+        setOpenAlert2(false);
+    };
+
+    useEffect(()=>{
+        if(state.auth.user && state.auth.user.address && state.auth.user.isUserVerified){
+            const {locality, colony, city}=  state.auth.user.address;
+            if(locality && colony && city)
+                setIsAddressOrVerifyUserOk(true);
+        }
+    },[state.auth.user]);
+
+    console.log(isAddressOrVerifyUserOk);
+
     const handleChange = (event) => {
       setSelectedValue(event.target.value);
       console.log(selectedValue);
@@ -59,6 +82,9 @@ const Checkout= (props)=> {
     const onSubmit= async(e)=>{
         e.preventDefault();
         console.log(props.amount);
+
+        if(!isAddressOrVerifyUserOk)
+            return setOpenAlert2(true);
 
         const formValues= {
             emailOfUser: state.auth.user.email,
@@ -134,11 +160,15 @@ const Checkout= (props)=> {
                     Address
                 </Paper>
 
-                <h5>
-                    {state.auth.isSignedIn?(state.auth.user.address?state.auth.user.address.colony:''):''}
-                </h5>
                 {
-                    
+                    state.auth.isSignedIn && state.auth.user.address && (
+                        <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>
+                            {state.auth.user.address.locality?state.auth.user.address.locality:''}, 
+                            {state.auth.user.address.colony?state.auth.user.address.colony:''}, 
+                            {state.auth.user.address.city?state.auth.user.address.city:''}, 
+                            {state.auth.user.address.pincode?state.auth.user.address.pincode:''} 
+                        </h4>
+                    )
                 }
 
                 <br/><br/>
@@ -203,6 +233,17 @@ const Checkout= (props)=> {
                 <br/>
             
             </Paper>
+            <Alert2
+                open={openAlert2}
+                handleClose= {handleCloseAlert2}
+                title= {`Order Confirmation Error Alert`}
+                description={`Complete Your Details. Either email is not verified or Address is not filled completely.`}
+                action = {
+                    {
+                    agree: handleCloseAlert2
+                    }
+                }
+            />
         </div>
     );
 }
