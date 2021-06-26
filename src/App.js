@@ -3,7 +3,6 @@ import { BrowserRouter as Router,Redirect, Route, Switch} from 'react-router-dom
 import { useCookies } from 'react-cookie';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
@@ -29,6 +28,7 @@ import axios from './axios';
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
+import { Button } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
@@ -121,13 +121,12 @@ const App= ()=> {
                         Verify
                     </Button>
                 </Alert>
+
               )
           }
-
           {
             screenWidth<=560?<MenuBarMobile />:<MenuBarDesktop />
           }
-
           <Switch>
               <Route path="/"  exact component= {Home} />
               <Route path="/showProducts"  exact render={(props) => props.location.state?<ProductsList  selectedCategory={props.location.state.selectedCategory} />:<ProductsList />} />

@@ -10,7 +10,7 @@ import axios from '../axios';
 import {profile} from "../actions/actions";
 import { propertyOf } from 'lodash';
 import { useCookies } from 'react-cookie';
- 
+import PersonSharpIcon from '@material-ui/icons/PersonSharp';
 
 const useStyles = makeStyles({
     ppr_desk: {
@@ -88,7 +88,6 @@ const MyProfile = ()=> {
     const classes = useStyles();
 
     const [permit1,setpermit1]= useState(false);
-    const [permit2,setpermit2]= useState(false);
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
     const [editalert, setEditAlert] = useState(false);
@@ -135,7 +134,7 @@ const MyProfile = ()=> {
         try{
             const response = await axios.patch(`/user/profile/${state.auth.user._id}`, e.target[2].value ? {address : data} : data);
             dispatch(await profile(response.data));
-            setCookie('user', { ...cookies['user'] , ...response.data } )
+            setCookie('user', { ...cookies['user'] , ...response.data })
         }
         catch(err){
             console.log('Error');
@@ -158,9 +157,10 @@ const MyProfile = ()=> {
         return (
             <div>
                 <Paper elevation={1} style={{width:state.mobileView?'95vw':'' , paddingTop: '1vh'}} >
-                <br></br>
                 <h2 style={{fontFamily: `'IBM Plex Serif',serif` }}>My Profile</h2>
+                <br></br>
                 <h3>Please login to view your Profile </h3>
+                <PersonSharpIcon style={{ fontSize: 150 }}></PersonSharpIcon>
                 <br></br>
                 <br></br>
                 </Paper>
@@ -175,6 +175,7 @@ const MyProfile = ()=> {
                 !permit1 && (
                     <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
                         <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit1(true)}}>Add / Edit</h4 >
+                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
                         <br></br>
                         <TextField
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
@@ -208,49 +209,6 @@ const MyProfile = ()=> {
                     </form>
                 )
             } 
-            
-            <br></br>
-{/*             
-            <h3 className={state.mobileView ? classes.start_mobile : classes.start_desk}>Enter Email</h3>
-            {
-                !permit2 && (
-                    <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(true)}}>Edit</h4 >
-                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
-                        <br></br>
-                        <TextField
-                            disabled
-                            className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
-                            margin= {state.mobileView ? "dense" : ""} 
-                            id="outlined-disabled"
-                            label={state.auth.user.email}
-                            defaultValue=""
-                            variant="outlined"
-                        />
-                    </div>
-                ) || 
-
-                permit2 && (
-                    <div className={state.mobileView ? classes.adjust_mobile : classes.adjust_desk}>
-                        <h4 className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={()=> {setpermit2(false)}}>Cancel</h4 >
-                        <div style={{marginLeft: '5vw'}} className={state.mobileView ? classes.txt_mobile : classes.txt_desk} onClick={handleAlertClickOpen}><b>Change password</b></div> 
-                        <br></br>
-                            <TextField
-                                value={values.email} 
-                                type="email"
-                                onChange={handleChange('email')}
-                                className={state.mobileView ? classes.field_mobile : classes.field_desk}  
-                                margin= {state.mobileView ? "dense" : ""}      
-                                label=""
-                                variant="outlined"
-                                id="mui-theme-provider-outlined-input"
-                            />
-                             <Button className={state.mobileView ? classes.btn_mobile : classes.btn_desk} onClick={()=> {setpermit2(false); }} variant="contained" color="primary" >
-                                Save
-                            </Button>
-                    </div>
-                )
-            } */}
             <PasswordAlert handleClose={handleAlertClose} handleClickOpen={handleAlertClickOpen} editalert={editalert} />   
             
             <br></br>
@@ -265,7 +223,7 @@ const MyProfile = ()=> {
                             className={state.mobileView ? classes.nouse_mobile : classes.nouse_desk}
                             margin= {state.mobileView ? "dense" : ""}      
                             id="outlined-disabled"
-                            value={values.contact ? values.contact : 'Enter Full Name' } 
+                            value={values.contact ? values.contact : 'Enter Mobile Name' } 
                             defaultValue=""
                             variant="outlined"
                         />
