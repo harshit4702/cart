@@ -111,14 +111,14 @@ const ProductDetails= ()=> {
                                                 {
                                                     loadComplete && (
                                                         <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={state.cart[params.id]||!state.auth.isSignedIn?true:false} onClick={onClick}>
-                                                            Add to Chart
+                                                            {state.cart[params.id]?'Added':'Add to Chart'}
                                                         </Button>
                                                     )||
 
                                                     !loadComplete && (
-                                                        <div>
-                                                            Adding to Cart...
-                                                        </div>
+                                                        <Button style={{width:state.mobileView?'80vw':'15vw'}} variant="contained" color="primary" disabled={true}>
+                                                            Adding to Chart
+                                                        </Button>
                                                     )
                                                 }
                                             </Grid>

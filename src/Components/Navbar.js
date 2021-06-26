@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import UserButton from './User/UserButton';
 import axios from '../axios';
@@ -15,26 +14,26 @@ import {AppContext} from "../AppContext";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    offset: theme.mixins.toolbar,
     search: {
-        backgroundColor: '#56b35e',
+        backgroundColor: '#white',
         fontSize: '15px',
         fontFamily: `'IBM Plex Serif',serif`,
-        color: "white",
+        color: "black",
         height: "40px",
         width: "28vw",
-        borderRadius: '8px',
         marginLeft: '-95vw',
         border: '2px',
         outline: 'none',
         '&::placeholder': {
-            color:'white',
+            color:'grey',
             opacity: 0.5
         }
     },
     personIcon_desktop: {
         cursor: 'pointer',
-        marginLeft: "33vw",
-        fontSize: '30px'
+        marginLeft: "20vw",
+        fontSize: '10px'
     },
     personIcon_mobile:{
         marginLeft: "5vw",
@@ -138,7 +137,7 @@ const Navbar= ()=> {
             return;
         
         return (
-            <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'4vw':'28vw',marginRight:state.mobileView?'2.5vw':'43vw'}}>
+            <ul className={classes.searchUl} ref={ref} style={{marginLeft:state.mobileView?'4vw':'27.8vw',marginRight:state.mobileView?'2.5vw':'43vw'}}>
                 {
                     searchArray.map((product,key)=>{
                         return (
@@ -160,17 +159,16 @@ const Navbar= ()=> {
             setSearchArray([]);
     }
 
-
     return (
         <div >
-            <AppBar className={classes.root} color="primary" position="static">
+            <AppBar style={{height:state.mobileView?'auto':'10vh'}} color="primary" position={state.mobileView?"static":"fixed"}>
                 <Toolbar>
                     <Grid container>
                         <Grid item xs={12}>
                             <div style={{ width: '100%' }}>
                                 <Box display="flex" p={1} >
                                     <Box p={1} flexGrow={1}>
-                                        <IconButton  style={{marginLeft: '-35vw'}} edge="start" color="inherit">
+                                        <IconButton  style={{marginLeft: state.mobileView?'-27vw':'-35vw'}} edge="start" color="inherit">
                                             <Link to='/'>
                                                 <img src="/images/logo.jpg" className={state.mobileView?classes.logo_mobile:classes.logo_desktop}/>
                                             </Link>
@@ -182,7 +180,7 @@ const Navbar= ()=> {
                                                 {
                                                     !state.mobileView && (
                                                         <>
-                                                            <input className={classes.search} autoComplete="off"  placeholder="Search" name="search" id="search" value={text} onChange={onInputChange}/>
+                                                            <input className={classes.search} autoComplete="off"  placeholder="Search for Products" name="search" id="search" value={text} onChange={onInputChange}/>
                                                             {searchBlock()}
                                                         </>
                                                     )
@@ -222,6 +220,11 @@ const Navbar= ()=> {
                     </Grid>
                 </Toolbar>
             </AppBar>
+            {
+                !state.mobileView && (
+                    <div className={classes.offset} />
+                )
+            }
         </div>
     );
 }
