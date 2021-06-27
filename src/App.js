@@ -25,10 +25,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import axios from './axios';
 
-
 import 'semantic-ui-css/semantic.min.css'
 import './App.css';
-import { Button } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
@@ -121,7 +119,6 @@ const App= ()=> {
                         Verify
                     </Button>
                 </Alert>
-
               )
           }
           {

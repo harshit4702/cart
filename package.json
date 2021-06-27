@@ -11,6 +11,10 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
+<<<<<<< HEAD
+    "dotenv": "^8.2.0",
+=======
+>>>>>>> b804c165b6a5a9876a27993715b0ec1c7e6f4b9d
     "history": "^4.10.1",
     "json-server": "^0.16.3",
     "lodash": "^4.17.21",
@@ -34,7 +38,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+<<<<<<< HEAD
+    "server": "json-server -p 3001 -w src/db.json",
+    "watch": "webpack-dev-server --mode development --open --hot",
+    "watch_build": "webpack --mode production"
+=======
     "server": "json-server -p 3001 -w src/db.json"
+>>>>>>> b804c165b6a5a9876a27993715b0ec1c7e6f4b9d
   },
   "eslintConfig": {
     "extends": [

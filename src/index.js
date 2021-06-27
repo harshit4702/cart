@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import {AppContextProvider} from './AppContext';
 import { CookiesProvider } from 'react-cookie';
 
+require('dotenv').config();
+
 const RootComponent = ()=>{
     return (
       <React.StrictMode>
