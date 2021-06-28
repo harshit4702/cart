@@ -24,7 +24,7 @@ const CartItem= (props)=>{
     return (
         <Grid container spacing={1}>
             <Grid item xs={3} style={{marginTop:state.mobileView?'4vh':'2vh'}}>
-                <img src={`/product/photos/${props.ob._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'12vh':'80px'}}/>
+                <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.ob._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'12vh':'80px'}}/>
             </Grid>
             <Grid item xs={state.mobileView?7:6}>
                 <h4 style={{fontFamily: `'IBM Plex Serif',serif`}}>{props.ob.name}</h4>

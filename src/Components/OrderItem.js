@@ -51,7 +51,7 @@ const OrderItem= ({item,orderId})=>{
                 <br/>
                 <Grid container spacing={1}>
                     <Grid item xs={3} style={{marginTop:state.mobileView?'0vh':'2vh'}}>
-                        <img src={`/product/photos/${item.product._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'10vh':'80px'}}/>
+                        <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${item.product._id}/0`} style={{width:state.mobileView?'15vw':'60px',height:state.mobileView?'10vh':'80px'}}/>
                     </Grid>
                     <Grid item xs={state.mobileView?7:6}>
                         <div style={{marginBottom:'1vh'}}>
