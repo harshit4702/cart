@@ -69,7 +69,7 @@ const MenuBar = ()=>  {
                     return (
                         <ul key={index} style={{border:'none'}}> 
                             <Link to={{pathname: "/showProducts",state: { selectedCategory: category._id}}}>
-                                <img src={`/category/photos/${category._id}/0`} className={classes.image} />
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}/category/photos/${category._id}/0`} className={classes.image} />
                                 <br/>
                                 {category.name}
                             </Link>

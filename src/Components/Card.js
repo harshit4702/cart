@@ -50,7 +50,7 @@ const Cards= ({product})=> {
       <CardActionArea>
         <CardMedia
           className={state.mobileView?classes.cardMobile:classes.cardDesktop}
-          image={`/product/photos/${product._id}/0`}
+          image={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${product._id}/0`}
           title="Contemplative Reptile"
         />
         <CardContent>

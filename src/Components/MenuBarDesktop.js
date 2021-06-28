@@ -97,7 +97,7 @@ const MenuBar = ()=>  {
                         </Link>
                     ):(
                         <span onMouseOver={()=>setUpArrow(true)} onMouseOut={()=>setUpArrow(false)}>
-                            <img src={`/category/photos/${category._id}/0`} className={classes.image} />
+                            <img src={`${process.env.REACT_APP_BACKEND_URL}/category/photos/${category._id}/0`} className={classes.image} />
                             <br/>
                             {category.name }
                             {

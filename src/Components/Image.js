@@ -64,32 +64,32 @@ const Image= (props)=>{
                     <Grid container spacing={3} direction="column"> 
                         <Grid item sm={2}>
                             <div className={classes.box} onMouseOver={()=>setIndex(0)}>
-                                <img src={`/product/photos/${props.product._id}/0`} className={classes.boxImage}/> 
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.product._id}/0`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                         <Grid item sm={2}>
                             <div className={classes.box} onMouseOver={()=>setIndex(1)}>
-                                <img src={`/product/photos/${props.product._id}/1`} className={classes.boxImage}/> 
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.product._id}/1`} className={classes.boxImage}/> 
                             </div>
                         </Grid>
                         <Grid item sm={2}>
                             <div className={classes.box} onMouseOver={()=>setIndex(2)}>
-                                <img src={`/product/photos/${props.product._id}/2`} className={classes.boxImage}/> 
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.product._id}/2`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                         <Grid item sm={2}>
                             <div className={classes.box} onMouseOver={()=>setIndex(3)}>
-                                <img src={`/product/photos/${props.product._id}/3`} className={classes.boxImage}/> 
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.product._id}/3`} className={classes.boxImage}/> 
                             </div>    
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
-                    <img src={`/product/photos/${props.product._id}/${index}`} style={{width:state.mobileView?'70vw':'30vw',height:state.mobileView?'40vh':'60vh',marginTop:'2vh'}}/>     
+                    <img src={`${process.env.REACT_APP_BACKEND_URL}/product/photos/${props.product._id}/${index}`} style={{width:state.mobileView?'70vw':'30vw',height:state.mobileView?'40vh':'60vh',marginTop:'2vh'}}/>     
                 </Grid>
             </Grid>
         </div>
     )
 }
 
-export default Image
+export default Image;

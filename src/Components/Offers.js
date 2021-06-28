@@ -32,21 +32,21 @@ const Offers= ({offer})=>{
             <Grid item xs={4}>
                 <Paper elevation={3} style={{padding: '0.5vh'}}>
                     <Link to={{pathname: `/showProducts/${offer.photo[0].subCategory._id}`,state: { selectedCategory: offer.photo[0].subCategory.parent}}}>
-                        <img src={`/offer/photos/${offer._id}/0`} className={state.mobileView?classes.boxImageMobile:classes.boxImage}/> 
+                        <img src={`${process.env.REACT_APP_BACKEND_URL}/offer/photos/${offer._id}/0`} className={state.mobileView?classes.boxImageMobile:classes.boxImage}/> 
                     </Link>
                 </Paper>    
             </Grid>
             <Grid item sm={4}>
                 <Paper elevation={3} style={{padding: '0.5vh'}}>
                     <Link to={{pathname: `/showProducts/${offer.photo[1].subCategory._id}`,state: { selectedCategory: offer.photo[1].subCategory.parent}}}>
-                        <img src={`/offer/photos/${offer._id}/1`} className={state.mobileView?classes.boxImageMobile:classes.boxImage}/> 
+                        <img src={`${process.env.REACT_APP_BACKEND_URL}/offer/photos/${offer._id}/1`} className={state.mobileView?classes.boxImageMobile:classes.boxImage}/> 
                     </Link>
                 </Paper>
             </Grid>
             <Grid item sm={4}>
                 <Paper elevation={3} style={{padding: '0.5vh'}}>
                     <Link to={{pathname: `/showProducts/${offer.photo[2].subCategory._id}`,state: { selectedCategory: offer.photo[2].subCategory.parent}}}>
-                        <img src={`/offer/photos/${offer._id}/2`}  className={state.mobileView?classes.boxImageMobile:classes.boxImage}/>  
+                        <img src={`${process.env.REACT_APP_BACKEND_URL}/offer/photos/${offer._id}/2`}  className={state.mobileView?classes.boxImageMobile:classes.boxImage}/>  
                     </Link>
                 </Paper>    
             </Grid>

@@ -37,7 +37,7 @@ const Carousel= ()=> {
         <div>
             <ArrowBackIosIcon style={{position: 'absolute',marginTop:state.mobileView?'12vh':'20vh',cursor:'pointer'}} onClick={()=>setIndex(prev=>index==0?data.length-1:prev-1)} />
                 <Link to={{pathname: "/showProducts",state: { selectedCategory: data[index].category}}}>
-                    <img src={`/carousel/photos/${data[index]._id}`} style={{width:state.mobileView?'100vw':'98.5vw',height: state.mobileView?'30vh':'45vh'}} />
+                    <img src={`${process.env.REACT_APP_BACKEND_URL}/carousel/photos/${data[index]._id}`} style={{width:state.mobileView?'100vw':'98.5vw',height: state.mobileView?'30vh':'45vh'}} />
                 </Link>
             <ArrowForwardIosIcon style={{position: 'absolute',marginLeft:state.mobileView?'-6vw':'-2vw',marginTop:state.mobileView?'12vh':'20vh',cursor:'pointer'}} onClick={()=>setIndex(prev=>index==data.length-1?0:prev+1)}/>
         </div>
