@@ -12,7 +12,6 @@ import {AppContext} from "../AppContext";
 import {cartValue,addCartItem} from '../actions/actions';
 import Image from "../Components/Image";
 import { makeStyles } from '@material-ui/core';
-import { queryByTestId } from '@testing-library/dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
