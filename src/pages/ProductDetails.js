@@ -5,14 +5,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import CheckIcon from '@material-ui/icons/Check';
 import Select from 'react-select';
 
 import {AppContext} from "../AppContext";
 import {cartValue,addCartItem} from '../actions/actions';
 import Image from "../Components/Image";
 import { makeStyles } from '@material-ui/core';
-import { queryByTestId } from '@testing-library/dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
