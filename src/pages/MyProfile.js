@@ -8,7 +8,7 @@ import {AppContext} from "../AppContext";
 import TextField from '@material-ui/core/TextField';
 import axios from '../axios';
 import {profile} from "../actions/actions";
-import { propertyOf } from 'lodash';
+import Select from 'react-select';
 import { useCookies } from 'react-cookie';
 import PersonSharpIcon from '@material-ui/icons/PersonSharp';
 
@@ -91,7 +91,7 @@ const MyProfile = ()=> {
     const [permit3,setpermit3]= useState(false);
     const [permit4,setpermit4]= useState(false);
     const [editalert, setEditAlert] = useState(false);
-    
+
     const [values, setValues] = useState({
         name: '',
         email: '',
@@ -101,10 +101,17 @@ const MyProfile = ()=> {
         city: '',
         pincode: '',
     });
+
     const [cookies, setCookie] = useCookies(['name']);
-    
-    useEffect(()=>{
+
+    /*---Select---*/
+
+    const [options,setOptions]= useState([]);
+    const[selectedOption, setSelectedOption]= useState({value:null,label:'---Choose a Pincode---'});
+
+    useEffect(async()=>{
         if(state.auth.isSignedIn){
+
             setValues({
                 name: state.auth.user.name,
                 email: state.auth.user.email,
@@ -114,8 +121,24 @@ const MyProfile = ()=> {
                 city: state.auth.user.address?state.auth.user.address.city: '',
                 pincode: state.auth.user.address?state.auth.user.address.pincode: '',
             });
+
+            if(state.auth.user.address && state.auth.user.address.pincode)
+                setSelectedOption({value: state.auth.user.address.pincode, label: state.auth.user.address.pincode })
+
+            const response = await axios.get('/pincode');
+            var op=[];
+            for await (let pincode of response.data)
+                op.push({value:pincode.pin,label: pincode.pin});
+            setOptions(op);
         }
-    } , [state.auth.isSignedIn]);
+    },[state.auth.isSignedIn]);
+
+    const handleSelectChange= (selectedOp)=>{
+        setSelectedOption(selectedOp);
+        setValues({ ...values, pincode: selectedOp.value });
+    }
+
+    /*------Select---------*/
 
     const onSubmit = (prop,a,b,c) => async(e) => {
         e.preventDefault();
@@ -127,9 +150,9 @@ const MyProfile = ()=> {
         data[prop] = e.target[0].value;
         //If address form hits
         if(e.target[2].value){
-            data[a] = e.target[2].value;
-            data[b] = e.target[4].value;
-            data[c] = e.target[6].value;
+            data[a] = values.locality;
+            data[b] = values.city;
+            data[c] = values.pincode;
         }
         try{
             const response = await axios.patch(`/user/profile/${state.auth.user._id}`, e.target[2].value ? {address : data} : data);
@@ -321,18 +344,18 @@ const MyProfile = ()=> {
                         />
                         <br></br>
                         <br></br>
-                        <TextField
-                            value={values.pincode ? values.pincode : '' } 
-                            label={values.pincode ? '' : 'Pincode'}
-                            onChange={handleChange('pincode')}
-                            className={state.mobileView ? classes.field_mobile : classes.field_desk}
-                            margin= {state.mobileView ? "dense" : ""}   
-                            label="Enter Pincode"
-                            variant="outlined"
-                            id="mui-theme-provider-outlined-input"
-                            required
-                        />
-                        <Button type="submit" className={state.mobileView ? classes.btn_mobile : classes.btn_desk}  variant="contained" color="primary" >
+                        <div style={{height:'7vh',marginLeft:state.mobileView?'20vw':'0vw',marginRight:state.mobileView?'20vw':'25vw'}}>
+                            <Select
+                                value={selectedOption}
+                                onChange={handleSelectChange}
+                                options={options}
+                                placeholder="--Select Pin Code---"
+                                menuPlacement="auto"
+                                required
+                            />
+                        </div>
+                        <br/>
+                        <Button type="submit" className={state.mobileView ? classes.btn_mobile : classes.btn_desk} disabled={values.pincode?false:true} variant="contained" color="primary" >
                             Save
                         </Button>
                     </form>
