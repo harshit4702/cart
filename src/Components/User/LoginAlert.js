@@ -1,4 +1,5 @@
 import React,{useState, useContext} from 'react';
+import { useCookies } from 'react-cookie';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button' ;
 import FormControl from '@material-ui/core/FormControl';
@@ -10,7 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Alert from '@material-ui/lab/Alert';
+
 
 import {AppContext} from '../../AppContext';
 import axios from '../../axios';
@@ -22,6 +23,8 @@ const LoginAlert= (props)=>{
   const [loadComplete,setLoadComplete]= useState(true);
 
   const [showPassword, setShowPassword]= useState(false);
+
+  const [cookies, setCookie] = useCookies(['name']);
 
   const onSubmit= async(e)=>{
     e.preventDefault();
@@ -35,10 +38,21 @@ const LoginAlert= (props)=>{
           type:'success',
           message:'Congrats.. You are Logged In'
         });
-        dispatch(await auth(response.data,true));
+        dispatch(await auth(response.data.userObject,true));
+        console.log(response);
+        setCookie('x-auth-token',response.data.token,{
+          secure : false , 
+          expires: new Date(Number(new Date()) + 30*24*60*60*1000), 
+          httpOnly: false
+        });
+        setCookie('user',response.data.userObject,{
+          secure : false , 
+          expires: new Date(Number(new Date()) + 30*24*60*60*1000), 
+          httpOnly: false
+        });
         props.closeAlert();
-        dispatch(await fetchCartItem(response.data.cart));
-        dispatch(await fetchOrders(response.data.email));
+        dispatch(await fetchCartItem(response.data.userObject.cart));
+        dispatch(await fetchOrders(response.data.userObject.email));
         setLoadComplete(true);
     }
     catch(err){
